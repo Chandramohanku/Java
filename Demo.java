@@ -1,6 +1,6 @@
 class Demo {
 	public static void main()
 	{
-		System.out.println("main() method");
+		System.out.println("Chandramohan Kumar");
 	}
 }
