@@ -1,0 +1,518 @@
+Constructors
+============
+ =>Object creation is not enough, compulsorily we should perform initialization then only the
+   object is in a position to provide the response properly.
+ => Whenever we are creating an object some piece of the code will be executed automatically to
+    perform initialization of an object this piece of code is nothing but constructor.
+ => Main objective of constructor is nothing but initialisation of Object.
+ 
+eg:: class Student{
+	private String sname;
+	private String sage;
+
+	Student(String sname,String sage){
+		this.sname=sname;
+		this.sage=sage;
+        }
+	public void display(){
+		System.out.println("sname ::"+sname);
+		System.out.println("sage  ::"+sage);
+	}
+     }
+    public class DemoApp{
+	public static void main(String... args){
+		Student std= new Student("sachin",49);
+		std.display();
+	}
+    }
+
+Rules for writing a constructor
+==============================
+1. Name of the constructor and name of the class must be same.
+2. Return type concept not applicable for constructor, even if we provide it won't result
+   in compile time error, if we do so then java language will treat this as "normal method".
+     eg:: class Test{
+		void Test(){
+			System.out.println("Hello");// It is not a constructor,it is a method.
+		}
+          }
+3. It is not a good practise to take the method name same as that of the classname.
+4. The modifiers applicable for constructors are private,public,protected,default.
+5. The other modifiers if we use, it would result in compile time error.
+       eg:: class Test{
+		static Test(){
+                }
+	    }
+	output::CE
+
+
+Default constructor
+===================
+ 1. For every java class constructor concept is applicable.
+ 2. If we don't write any constructor, then compiler will generate default constructor.
+ 3. If we write atleast one constructor then compiler won't generate any default constructor, so
+    we say every java class will have compiler generated default constructor or programmer written
+    constructor but not both simultaneously.
+ 
+
+Prototype of default constructor
+================================
+  1. It is always no argument constructor.
+  2. The access modifier of the default constructor is same as class modifier.
+     [applicable for public and default]
+  3. Default constructor contains one line, super(), It is a call to super class constructor.
+        eg:: constructor.png
+
+
+super() vs this()
+=================
+  1. The first line inside the constructor can be super()/ this().
+  2. If we are not writing anything then compiler will generate super();
+
+case1: We have to take super()/this() only in the first line of constructor, if we are writing
+       any where else it would result in compile time error.
+eg#1::
+   class Test{
+	Test(){
+		System.out.println("Constructor");//CE
+		super();
+	}
+   }
+
+eg#2::we can either use super()/this() but not simulatenously
+  class Test{
+	Test(){
+	     super();
+	     this();//CE
+	}
+  }
+
+eg#3:: we can use super()/this() only inside the constructor otherwise it would result in
+       compile time error.
+
+   class Test{
+	void methodOne(){
+		super();
+		this();
+	}
+   }
+
+Note::
+ super() => It should be first line in the constructor.
+            It should be used only in constructor.
+            It will take the control to parent class constructor.
+
+ this()  => It should be first line in the constructor.
+            It should be used only in constructor.
+            It will make the call of current class constructor.
+
+Difference b/w super(),this() and super,this?
+    super(),this()
+1. These are constructor calls
+2. These are used to invoke super class and current class constructor directly
+3. We should use only inside the constructor that to first line otherwise we
+   get compile time error.
+
+    super, this
+1. These are reservered words meant while working with object creation
+2. These are used to refer to parent class and child class instance members.
+3. We can use anywhere(instance area),except static area otherwise we get compile time error.
+
+   eg:: class Test{
+		public static void main(String... args){
+			System.out.println(super.hashCode());//CE
+		}
+	}
+
+Constructor Overloading
+=======================
+  A class can contain more than one constructor and all these constructors have same name they
+ differ only in the type of argument, hence these constructors are considered as 
+ "Overloaded constructor".
+
+eg::
+class Test {
+	Test(double d) {
+		System.out.println("double argument constructor");
+	}
+
+	Test(int i) {
+		this(10.5);
+		System.out.println("int argument constructor");
+	}
+
+	Test() {
+		this(10);
+		System.out.println("no argument constructor");
+	}
+}
+public class MainApp {
+	public static void main(String[] args) throws Exception {
+		Test t1= new Test();//double int no argument constructor
+		Test t2= new Test(10);// double int argument constructor
+		Test t3= new Test(10.5);//dobule argument constructor
+	}
+}
+
+Note:: Recursive method call is always a run time exception, where as recursive constructor call
+       is compile time error.
+eg::
+class Test {
+	Test(double d) {
+		this();
+		System.out.println("double argument constructor");
+	}
+
+	Test(int i) {
+		this(10.5);
+		System.out.println("int argument constructor");
+	}
+
+	Test() {
+		this(10);
+		System.out.println("no argument constructor");
+	}
+}
+public class MainApp {
+	public static void main(String[] args) throws Exception {
+		new Test();
+	}
+}
+
+Recursive functions
+===================
+A function can be called in 2 ways
+    a. Nested call.
+    b. Recursive call. 
+
+Nested call
+ => calling a function inside another function is called nested call.
+ => In nested call, there is a calling function which will call another function.(called function)
+eg:: public static void m1(){
+		m2();
+     }
+     public static void m2(){
+		m1();
+     }
+
+
+Recursive call
+ => calling a function inside same function is called recursive call.
+ => In Recursive call, both calling and called function are same.
+  eg::public static void m1(){
+		m1();
+      }
+
+StackOverFlowError
+=================
+public class MainApp {
+	public static void main(String[] args) throws Exception {
+		methodOne();
+		System.out.println("Hello");
+	}
+	public static void methodOne() {
+		methodTwo();
+	}
+	public static void methodTwo() {
+		methodOne();
+	}
+}
+normal method recursive call, so its Exception.
+
+CompilerRecursivecall
+=====================
+class Test {
+	Test(int i) {
+		this();
+		System.out.println("int argument constructor");
+	}
+	Test() {
+		this(10);
+		System.out.println("no argument constructor");
+	}
+}
+
+output:: Compile time error.
+
+
+instance block
+===============
+ => Both instance block and constructor will be executed automatically for every object 
+    creation but instance block 1st followed by constructor.
+ => Main objective of Constructor is to initialize the object.
+ => Other than initialization, if we want to perform any activity for every object creation
+    we have to define the activity inside the instance block
+ => Both the concept have a different purpose, replacing one concept with another concept is
+    not possible.
+ => Constructor can take arguments, but instance block can't take any arguments hence we can't
+    replace constructor concept with instance block.
+ => similarly we can't replace instance block with constructor.
+
+eg:: class Test{
+	private String name;
+	private Integer age;
+
+	{
+		name="sachin";
+		age =49;
+        }
+	Test(String name,Integer age){
+		this.name=name;
+		this.age=age;
+	}
+	
+	public void display(){
+		System.out.println("Name is :: "+name);
+		System.out.println("Age is  :: "+age);
+	}
+     }
+
+   Test t= new Test("dhoni",49); 
+
+1. JVM uses new Operator through which object is created.
+2. JVM sees the class name,checks whether .class file is available inside method area, if not
+   found search in the current working directory load the .class file into method area.
+3. Check for the instance variables in the loaded class, give memory for the instance variables.
+4. Once the  variables are found allocate the memory,and then give default value based on the
+   datatype.
+5. If instance block is found execute the instance block
+6. Execute the constructor based on the way the programmer has called the constructor.
+7. Get the reference of the object for future usage.
+
+Write a java pgm to keep track of no of objects created in java class?
+public class Test{
+	static int count;
+	{
+		count++;
+        }
+
+	Test(){
+
+	}
+	
+	Test(int a){
+		
+	}
+
+	Test(int a,int b){
+		
+	}
+
+	Test(int a,int b, int c){
+		
+	}
+
+	public void display(){
+		System.out.println("No of objects created is ::"+count);
+	}
+}
+public class TestApp{
+	public static void main(String... args){
+		new Test();
+		new Test(10);
+		new Test(10,20);
+		Test t= new Test(10,20,30);
+		t.display();
+	}
+}
+
+instance control flow
+=====================
+class Sample{
+	int i=10;
+	{
+		methodOne();
+		System.out.println("First instance block");
+	}
+	Parent(){
+		System.out.println("Inside constructor");
+	}
+	public static void main(String... args){
+		Sample s= new Sample();
+		s.methodOne();
+	}
+	public void methodOne(){
+		System.out.println(j);
+	}
+	{
+		System.out.println("Second instance block");
+	}
+	int j=20;	
+}
+Analysis
+=======
+ i=0[RIWO]
+ j=0[RIWO]
+ i=10[R&W] 
+ j=20[R&W]
+
+Rule ::
+ Identification of instance variables and instance block from top to bottom
+ Execution of instance variables assignement and instance block from top to bottom
+ Execution of constructor.
+
+Output:
+ 0
+First instance block
+Second instance block
+Inside constructor
+ 20
+
+Note:: 
+ => Instance control flow is not one time activity, it happens for every object creation.
+ => Object creation is most costly operation in java and hence if their is not specific
+    requirement never recomonded to create objects.
+
+Note::
+case1::Compiler is responsible for the following checkings
+==========================================================
+a. Compiler will check whether the programmer has wrote any constructor or not, if he didnt wrote
+   any constructor then compile will keep default constructor with super() as the first line.
+b. If the programmer wrote any constructor the compiler will check whether he wrote super()/this()
+   in the first line, if the programmer didn't wrote any of these then compiler will keep
+   always super().
+c. Compiler will also check whether is there any chance of recursive invocation or not,if there is
+   a possibility then compiler will raise compile time error.
+
+
+case2::
+class Parent{}
+class Child extends Parent{}
+        
+     ====compiler internally generates===
+
+class Parent extends Object {Parent(){super();}}
+class Child  extends Parent{Child(){super();}}
+
+#2.
+  class Parent{ Parent(){}}
+  class Child extends Parent{}
+
+   ====compiler internally generates===
+
+class Parent extends Object {Parent(){super();}}
+class Child  extends Parent {Child(){super();}}
+
+#3.
+  class Parent{ Parent(int i){}}
+  class Child extends Parent{Child(){super();}}
+  
+    ===compile time error===========
+
+If parent class contains a parameterized constructor, while writing a child class we should take
+special care w.r.t constructors.
+When ever we are writing any parameterized constructor,it is highly recomended to write no argument constructor also.
+
+
+case3::
+  class Parent{  Parent()throws java.io.IOException{} }
+  class Child extends Parent {}
+
+   ====Compile time error======
+If a parent class constructor throws checkedexception then compulsorily the child class constructor also should throw the same exception otherwise its parent exception otherwise it 
+would result in "Compile time Error".
+
+solution::
+   class Parent{  Parent()throws java.io.IOException{} }
+   class Child extends Parent { Child()throws Exception{}}
+
+    ========Compiler generated code =======
+   class Parent extends Object{  Parent()throws java.io.IOException{super();} }
+   class Child  extends Parent { Child()throws Exception{super();}}
+
+
+Constructor role in inheritance
+===============================
+ =>Parent class constructor by default wont be available to the child class, so Inheritance    concept is not applicable for constructors and hence overriding is not applicable for    constructors.
+ => Constructors can be overloaded.
+ => Constructors we can write in any java class it can be concrete class, abstract class.
+ => Constructors are not applicable for interfaces.
+
+Role of final variables
+=======================
+If a variable is declared as final, then compulsorily we should initialize the variable at one of the 3 differnt places
+  a. At the time of declaration
+  b. inside instance block
+  c. inside constructor
+if we fail to do so it would result in compile time error.
+
+eg#1. 
+class Demo{
+	final int i=10;
+}
+
+eg#2.
+class Demo{
+	final int i;
+	{
+		i=10;
+	}
+}
+
+eg#3.
+class Demo{
+	final int i;
+	Demo(){
+		i=10;
+	}
+}
+
+
+ 
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

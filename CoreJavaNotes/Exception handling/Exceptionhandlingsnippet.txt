@@ -1,0 +1,492 @@
+Describe the behaviour of following exceptions?
+  A. RunTimeException 
+  B. Error
+  C. IOException 
+  D. Exception
+  E. InterruptedException
+  F. Throwable
+  G. ArithemeticException
+  H. NullPointerException
+  I. FileNotFoundException 
+
+=========================
+Control flow in try catch
+=========================
+try{
+	Statement-1;
+	Statement-2;
+	Statement-3;
+}catch( X e){
+	Statement-4;
+}
+Statement5;
+
+
+Case 1:: If there is not exception.
+
+Case 2:: if an exception raised at statement2 and corresponding catch block matched.
+   
+Case 3:: if any exception raised at statement2 but the corresponding catch block
+         not matched.
+
+Case 4:: if an exception raised at statement 4 or statement 5.
+
+Control flow in try catch finally:
+=================================
+try{
+	statement-1
+	statement-2
+	statement-3
+}catch(Exception e){
+	statement-4
+}finally{
+	statement-5
+}
+        statement-6
+
+Case1: If there is no exception.
+Case2: If an exception is raised at statement2 and corresponding catch block is matched
+Case3: If an exception is raised at statement2 and corresponding catch block is not matched
+Case4: If an exception is raised at statement4
+Case5: If an exception is raised at statement5
+
+
+Control flow in Nested try-catch-finally
+========================================
+try{
+	stmt-1
+	stmt-2
+	stmt-3
+
+	try{
+	    stmt-4;
+	    stmt-5;
+	    stmt-6;
+	}catch(X e){
+		stmt-7;
+	}finally{
+	    stmt-8;
+	}
+	stmt-9;
+}catch(Y e){
+	stmt-10;
+}finally{
+	stmt-11;
+}
+    stmt-12;
+
+
+Case1: If there is no exception
+Case2: If an exception is raised at statement2 and corresponding catch block is matched.
+Case3: If an exception is raised at statement2 and corresponding catch block is not matched.
+Case4: If an exception is raised at statement5 and corresponding inner catch block is matched
+Case5: If an exception is raised at statement5  and inner catch has not matched but outer catch
+       block is matched.
+Case6: If an exception is raised at statement5  and both inner catch and  outer catch
+       block is not matched.
+Case7: If an exception is raised at statement7  and corresponding catch block is matched
+Case8: If an exception is raised at statement7  and corresponding catch block is not matched
+Case9: If an exception is raised at statement8  and corresponding catch block is matched.
+Case10:If an exception is raised at statement8  and corresponding catch block is not matched.
+Case11: If an exception is raised at statement 9 and corresponding catch block is matched.
+Case12: If an exception is raised at statement 9 and corresponding catch block is not matched.
+Case13: If an exception is raised at statement 10
+Case14: If an exception is raised at statement 11 or 12
+
+
+Various possible cases of Exception
+===================================
+1.try{
+
+  }catch(X e){    
+
+  }
+
+2. try{
+
+   }catch(X e){
+                   
+   }catch(Y e){
+
+   }
+
+3. try{
+
+   }catch( X e){
+
+   }catch( X e){
+
+   } 
+
+4. try{
+
+   }finally{           
+
+   }
+
+5. try{
+
+   }catch(X e){
+
+   }finally{
+
+   }
+
+6. try{}  
+
+7. catch(){} 
+
+8. finally{} 
+
+9. try{}
+   System.out.println("Hello");   
+   catch(){}
+
+10. try{}
+    catch(X e){}
+    System.out.println("hello");  
+    catch(Y e){}
+
+11. try{}
+    catch(X e){}
+    System.out.println("hello");  
+    finally{}
+
+12. try{}
+    finally{}
+    catch(X e){} 
+
+13. try{}
+    catch(X e){}
+    try{}
+    finally{}
+
+14. try{}
+    catch(X e){}
+    finally{}
+    finally{} 
+
+15. try{}
+    catch(X e){
+	try{}
+         catch(Y e1){}
+    }
+
+16. try{}
+    catch(X e){}
+    finally{
+	try{}
+        catch(Y e1){}
+        finally{}
+
+    }
+
+17. try{
+	try{}
+    }
+
+18. try
+     System.out.println("hello");
+    catch(X e){}
+
+19. try{}
+    catch( X e1)
+      System.out.println("hello");
+
+20. try{}
+    catch( NullPointerException e1){}
+    finally
+      System.out.println("Hello");
+
+throw keyword
+=============
+Case 1: 
+ class Test{
+	public static void main(String... args){
+		System.out.println(10/0);
+	}
+ }
+		VS
+class Test{
+	public static void main(String... args){
+		throw new ArithmeticException("/by Zero");
+	}
+}
+
+Case2: 
+  class Test{
+	static ArithmeticException e =new ArithmeticException();
+	public static void main(String... args){
+		throw e;
+	}
+  }
+		   VS
+ class Test{
+	static ArithmeticException e;
+	public static void main(String... args){
+		throw e;
+	}
+  }
+
+Case3:
+  class Test{
+	public static void main(String... args){
+		System.out.println(10/0);
+		System.out.println("hello");
+	}
+ }
+		VS
+ class Test{
+  public static void main(String... args){
+		throw new ArithmeticExeption("/ by zero");
+		System.out.println("hello");
+  }
+}
+
+Case4:
+ class Test3{
+	public static void main(String... args){
+		throw new Test3();	
+	}
+ }
+			VS
+ public class Test3 extends RunTimeException{
+	public static void main(String... args){
+		throw new Test3();	
+	}
+ }
+
+
+
+throws
+======
+Case1:
+import java.io.*;
+class Test3{
+	public static void main(String... args){
+		PrintWriter pw=new PrintWriter("abc.txt");
+		pw.println("Hello world");
+	}
+}
+
+Case2: 
+class Test3{
+	public static void main(String... args){
+		Thread.sleep(3000);
+	}
+}
+Solution 
+ 1A.
+  class Test3{
+	public static void main(String... args){
+		try{
+			Thread.sleep(5000);
+		}catch(InterruptedException ie){}
+	}
+ }
+
+1B.
+ class Test{
+	pubilc static void main(String... args) throws InterruptedException{
+		Thread.sleep(5000);
+	}
+ }
+
+Case2:
+ class Test{
+	public static void main(String... args) throws InteruptedException{
+		doWork();
+	}
+	pubilc static void doWork() throws InteruptedException{
+		doMoreWork();
+	}
+	public static void doMoreWork() throws InteruptedException{
+		Thread.sleep(5000);
+	}
+ }
+
+Case studies of Throwable
+=========================
+Case 1::
+class Test3{
+	public static void main(String... args)throws Test3{
+		
+	}
+}
+		VS
+class Test3 extends RuntimeException{
+	public static void main(String... args)throws Test3{
+		
+	}
+}
+
+
+Case2::
+public class Test3 {
+	public static void main(String... args) {
+		throw new Exception();	
+	}
+}
+			VS
+
+public class Test3 {
+	public static void main(String... args) {
+		throw new Error();	
+	}	
+}
+
+Case3::
+
+eg#1.
+ public class Test3 {
+	public static void main(String... args) {
+		try
+		{
+			System.out.println("hiee");
+		}
+		catch (Exception e)
+		{
+			
+		}	
+	}	
+}
+
+
+eg#2.
+public class Test3 {
+	public static void main(String... args) {
+		try
+		{
+			System.out.println("hiee");
+		}
+		catch (ArithmeticException e)
+		{
+			
+		}	
+	}	
+}
+
+
+eg#3.
+public class Test3 
+{
+	public static void main(String... args) {
+		
+		try
+		{
+			System.out.println("hiee");
+		}
+		catch (java.io.FileNotFoundException e)
+		{
+			
+		}	
+	}	
+}
+
+
+eg#4.
+public class Test3 
+{
+	public static void main(String... args) {
+		
+		try
+		{
+			System.out.println("hiee");
+		}
+		catch (InteruptedException e)
+		{
+			
+		}	
+	}	
+}
+
+
+eg#5.
+public class Test3 
+{
+	public static void main(String... args) {
+		
+		try
+		{
+			System.out.println("hiee");
+		}
+		catch (Error e)
+		{
+			
+		}		
+	}
+}
+
+Case4:: 
+class Test throws Exception//invalid
+{
+	Test() throws Exception{//valid
+
+	}
+	methodOne() throws Exception{//valid
+
+	}
+}
+
+
+
+Exception handling keywords summary
+===================================
+1. try => maintain risky code
+2. catch=> maintain handling code
+3. finally=> maintain cleanup code
+4. throw => To hanover the created exception object to JVM manually
+5. throws=> To delegate the Exception object from called method to caller method.
+
+Various compile time errors in ExceptionHandling
+================================================
+1. Exception XXX is already caught
+2. Unreported Exception XXX must be caught or declared to be thrown.
+3. Exception XXX is never thrown in the body of corresponding try statement.
+4. try without catch,finally
+5. catch without try
+6. finally without try
+7. incompatible types :found xxx required:Throwable
+8. unreachable code.
+
+Rules w.r.t Overriding
+=====================
+parent: public void methodOne() throws Exception{}
+child : public void methodOne()
+
+
+parent: public void methodOne(){} 
+child : public void methodOne() throws Exception{}
+
+
+parent: public void methodOne()throws Exception{}
+child : public void methodOne()throws Exception{}
+
+
+parent: public void methodOne()throws IOException{}
+child : public void methodOne()throws IOException{}
+
+
+parent: public void methodOne()throws IOException{}
+child : public void methodOne()throws FileNotFoundException,EOFException{}
+
+
+parent: public void methodOne()throws IOException{}
+child : public void methodOne()throws FileNotFoundException,InterruptedException{}
+
+
+parent: public void methodOne()throws IOException{}
+child : public void methodOne()throws FileNotFoundException,ArithmeticException{}
+
+
+parent: public void methodOne()
+child : public void methodOne()throws ArithmeticException,NullPointerException,RuntimeException{}
+
+
+
+
+
+
+
+
+

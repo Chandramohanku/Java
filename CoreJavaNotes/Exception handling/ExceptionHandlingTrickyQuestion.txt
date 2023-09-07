@@ -1,0 +1,1288 @@
+1.class TestException extends Exception {
+    public TestException() {
+        super();
+    }
+    
+    public TestException(String s) {
+        super(s);
+    }
+}
+public class Test {
+    public void m1() throws __________ {
+        throw new TestException();
+    }
+}
+For the above code, fill in the blank with one option.
+A. Exception
+B. Object
+C. RunTimeException
+D. Error
+
+
+2.
+public class Test {
+    private static int [] arr;
+    public static void main(String [] args) {
+        if(arr.length > 0 && arr != null) {
+            System.out.println(arr[0]);
+        }
+    }
+}
+Predict Output, if the above code is run with given command?
+java Test
+
+A. CompilationError
+B. No Output is produced
+C. NullPointerException is thrown at runtime
+D. ArrayIndexOutOfBoundsException is thrown at runtime
+
+3.
+import java.io.FileNotFoundException;
+import java.io.IOException;
+ 
+abstract class Super {
+    public abstract void m1() throws IOException;
+}
+class Sub extends Super {
+    @Override
+    public void m1() throws IOException {
+        throw new FileNotFoundException();
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Super s = new Sub();
+        try {
+            s.m1();
+        } catch (IOException e) {
+            System.out.print("A");
+        } catch(FileNotFoundException e) {
+            System.out.print("B");
+        } finally {
+            System.out.print("C");
+        }
+    }
+}
+A. AC
+B. BC
+C. class sub gives compilation error
+D. class Test gives compilation error
+
+4.
+import java.io.FileNotFoundException;
+import java.io.IOException;
+ 
+abstract class Super {
+    public abstract void m1() throws IOException;
+}
+class Sub extends Super {
+    @Override
+    public void m1() throws IOException {
+        throw new FileNotFoundException();
+    }
+}
+ 
+public class Test {
+    public static void main(String[] args) {
+        Super s = new Sub();
+        try {
+            s.m1();
+        } catch (FileNotFoundException e) {
+            System.out.print("X");
+        } catch (IOException e) {
+            System.out.print("Y");
+        } finally {
+            System.out.print("Z");
+        }
+    }
+}
+A. XZ
+B. YZ
+C. XYZ
+D. compilationerror.
+
+5.
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+abstract class Super {
+    public abstract void m1() throws IOException;
+}
+class Sub extends Super {
+    @Override
+    public void m1() throws IOException {
+        throw new FileNotFoundException();
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Super s = new Sub();
+        try {
+            s.m1();
+        } catch (FileNotFoundException e) {
+            System.out.print("M");
+        } finally {
+            System.out.print("N");
+        }
+    }
+}
+A. MN
+B. N
+C. CompilationError
+D. Program ends abruptly
+
+6.
+What will be the result of compiling and executing Test class?
+public class Test {
+    private static void m1() {
+        System.out.println(1/0);
+    }
+    
+    public static void main(String[] args) {
+        try {
+            m1();
+        } finally {
+            System.out.println("A");
+        }
+    }
+}
+A. A is printed on the console and program terminates normally
+B. A is printed on the console,stacktrace  is printed and then program ends normally
+C. A is printed on the console,stacktrace  is printed and then program ends abruptly
+D. Compilation Error.
+
+7.
+Which of the following keywords is used to manually throw an exception?
+A. throw
+B. thrown
+C. throws
+D. catch
+
+8.
+What will be the result of compiling and executing Test class?
+public class Test {
+    private static void m1() throws Exception {
+        throw new Exception();
+    }
+    
+    public static void main(String[] args) {
+        try {
+            m1();
+        } finally {
+            System.out.println("A");
+        }
+    }
+}
+A. A is printed on the console and program terminates normally
+B. A is printed on the console,stacktrace  is printed and then program ends normally
+C. A is printed on the console,stacktrace  is printed and then program ends abruptly
+D. Compilation Error.
+
+9.
+Which of the following is a checked Exception?
+A. ClassCastException
+B. FileNotFoundException
+C. ExceptionInIntializerError
+D. RunTimeException
+
+10.
+What will be the result of compiling and executing Test class?
+public class Test {
+    private static String s;
+    public static void main(String[] args) {
+        try {
+            System.out.println(s.length());
+        } catch(NullPointerException | RuntimeException ex) {
+            System.out.println("DONE");
+        }
+    }
+}
+A. DONE
+B. Executes succesfully but no output
+C. CompilationError
+D. NoOutput
+
+11.
+What will be the result of compiling and executing Test class?
+class Base {
+    public void m1() throws NullPointerException {
+        System.out.println("Base: m1()");
+    }
+}
+class Derived extends Base {
+    public void m1() throws RuntimeException {
+        System.out.println("Derived: m1()");
+    }
+}
+ 
+public class Test {
+    public static void main(String[] args) {
+        Base obj = new Derived();
+        obj.m1();
+    }
+}
+A. Base:m1()
+B. Derived:m1()
+C. CompilationError in Derived class
+D. CompilationError in Base class
+
+12.
+Consider the following interface declaration:
+public interface I1 {
+    void m1() throws java.io.IOException;
+}
+Which of the following incorrectly implements interface I1?
+A. public class c1 implements I1{
+	public void m1(){}
+   }
+B. public class c1 implements I1{
+	public void m1()throws java.io.FileNotFoundException{}
+   }
+C.public class c1 implements I1{
+	public void m1()throws java.io.IOException{}
+   }
+D.public class c1 implements I1{
+	public void m1()throws Exception{}
+   }
+
+13.
+Which of the following are Java Exception classes? Select 3 options.
+A.ClassCastException
+B. NullException
+C. NumberFormatException
+D. IllegalArgumentException
+E. ArrayIndexException
+
+14.
+Given Code:
+import java.io.*;
+class ReadTheFile {
+    static void print() { //Line 4
+        throw new IOException(); //Line 5
+    }
+}
+public class Test {
+    public static void main(String[] args) { //Line 10
+        ReadTheFile.print(); //Line 11
+        //Line 12
+    }
+}
+Which 2 changes are necessary so that code compiles successfully?
+A. replace Line 4 with static void print() throws Exception
+B. replace Line 4 with static void print() throws Throwable
+C. replace Line 10 with public static void main(String[] args) throws IOException
+D. Surrond Line 11 with 
+     try{
+	ReadTheFile.print();
+     }catch(IOException | Exception e){}
+E. Surrond Line 11 with 
+     try{
+	ReadTheFile.print();
+     }catch(Exception e){}
+F. Surrond Line 11 with 
+     try{
+	ReadTheFile.print();
+     }catch(IOException  e){}
+
+Question 15: 
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        try {
+            main(args);
+        } catch (Exception ex) {
+            System.out.println("CATCH-");
+        }
+        System.out.println("OUT");
+    }
+}
+A. CATCH-OUT
+B. OUT
+C. None of the System.out.println() will be executed
+D. CompilationError.
+
+Question 16: 
+Consider below code:
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            for(;;) {
+                sb.append("OCA");
+            }
+        } catch(Exception e) {
+            System.out.println("Exception!!!");
+        }
+        System.out.println("Main ends!!!");
+    }
+}
+What will be the result of compiling and executing Test class?
+A. "Main ends!!!" printed on the console  and program terminates succesfully
+B. "Exception!!!" and "Main ends!!!" printed on the console  and program terminates succesfully
+C. "Exception!!!" is printed on the console  and program terminates succesfully
+D. "Exception!!!" is printed on the console  and program terminates abnormally
+E.  Program terminates abruptly
+
+Question 17: 
+What will be the result of compiling and executing Test class?
+//Test.java
+import java.io.FileNotFoundException;
+public class Test {
+    public static void main(String[] args) {
+        try {
+            System.out.println(1);
+        } catch (NullPointerException ex) {
+            System.out.println("ONE");
+        } catch (FileNotFoundException ex) {
+            System.out.println("TWO");
+        }
+        System.out.println("THREE");
+    }
+}
+A. ONE
+   THREE
+B. TWO
+   THREE
+C. THREE
+D. None of the System.out.println() be executed
+E. CompilationError
+
+Question 18: 
+Consider codes of 3 java files:
+
+//Class1.java
+import java.io.FileNotFoundException;
+public class Class1 {
+    public void read() throws FileNotFoundException {}
+}
+
+//Class2.java
+public class Class2 {
+    String Class2;
+    public void Class2() {}
+}
+
+//Class3.java
+public class Class3 {
+    private void print() {
+        private String msg = "HELLO";
+        System.out.println(msg);
+    }
+}
+Which of the following statement is true?
+A. Only Class1.java compiles succesfully
+B. Only Class2.java compiles succesfully
+C. Only Class3.java compiles succesfully
+D. Class1.java and Class2.java compiles succesfully
+E. Class1.java and Class3.java compiles succesfully
+F. Class2.java and Class3.java compiles succesfully
+
+Question 19:
+
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        m1(); //Line 3
+    }
+    
+    private static void m1() throws Exception { //Line 6
+        System.out.println("NOT THROWING ANY EXCEPTION"); //Line 7
+    }
+}
+A. CompilationError at Line 3
+B. CompilationError at Line 7
+C. CompilationError at Line 6
+D. NOT THROWING ANY EXCEPTION
+
+Question 20:
+Consider below code: 
+public class Test {
+    static {
+        System.out.println(1/0);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("HELLO");
+    }
+}
+On execution, does Test class print "HELLO" on to the console?
+A.HELLO is printed on the console
+B.NO Hello is not printed on the console
+
+Question 21: 
+Consider below code: 
+public class Test {
+    static Double d1;
+    static int x = d1.intValue();
+    
+    public static void main(String[] args) {
+        System.out.println("HELLO");
+    }
+}
+On execution, does Test class print "HELLO" on to the console?
+A.Yes HELLO is printed on the console
+B.NO Hello is not printed on the console 
+
+Question 22:
+Consider below code: 
+public class Test {
+    static Double d1;
+    int x = d1.intValue();
+    
+    public static void main(String[] args) {
+        System.out.println("HELLO");
+    }
+}
+On execution, does Test class print "HELLO" on to the console?
+A.Yes HELLO is printed on the console
+B.NO Hello is not printed on the console 
+
+Question 23:
+What will be the result of compiling and executing Test class? 
+public class Test {
+    public static void main(String[] args) {
+        Error obj = new Error();
+        boolean flag1 = obj instanceof RuntimeException; //Line n1
+        boolean flag2 = obj instanceof Exception; //Line n2
+        boolean flag3 = obj instanceof Error; //Line n3
+        boolean flag4 = obj instanceof Throwable; //Line n4
+        System.out.println(flag1 + ":" + flag2 + ":" + flag3 + ":" + flag4);
+    }
+}
+A. Compilation Error
+B. false:false:true:true
+C. false:true:true:true
+D. true:true:true:true
+E. false:true:true:false
+
+Question 24: 
+Fill in the blanks for the definition of java.lang.Error class:
+public class java.lang.Error extends ________________ {...}
+A. RunTimeException
+B. Exception
+C. Throwable
+
+Question 25:
+Given code of Test.java file: 
+public class Test {
+    public static void main(String[] args) {
+        System.out.println(new RuntimeException()); //Line n1
+        System.out.println(new RuntimeException("HELLO")); //Line n2
+        System.out.println(new RuntimeException(new RuntimeException("HELLO"))); //Line n3
+    }
+}
+Does above code compile successfully?
+A. Yes
+B. No
+
+Question 26: 
+Given code of Test.java file:
+interface ILogger {
+    void log();
+}
+public class Test {
+    public static void main(String[] args) {
+        ILogger [] loggers = new ILogger[2]; //Line n1
+        for(ILogger logger : loggers)
+            logger.log(); //Line n2
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Line n1 causes compilation error
+B. Line n2 causes compilation error
+C. Exception is thrown at runtime
+D. No output is displayed but program terminates succesfully.
+
+Question 27: 
+Given code of Test.java file:
+import java.io.FileNotFoundException;
+public class Test {
+    public static void main(String[] args) {
+        try {
+            System.out.println(args[1].length());
+        } catch (RuntimeException ex) {
+            System.out.println("ONE");
+        } catch (FileNotFoundException ex) {
+            System.out.println("TWO");
+        }
+        System.out.println("THREE");
+    }
+}
+What will be the result of compiling and executing Test class?
+A. ONE
+   THREE
+B. TWO
+   THREE
+C. THREE
+D. Noe of the System.out.println() will be executed
+E. CompilationError.
+
+Question 28: 
+Given code of Test.java file:
+public class Test {
+    private static void div() {
+        System.out.println(1/0);
+    }
+ 
+    public static void main(String[] args) {
+        try {
+            div();
+        } finally {
+            System.out.println("FINALLY");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. FINALLY is printed on the console and program ends normally
+B. FINALLY is printed on the console and stack trace is printed and program ends normally.
+C. FINALLY is printed on the console and stack trace is printed and program ends abruptly.
+D. Compilation Error.
+
+
+Question 29: 
+Given code of Test.java file:
+public class Test {
+    private static void test() throws Exception {
+        throw new Exception();
+    }
+    public static void main(String [] args) {
+        try {
+            test();
+        } finally {
+            System.out.println("GAME ON");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. GAME ON  is printed on the console and program terminates normally
+B. GAME ON  is printed on the console,stack trace is printed  and program terminates normally
+C. GAME ON  is printed on the console,stack trace is printed  and program terminates abruptly
+D. Compilation Error.
+
+Question 30: 
+Given code of Test.java file:
+import java.io.IOException;
+import java.sql.SQLException;
+public class Test {
+    public static void main(String[] args) {
+        /*INSERT*/
+    }
+ 
+    private static void save() throws IOException {}
+ 
+    private static void log() throws SQLException {}
+}
+
+
+Which of the block of codes can be used to replace /*INSERT*/ such that there is no compilation error?
+
+Select 3 options.
+A. try{
+	save();
+	log();
+   }catch(IOException | SQLException e){}
+
+B. try{
+	save();
+	log();
+   }catch(SQLException | IOException e){}
+C. try{
+	save();
+	log();
+   }catch(IOException | Exception e){}
+D. try{
+	save();
+	log();
+   }catch(SQLException | Exception e){}
+E. try{
+	save();
+	log();
+   }catch(Exception | RunTimeException e){}
+F. try{
+	save();
+	log();
+   }catch(Exception e){}
+
+Question 31: 
+Given code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        try { //outer
+            try { //inner
+                System.out.println(1/0);
+            } catch(ArithmeticException e) {
+                System.out.println("INNER");
+            } finally {
+                System.out.println("FINALLY 1");
+            }
+        } catch(ArithmeticException e) {
+            System.out.println("OUTER");
+        } finally {
+            System.out.println("FINALLY 2");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. INNER
+   FINALLY 1
+B. OUTER
+   FINALLY 2
+C. INNER
+   FINALLY 2
+D. INNER
+   FINALLY 1
+   FINALLY 2
+
+Question 32: 
+Given code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        try {
+            try {
+                System.out.println(args[1]); //Line n1
+            } catch(RuntimeException e) {
+                System.out.print("INHALE-"); //Line n2
+                throw e; //Line n3
+            } finally {
+                System.out.print("EXHALE-"); //Line n4
+            }
+        } catch(RuntimeException e) {
+            System.out.print("INHALE-"); //Line n5
+        } finally {
+            System.out.print("EXHALE"); //Line n6
+        }
+    }
+}
+And the commands:
+javac Test.java
+java Test
+
+What is the result?
+A. INHALE-EXHALE-
+B. INHALE-EXHALE
+C. INHALE-EXHALE-INHALE-
+D. INHALE-EXHALE-EXHALE
+E. INHALE-EXHALE-INHALE-EXHALE
+
+Question 33:
+Given code of Test.java file:
+public class Test {
+    public static void convert(String s)
+            throws IllegalArgumentException, RuntimeException, Exception {
+        if(s.length() == 0) {
+            throw new RuntimeException("LENGTH SHOULD BE GREATER THAN 0");
+        }
+    }
+    public static void main(String [] args) {
+        try {
+            convert("");
+        }
+        catch(IllegalArgumentException | RuntimeException | Exception e) { //Line 14
+            System.out.println(e.getMessage()); //Line 15
+        } //Line 16
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+Line 14 causes compilation error. Which of the following changes enables to code to print LENGTH SHOULD BE GREATER THAN 0?
+A. replace Line 14 with catch(RuntimeException | Exception e)
+B. replace Line 14 with catch(IllegalArgumentException | Exception e)
+C. replace Line 14 with catch(RuntimeException |IllegalArgumentException e)
+D. replace Line 14 with catch(RuntimeException e)
+E. comment Line 14,15,16
+
+
+Question 34:
+Given code of Test.java file:
+public class Test {
+    private static void div(int i, int j) {
+        try {
+            System.out.println(i / j);
+        } catch(ArithmeticException e) {
+            Exception ex = new Exception(e);
+            throw ex;
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            div(5, 0);
+        } catch(Exception e) {
+            System.out.println("END");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. END is printed and program terminates  succesfully
+B. END is printed and program terminates  abruptly
+C. END is not printed and program terminates  abruptly
+D. CompilationError.
+
+Question 35:
+Given code of Test.java file:
+public class Test {
+    private static void div(int i, int j) {
+        try {
+            System.out.println(i / j);
+        } catch(ArithmeticException e) {
+            throw (RuntimeException)e;
+        }
+    }
+    
+    public static void main(String[] args) {
+        try {
+            div(5, 0);
+        } catch(ArithmeticException e) {
+            System.out.println("AE");
+        } catch(RuntimeException e) {
+            System.out.println("RE");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Compilation Error
+B. Program ends abruptly
+C. AE is printed on the console and program terminates sucesfully
+D. RE is printed on the console and program terminates sucesfully
+
+Question 36:
+Given code of Test.java file:
+import java.sql.SQLException;
+ 
+public class Test {
+    private static void m() throws SQLException {
+        try {
+            throw new SQLException();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            m();
+        } catch(SQLException e) {
+            System.out.println("CAUGHT SUCCESSFULLY");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. method m() causes compilation error
+B. method main(String[] args) causes compilation error
+C. CAUGHT SUCCESSFULLY is printed on the console and program terminates normally
+D. Program ends abruptly
+
+
+Question 37: 
+Given code of Test.java file:
+import java.sql.SQLException;
+public class Test {
+    private static void getData() throws SQLException {
+        try {
+            throw new SQLException();
+        } catch (Exception e) {
+            e = new SQLException();
+            throw e;
+        }
+    }
+ 
+    public static void main(String[] args) {
+        try {
+            getData();
+        } catch(SQLException e) {
+            System.out.println("SQL");
+        }
+    }
+}
+A. method getData() causes compilation error.
+B. method main(String[] args) causes compilation error.
+C. SQL is printed on the console and program terminates normally
+D. Program ends abruptly
+
+Question 38: 
+Given code of Test.java file:
+import java.sql.SQLException;
+public class Test {
+    private static void checkData() throws SQLException {
+        try {
+            throw new SQLException();
+        } catch (Exception e) {
+            e = null; //Line 10
+            throw e; //Line 11
+        }
+    }
+ 
+    public static void main(String[] args) {
+        try {
+            checkData(); //Line 17
+        } catch(SQLException e) {
+            System.out.println("NOT AVAILABLE");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. NOT AVAILABLE is printed on the console and program terminates succesfully
+B. Program ends abruptly
+C. Line 10 causes compilation error
+D. Line 11 causes compilation error
+E. Line 17 causes compilation error
+
+Question 39:
+Given code of Test.java file:
+import java.sql.SQLException;
+public class Test {
+    private static void getReport() throws SQLException {
+        try {
+            throw new SQLException();
+        } catch (Exception e) {
+            throw null; //Line 10
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            getReport(); //Line 16
+        } catch(SQLException e) {
+            System.out.println("REPORT ERROR");
+        }
+    }
+}
+What will be the result of Compiling and executing Test class?
+A. REPORT ERROR is printed on the console and program terminates succesfully
+B. Program ends abruptly
+C. Line 10 causes compilation error
+D. Line 16 causes compilation error
+
+Question 40: 
+Given code of Test.java file:
+import java.sql.SQLException;
+public class Test {
+    private static void availableSeats() throws SQLException {
+        throw null; //Line 7
+    }
+ 
+    public static void main(String[] args) {
+        try {
+            availableSeats(); //Line 12
+        } catch(SQLException e) {
+            System.out.println("SEATS NOT AVAILABLE");
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. SEATS NOT AVAILABLE is printed on the console and program terminates succesfully
+B. Program ends abruptly
+C. Line 7 causes compilation error
+D. Line 12 causes compilation error
+
+Question 41: 
+Given code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        try {
+            play();
+            return;
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            return;
+        } finally {
+            System.out.println("MATCH ABANDONED");
+        }
+        System.out.println("DONE");
+    }
+ 
+    static void play() throws Exception {
+        throw new Exception("INJURED");
+    }
+}
+What will be the result of compiling and executing Test class?
+A. INJURED
+   MATCH ABANDONED
+B. INJURED
+   MATCH ABANDONED
+   DONE
+C. MATCH ABANDONED
+D. INJURED
+   DONE
+E. INJURED
+F. MATCH ABANDONED
+   DONE
+G. Compilation Error
+
+Question 42:
+Given code of Test.java file:
+class Base {
+    public void log() throws NullPointerException {
+        System.out.println("Base: log()");
+    }
+}
+class Derived extends Base {
+    public void log() throws RuntimeException {
+        System.out.println("Derived: log()");
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Base obj = new Derived();
+        obj.log();
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Base:log()
+B. Derived:log()
+C. Compilation Error in Derived class
+D. Compilation Error in Test class
+
+Question 43: 
+Given code of Test.java file:
+import java.io.FileNotFoundException;
+ 
+public class Test {
+    static String [] names = {"Williamson.pdf", "Finch.pdf", "Kohli.pdf", "Morgan.pdf"};
+    public static void main(String[] args) {
+        try {
+            if (search("virat.pdf"))
+                System.out.println("FOUND");
+ 
+        } catch(FileNotFoundException ex) {
+            System.out.println("NOT FOUND");
+        }
+    }
+ 
+    private static boolean search(String name) throws FileNotFoundException {
+        for(int i = 0; i <= 4; i++) {
+            if (names[i].equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        throw new FileNotFoundException();
+    }
+}
+What will be the result of compiling and executing Test class?
+A. FOUND
+B. NOT FOUND
+C. Compilation Error
+D. None of the above.
+
+Question 44:
+java.sql.SQLException extends java.lang.Exception
+and
+java.sql.SQLWarning extends java.sql.SQLException
+
+Given code of Test.java file:
+import java.sql.*;
+ 
+interface Multiplier {
+    void multiply(int... x) throws SQLException;
+}
+ 
+class Calculator implements Multiplier {
+    public void multiply(int... x) throws /*INSERT*/ {
+ 
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        try {
+            Multiplier obj = new Calculator(); //Line n1
+            obj.multiply(1, 2, 3);
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
+}
+Which of the options can be used to replace /*INSERT*/ such that there is no compilation error?
+Select 5 options?
+A. java.io.IOException
+B. SQLException
+C. SQLWarning
+D. Throwable
+E. RuntimeException
+F. Error
+G. Exception
+H. NullPointerException
+
+
+Question45.
+Given code of Test.java file:
+interface Blogger {
+    default void blog() throws Exception {
+        System.out.println("GENERIC");
+    }
+}
+class TravelBlogger implements Blogger {
+    public void blog() {
+        System.out.println("TRAVEL");
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Blogger blogger = new TravelBlogger(); //Line n1
+        ((TravelBlogger)blogger).blog(); //Line n2
+    }
+}
+A. CompilationError in TravelBlogger class
+B. Compilation Error in TestClass
+C. GENERIC is printed on the console and terminates succesfully
+D. TRAVEL is printed on the console and terminates succesfully
+E. An Exception is thrown at RunTime
+
+Question46.
+Given code of Test.java file:
+abstract class Animal {
+    abstract void jump() throws RuntimeException;
+}
+class Deer extends Animal {
+    void jump() { //Line n1
+        System.out.println("DEER JUMPS");
+    }
+    void jump(int i) {
+        System.out.println("DEER JUMPS TO " + i + " FEET");
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Animal animal = new Deer();
+        ((Deer)animal).jump(); //Line n2
+        ((Deer)animal).jump(5); //Line n3
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Line n1 causes compilation error
+B. Line n2 causes compilation error
+C. Line n3 causes compilation error
+D. An exception is thrown at Runtime
+E. Test Class is compiled  succefully
+   DEER JUMPS
+   DEER JUMPS TO 5 FEET
+
+
+Question 47: 
+Consider below code fragment:
+import java.util.*;
+class A{}
+class B extends A{}
+ 
+abstract class Super {
+    abstract List<A> get() throws IndexOutOfBoundsException;
+}
+abstract class Sub extends Super {
+    /*INSERT*/
+}
+Which of the following options replaces /*INSERT*/ such that there is no compilation error?
+A. abstract List<A> get() throws ArrayIndexOutOfBoundsException
+B. abstract List<B> get()
+C. abstract List<B> get() throws Exception
+D. abstract ArrayList<B> get()
+
+
+48.
+
+
+
+Question 48: 
+Consider below code snippets available in the same package:
+abstract class Traveller {
+    void travel(String place){}
+}
+abstract class BeachTraveller extends Traveller {
+    /*INSERT*/
+}
+Which of the following declarations/definitions can replace /*INSERT*/ such that there is no compilation error?
+
+Select 5 options.
+A. abstract void travel();
+B. abstract void travel(String beach)
+C. public abstract void travel()
+D. public void travel() throws RuntimeException{}
+E. public void travel(String beach) throws Exception{}
+F. void travel(String beach) throws java.io.IOException{}
+G. public void travel(Object obj){}
+
+Question 49: 
+Given code of Test.java file:
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+class Base {
+    Base() throws IOException {
+        System.out.print(1);
+    }
+}
+class Derived extends Base {
+    Derived() throws FileNotFoundException {
+        System.out.print(2);
+    }
+}
+public class Test {
+    public static void main(String[] args) throws Exception {
+        new Derived();
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Compilation Error in both Base and Derived class.
+B. Compilation Error only in Base class
+C. Compilation Error only in Derived Class.
+D. Test class executes succesfully and prints 12 to the console
+E. Test class executes succesfully and prints 21 to the console
+
+Question50.
+Given code of Test.java file:
+import java.io.IOException;
+class Parent {
+    Parent() throws IOException {
+        System.out.print("SACHIN");
+    }
+}
+ 
+class Child extends Parent {
+    Child() throws Exception {
+        System.out.println("TENDULKAR");
+    }
+}
+ 
+public class Test {
+    public static void main(String[] args) throws Exception {
+        new Child();
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Compilation Error in both Parent and Child class
+B. Compilation Error in Parent class
+C. Compilation Error in child class
+D. Test class Executes Succesfully and it prints SACHINTENDULKAR on the console
+E. Test class Executes Succesfully and it prints TENDULKARSACHIN on the console.
+
+Question 51: 
+Given code of Test.java file:
+import java.io.IOException;
+class Super {
+    Super() throws RuntimeException {
+        System.out.print("SACHIN ");
+    }
+}
+class Sub extends Super {
+    Sub() throws IOException {
+        System.out.print("TENDULKAR ");
+    }
+}
+public class Test {
+    public static void main(String[] args) throws Exception {
+        new Sub();
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Compilation Error in both Super and Sub class
+B. Compilation Error only in Super class
+C. Compilation Error only in Sub class
+D. Test class executes succesfully and prints SACHIN TENDULKAR  on the console
+E. Test class executes succesfully and prints TENDULKAR SACHIN on the console
+
+
+Question52.
+static void test() {
+try {
+String x = null;
+System.out.print(x.toString() + " ");
+}
+finally { System.out.print("finally "); }
+}
+public static void main(String[] args) {
+try { test(); }
+catch (Exception ex) { System.out.print("exception "); }
+}
+What is the result?
+A. null
+B. finally
+C. null finally
+D. Compilation fails.
+E. finally exception
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+

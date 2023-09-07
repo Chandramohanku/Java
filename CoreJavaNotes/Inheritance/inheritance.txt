@@ -1,0 +1,493 @@
+Inheritance
+==========
+It is one of the pillar of Object Orientation.
+It always speaks about reusability.
+In java inheritance is achieved through "extends" keyword.
+
+eg:: class Parent{
+	   public void methodOne(){System.out.println("methodOne from parent");}
+     }
+     class Child extends Parent{
+	   public void methodTwo(){System.out.println("methodTwo from child");}
+     }
+     public class TestApp{
+	  public static void main(String... args){
+		    Parent p=new Parent();
+                    p.methodOne();
+
+		    Child c=new Child();
+                    c.methodOne();
+		    c.methodTwo();
+
+		    Parent p1=new Child();
+		    p1.methodOne();
+		    p1.methodTwo();//CE: can't find the symbol methodTwo in Parent
+          }
+     }
+
+Note:: Whatever is their in the Parent  class by default would be available to Child class.
+       Whatever is their in the Child class  by default won't be available to Parent class.
+       On Child reference we can call both Parent class and Child class methods where as
+       using Parent reference we can call only Parent class methods.
+       Child class Object reference can be holded by Parent class reference whereas Parent class
+       Object reference can't be holded by the Child class reference.
+
+eg:: Loan activities
+The common methods which are required for HousingLoan,EducationLoan,VehicleLoan is defined in seperate class Loan class and it can be reused so that production cost can be increased effectively and time consumption for building project is less.
+
+class Loan{
+     //common methods for every type of  loan is written here
+}
+class VehicleLoan extends Loan{ 
+    //specific methods for VehicleLoan is written here
+}
+class EducationLoan extends Loan{
+   //specific methods for EducationLoan is written here
+}
+class HomeLoan extends Loan{
+   //specific methods for EducationLoan is written here
+}
+
+Note:: All the common methods which every java class needs is a part of Object class, because             Object class is parent class for all the inbuilt class in java.
+       For all Exception and Error commonly required methods is a parent of "Throwable",hence
+       Throwable is parent class for all "Exception and Error".
+
+Different types of inheritance supported in java
+================================================
+1. Multiple Inheritance
+      Having more than one Parent class at same level is called "Mulitple Inheritance".
+       
+eg::
+class Parent1{
+
+}
+class Parent2{
+
+}
+class Child extends Parent1,Parent2{
+
+}
+Any java class can extends only one class at a time,it can't extends more than one class at a time
+so we say java doesnot support "MultipleInheritance".
+In java MulitpleInheritance is supported through "Interface".
+
+Java doesnot support "Multiple Inheritance", becoz it would bring in ambiguity problem
+eg#1. 
+class Parent1{
+	public void methodOne(){}
+}
+class Parent2{
+	public void methodOne(){}
+}
+class Child extends Parent1,Parent2{//CE
+
+}
+Child c=new Child();
+c.methodOne();//Ambiguity problem
+
+Note:: If a java class doesnot contain any parent by default compiler will make Object class as
+       Parent through which inheritance is promoted to every class by default.
+
+2. MultiLevel Inheritance
+      If our class extends from any other class by default for the extended class Object class acts as parent through which it supports "MultiLevel Inheritance".
+eg#1.
+  class A{}
+  
+
+eg#2.
+  class A{}
+  class B extends A{}
+
+3. Cyclic inheritance
+       It is not allowed in java
+
+eg#1.
+class A extends B{
+
+}
+class B extends A{//CE:cyclic inheritance involving A
+
+}
+
+eg#2.
+ class A extends A{}//CE: cyclic inheritance involving A.
+
+
+Usage of super keyword in java
+==============================
+If parent class properties and child class properties are same, then with in the child class if
+we access the properties then compiler/jvm will always give preference for child class properties
+only, to make it available from parent class to child class we use "super" keyword.
+
+eg#1.
+class Parent{
+	public int i=10;
+	
+}
+class Child extends Parent{
+	public int i=20;
+	public void display(){
+		System.out.println("Parent class i is:: "+super.i);
+		System.out.println("child class i is :: "+i);
+	}
+}
+class Test {
+	public static void main(String[] args) {
+		Child c = new Child();
+		c.display();
+	}
+}
+
+eg#2.
+class Parent{
+	private int i=10;
+	
+}
+class Child extends Parent{
+	private int i=20;
+	public void display(){
+		System.out.println("Parent class i is:: "+super.i);//CE:: i is private
+		System.out.println("child class i is :: "+i);
+	}
+}
+class Test {
+	public static void main(String[] args) {
+		Child c = new Child();
+		c.display();
+	}
+}
+
+eg#3
+class Parent{
+	private int i=10;
+        public void display(){
+		System.out.println("Parent class i is ::"+i);
+	}
+}
+class Child extends Parent{
+	private int i=20;
+	public void display(){
+		super.display();
+		System.out.println("child class i is :: "+i);
+	}
+}
+class Test {
+	public static void main(String[] args) {
+		Child c = new Child();
+		c.display();
+	}
+}
+
+Usage of super() in java
+=======================
+ It is basically used to make a call to parent class constructor.
+ Internally jvm uses super() to promote constructor chaining at inheritance level.
+
+eg#1::class Parent{
+
+      }
+      class Child extends Parent{
+
+      }
+
+   ==========Compiler generated code ===========
+    class Parent extends Object{
+	  Parent(){super();}
+    }
+    class Child extends Parent{
+          Child(){super();}
+    }
+
+eg#2.
+  class Parent{
+	int i;
+	Parent(int i){this.i=i;}
+  }
+  class Child extends Parent{
+	
+  }
+    ==========Compiler generated code=========
+  class Parent extends Object{
+	int i;
+        Parent(int i){super();this.i=i;}
+  }
+  class Child extends Parent{
+	Child(){super();}
+  }
+Output:: CompileTime Error, Be careful when parent class has Parameterized constructor in 
+         child class also we need to have Parameterized constructor.
+
+instance control flow in parent to child relationship
+=====================================================
+eg#1.
+class Parent{
+	int x=10;
+	{
+		methodOne();
+		System.out.println("Parent first instance block");
+	}
+	Parent(){
+		System.out.println("Parent class constructor");
+	}
+
+	public static void main(String... args){
+		Parent p=new Parent();
+		System.out.println("Parent class main()");
+	}
+	public void methodOne(){
+		System.out.println(y);
+	}
+	int y=20;	
+}
+class Child extends Parent{
+	int i=100;
+	{
+		methodTwo();
+		System.out.println("Child first instance block");
+	}
+	Child(){
+		System.out.println("Child class constructor");
+	}
+
+	public static void main(String... args){
+		Child c=new Child();
+		System.out.println("Child class main()");
+	}
+	public void methodTwo(){
+		System.out.println(j);
+	}
+	int j=200;	
+}
+public class Test {
+	public static void main(String[] args) {
+
+	}
+}
+
+Rule:: Whenever we create child class Object,the follwing things take place
+ a. Identification of instance variables,instance block from parent to child.
+ b. Execution of instance variables assignement,instance block only of parent class.
+ c. Execution of parent class constructor.
+ d. Execution of instance variables assignement,instance block only of child class.
+ e. Execution of child class constructor.
+
+Output:: java Parent
+0
+Parent first instance block
+Parent class constructor
+Parent class main()
+
+Output:: java Child
+0
+Parent first instance block
+Parent class constructor
+0
+Child first instance block
+Child class constructor
+Child class main()
+
+Note::
+As noticed above we can say Object creation is most costly operation in java, so it is not recomended to create an object if their is no specific requirement.
+
+Static control flow in parent to child class 
+============================================
+class Parent{
+	static int i=10;
+	static{
+		methodOne();
+		System.out.println("Parent class static block");
+	}
+	public static void methodOne(){
+		System.out.println(j);
+	}
+	public static void main(String... args){
+		methodOne();
+		System.out.println("Parent class main()");
+	}
+	static int j=20;
+}
+class Child extends Parent{
+	static int x=100;
+	static{
+		methodTwo();
+		System.out.println("Child class static block");
+	}
+	public static void methodTwo(){
+		System.out.println(y);
+	}
+	public static void main(String... args){
+		methodTwo();
+		System.out.println("Child class main()");
+	}
+	static int y=20;
+}
+Rule:: Whenever we are executing Child class the following sequence of events will be performed
+a. Identification of static varaibles and static blocks from top to bottom(parent to child)
+b. Execution of static variables and static block from top to bottom(parent to child)
+c. Execution of child class main()
+
+Output::
+java Parent
+0
+Parent class static block
+20
+Parent class main()
+
+
+Output::
+java Child
+0
+Parent class static block
+0
+Child class static block
+200
+Child class main()
+
+Note:: Whenever we are loading child class, automatically parent class will be loaded but when ever we are loading parent class only parent class will loaded not the child class.
+
+Note::
+new         => creates an object
+constructor => initialize the object.
+               it gets called automatically at the time of creating a object.
+
+Whenever we create an object of child class, will the parent class constructor be called?
+Ans. Yes
+
+Whenever we create an object of child class will the object of parent class be called?
+Ans. No,constructor of parent class is called just to initialize the properties/fields/members
+     and to bring those initalized properties to child class.
+
+eg#1.
+class Parent{
+	Parent(){
+		System.out.println(this.hashCode());
+	}
+}
+class Child extends Parent{
+	Child(){
+		System.out.println(this.hashCode());
+	}
+}
+public class TestApp{
+	public static void main(String... args){
+		Child c= new Child();
+		System.out.println(c.hashCode());
+	}
+}
+
+HAS-A Relationship
+==================
+ It is also known as "Composition" or "Aggregation".
+ There is no specific keyword to implement HAS-A relatioship.
+ The main advantage of HAS-A relationship is "reusability".
+
+eg::
+ class Engine{
+	//Engine specific functionality
+ }
+ class Car{
+	Engine e=new Engine();
+	.......
+	.......
+	.......
+ }
+In HAS-A relationship, We have 2 things
+  a. Dependant Object
+  b. Target Object
+
+The main disadvntage of HAS-A relationship is there is always a dependancy b/w components and it
+always creates "maintainence problem".
+
+Composition
+==========
+ Without existing Container object,there is no possiblity of existing Contained Object then such
+ type of relationship is called "Composition".
+
+ex:: University => Target Object
+     Department => Dependent Object
+
+Without existing University Object there is no chance of existing Department Object hence these
+two objects are tightly related which we say it as  "Composition".
+
+
+Aggregation
+===========
+ Without existing Container object, if there is a possibility of existing Contained Object then
+ we say relationship is "Aggregation".
+
+ex::Department => Target Object 
+    Professor  => Dependant Object
+
+If we close the department, still professor will be there who would work for other departments, such type of association is called "weak association" or it is also called as "Aggregation".
+
+Note:: In Composition, Container object holds the Contained Object directly,so we say association
+       b/w Container object and Contained Object is "strong".
+       In Aggregation, Container object holds only the reference of Contained Object, so we say
+       association b/w Container object and Container Object is "weak".
+
+
+Association
+==========
+1. One to One Association
+        eg:: One Student has One Account.
+2. One to Many Association
+	eg:: One Department has Many Employees.
+3. Many to One Association
+	eg:: Mulitple Students have joined with Single Branch.
+4. Many to Many Association
+        eg:: Mulitple Students have taken Mulitple courses.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+    
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

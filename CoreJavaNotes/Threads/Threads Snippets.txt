@@ -1,0 +1,437 @@
+eg#1.
+class Counter implements Runnable {
+    private static int i = 3;
+    @Override
+    public void run() {
+        System.out.print(i--);
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new Counter());
+        Thread t2 = new Thread(new Counter());
+        Thread t3 = new Thread(new Counter());
+        Thread[] threads = {t1, t2, t3};
+        for(Thread thread : threads) {
+            thread.start();
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Always print 321
+B. prints 321 but order can be different
+C. It always print 210
+D. It always print 210 but order can be different
+E. None of the other options
+
+2.
+Which method must be defined by a class implementing the java.lang.Runnable interface?
+1.  void run()
+2.  public void run()
+3.  public void start()
+4.  None of these.
+
+3.
+Which of the following are the valid constructors of Thread class?
+i. Thread(Runnable r, String name)
+ii. Thread()
+iii. Thread(int priority)
+iv. Thread(Runnable r, ThreadGroup g)
+v. Thread(Runnable r, int priority)
+
+Option
+1.  ii and iv
+2.  ii and v
+3.  i and iii
+4.  i and ii
+5.  None
+
+4.
+What will be the output of the following Java code snippet?
+
+class ThreadDemo extends Thread 
+{ 
+    final StringBuffer sb1 = new StringBuffer(); 
+    final StringBuffer sb2 = new StringBuffer(); 
+
+    public static void main(String args[]) 
+    { 
+        final ThreadDemo h = new ThreadDemo(); 
+
+        new Thread() 
+        { 
+            public void run() 
+            { 
+                synchronized(this) 
+                { 
+                    h.sb1.append("Java"); 
+                    h.sb2.append("Thread"); 
+                    System.out.println(h.sb1); 
+                    System.out.println(h.sb2); 
+                } 
+            } 
+        }.start(); 
+
+        new Thread() 
+        { 
+            public void run() 
+            { 
+                synchronized(this) 
+                { 
+                    h.sb1.append("Mutithreading”); 
+                    h.sb2.append("Example"); 
+                    System.out.println(h.sb2); 
+                    System.out.println(h.sb1); 
+                } 
+            } 
+        }.start(); 
+    } 
+}
+Choose the option
+1.  Multithreading Example java Thread.
+2.  None of these.
+3.  Java Thread Multithreading Example.
+4.  The order in which text will be printed cannot be determined.
+5.  Java Thread ThreadExample JavaMultithreading.
+
+5.
+What will be the output of the below Java program?
+class MyThread extends Thread { 
+    MyThread() {} 
+    MyThread(Runnable r) {super(r); } 
+    public void run() { 
+        System.out.print("Inside Thread ");
+    } 
+} 
+class RunnableDemo implements Runnable { 
+    public void run() { 
+        System.out.print(" Inside Runnable"); 
+    } 
+} 
+class ThreadDemo {  
+    public static void main(String[] args) { 
+        new MyThread().start(); 
+        new MyThread(new RunnableDemo()).start(); 
+    } 
+} 
+1.  None of these.
+2.  Prints "Inside Thread Inside Runnable".
+3.  Does not compile.
+4.  Prints "Inside Thread Inside Thread".
+5.  Throws exception at runtime.
+
+6.
+What is the output of the following program?
+
+class ThreadTest extends Thread{ 
+    public void run() { 
+        for(int i = 0; i < 3; i++){ 
+            System.out.println("A"); 
+            System.out.println("B"); 
+        } 
+    } 
+} 
+class ThreadDemo extends Thread { 
+    public void run() { 
+        for(int i = 0; i < 3; i++){ 
+            System.out.println("C"); 
+            System.out.println("D"); 
+        } 
+    } 
+    public static void main(String args[]) { 
+        ThreadTest t1 = new ThreadTest(); 
+        ThreadDemo t2 = new ThreadDemo(); 
+        t1.start(); 
+        t2.start(); 
+    } 
+}
+1.  Compile time Error There is no start() method.
+2.  Will print in this order AB CD AB...
+3.  Will print A B C D but we cannot predict the Order in which this will be printed.
+4.  Will print in this order ABCD...ABCD...
+5.  None of these.
+
+7.
+What will be the output of the following Java code?
+
+public class ThreadDemo extends Thread {
+    public static void main(String [] args) {
+        ThreadDemo t = new ThreadDemo();
+        t.start();
+        System.out.print("one. ");
+        t.start();
+        System.out.print("two. ");
+    }
+    public void run(){
+        System.out.print("Thread ");
+    }
+}
+1.  None of these.
+2.  It prints "Thread one. Thread two.".
+3.  An exception occurs at runtime.
+4.  The output cannot be determined.
+5.  Compilation fails.
+
+8.
+What will be the output of the below Java program?
+
+public class ThreadWaitTest {
+    public static void main(String [] args) {
+        System.out.print("1 ");
+        synchronized(args){
+            System.out.print("2 ");
+            try {
+                    args.wait(); /* Line 11 */
+            }
+            catch(InterruptedException e){ }
+        }
+        System.out.print("3 ");
+    }
+}
+1.  It fails to compile because the IllegalMonitorStateException of wait() is not dealt with in line 11.
+2.  1 2 3
+3.  1 3
+4.  1 2
+5.  None of these.
+
+9.
+Which of the following piece of code will create and start this thread?
+public class MyRunnable implements Runnable {
+    public void run() {
+        // some code here
+    }
+}
+1.  new Thread(MyRunnable).run();
+2.  new Runnable(MyRunnable).start();
+3.  None of these.
+4.  new MyRunnable().start();
+5.  new Thread(new MyRunnable()).start();
+
+10.
+What is the output of the below Java code?
+
+class ThreadDemo implements Runnable { 
+    String x, y; 
+    public void run() { 
+        for(int i = 0; i < 10; i++) 
+            synchronized(this) { 
+                x = “Hello”; 
+                y = “Java”; 
+              System.out.print(x + " " + y + " ");
+            } 
+    } 
+    public static void main(String args[]) { 
+    	 ThreadDemo run = new ThreadDemo (); 
+        Thread obj1 = new Thread(run); 
+        Thread obj2 = new Thread(run); 
+        obj1.start(); 
+        obj2.start(); 
+    } 
+}
+1.  DeadLock.
+2.  It will print “Hello Java” …. 20 times for obj1 and obj2.
+3.  Compilation Error.
+4.  None of these.
+
+11.
+What is the name of the method that is used to start the execution of a thread?
+1.  init();
+2.  resume();
+3.  start();
+4.  None of these.
+5.  run();
+
+12.
+Which method registers a thread in a thread scheduler?
+1.  register();
+2.  run();
+3.  construct();
+4.  start();
+5.  None of these.
+
+13.
+Assume the following method is properly synchronized and called from a thread A on an object B:
+wait(2000);
+After calling this method, when will the thread A become a candidate to get another turn at the CPU?
+1.  Two seconds after lock B is released.
+2.  After thread A is notified, or after two seconds.
+3.  After the lock on B is released, or after two seconds.
+4.  Two seconds after thread A is notified.
+5.  None of these.
+
+14.
+What will be the output of the following Java program?
+
+class MyThread extends Thread{
+	MyThread() {
+		System.out.print(" MyThread");
+	}
+	public void run() {
+		System.out.print(" bar");
+	}
+	public void run(String s) {
+		System.out.println(" baz");
+	}
+}
+public class ThreadDemo {
+	public static void main (String [] args) {
+		Thread t = new MyThread() {
+			public void run() {
+				System.out.println(" foo");
+			}
+		};
+		t.start();
+	}
+}
+1.  MyThread foo
+2.  None of these.
+3.  foo bar
+4.  foo
+5.  MyThread bar
+
+
+15.
+What will be the output of the following Java code snippet?
+
+class MyThread extends Thread {
+    public static void main(String [] args)  {
+        MyThread t = new MyThread(); /* Line 5 */
+        t.run();  /* Line 6 */
+    }
+
+    public void run() {
+        for(int i=1; i < 3; ++i) {
+            System.out.print(i + "..");
+        }
+    }
+}
+1.  This code will not compile due to line 5.
+2.  This code will not compile due to line 6.
+3.  1..2..
+4.  1..2..3..
+5.  None of these.
+
+16.
+Which of the following methods make thread leave the running state?
+i. yield()
+ii. wait()
+iii. notify()
+iv. notifyAll()
+v. sleep(1000)
+vi. Thread.join()
+vii. Thread.killThread()
+Options
+1.  iii, iv and vii
+2.  ii, v and vi
+3.  i, ii and iv
+4.  iv, v and vii
+5.  None of these.
+
+17.
+Which of the following methods cannot directly cause a thread to stop executing?
+
+1.  Calling sleep() method on a Thread object.
+2.  None of these.
+3.  Calling notify() method on an object.
+4.  Calling the SetPriority() method on a Thread object.
+5.  Calling the wait() method on an object.
+
+18.
+What is the output of the following Java code fragment?
+
+class ThreadDemo implements Runnable { 
+    int x = 0, y = 0; 
+    int addX() {x++; return x;} 
+    int addY() {y++; return y;} 
+
+    public void run() { 
+	for(int i = 0; i < 10; i++) 
+	 System.out.println( Thread.currentThread().getName() + ": " +addX() + " " + addY()); 
+    } 
+    public static void main(String args[]) { 
+    	ThreadDemo obj1 = new ThreadDemo(); 
+    	ThreadDemo obj2 = new ThreadDemo(); 
+        Thread t1 = new Thread(obj1); 
+        Thread t2 = new Thread(obj2); 
+        t1.start(); 
+        t2.start(); 
+    } 
+}
+
+1.  Compile time Error: There is no start() method.
+2.  Will print but may or may not be in an order for Thread t1 and t2 (e.g: 1 1 2 2 1 1 3 3... up to 10 10)
+3.  Will print in this order: 1 1 2 2 3 3 4 4 5 5...
+4.  Will print in this order: 1 2 3 4 5 6... 1 2 3 4 5 6...
+5.  None of these.
+
+19.
+Which of the following line of code is suitable to start a thread?
+
+class Demo implements Runnable { 
+    public void run() {
+     System.out.println(“Thread is in Running state”);
+    } 
+    
+    public static void main(String args[]) {
+        /* Missing code? */
+    } 
+}
+1. Thread t = new Thread();
+   x.run();
+2. Thread t = new Thread(X);
+3. Thread t = new Thread(X);
+    t.start();
+4. None of these.
+5. X obj = new X();
+   Thread tobj = new Thread(obj);
+   tobj.start();
+
+20.
+Which amongst the following are methods of the Object class?
+a) notify();
+b) notifyAll();
+c) isInterrupted();
+d) synchronized();
+e) interrupt();
+f) wait(long msecs);
+g) sleep(long msecs);
+h) yield();
+
+Predict the options
+1.  b, c, d
+2.  None of these.
+3.  a, b, f
+4.  b, d, e
+5.  a, b, d
+
+21.
+What is the output of the following Java program?
+public class ThreadDemo implements Runnable { 
+	private int x=0; 
+	private int y=0; 
+	public static void main(String [] args){
+		ThreadDemo obj = new ThreadDemo();
+		(new Thread(obj)).start(); /*Line 8*/
+		(new Thread(obj)).start(); /*Line 8*/
+	}
+	public synchronized void run () /*Line 11*/{
+		for (int i=0;i<10;i++) /*Line 13*/{
+		  x++;
+		  y++;
+		 System.out.println(“x = “ +x+” ; y = “+y);
+		}
+	}
+}
+1.  The program prints pairs of values for x and y that are always the same on the same line 
+    (e.g. "x=1, y=1". In addition, these values are printed from “x=1; y=1” to “x=20 ; y=20” 
+     for both threads.
+2.  The program prints pairs of values for x and y that might not always be the same on the same  line (e. g. "x=2, y=1")
+3.  Errors at lines 8 and 9 cause compilation to fail.
+4.  An error at line 11 causes compilation to fail.
+5.  None of these.
+
+
+
+
+
+

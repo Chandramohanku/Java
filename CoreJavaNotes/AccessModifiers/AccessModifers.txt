@@ -1,0 +1,863 @@
+A java program can contain any no of source file,but only one class  should contain public 
+access modifier.
+ Rule: If a class is public then that source code file name should be same as that of class name
+       otherwise it would result in "CompileTimeError".
+
+If class is not public, then we can give any name for our source code file.
+
+class A{} class B{} class C{}
+
+case1:
+ For the above src code file name can be any filename.
+
+case2:
+ if the class B is declared as public then we need to give src code name as "B.java" otherwise it
+ would result in "CompileTimeError".
+
+case3:
+ If both B and C class java code is made as public then we can't save the file name, if we say and
+ if we compile then the program would result in "CompileTimeError".
+
+case4:
+ class A{
+     public static void main(String... args){
+          System.out.println("A class main method ");
+     }
+ } 
+ class B{
+     public static void main(String... args){
+          System.out.println("A class main method ");
+     }
+ }  
+ class C{
+     public static void main(String... args){
+          System.out.println("A class main method ");
+     }
+ }  
+ class D{} 
+
+For the above code, we can keep any name, assume the source code file name is "ABC.java"
+ upon compilation the no of .class file generated is 
+  A.class,B.class,C.class,D.class  
+
+java A => A class main method
+java B => B class main method
+java C => C class main method
+java D => NoSuchMethodError(main method not found)
+java ABC => NoClassDefFoundError(if the required .class file is not available then it would result
+            in Exception called "NoClassDefFoundError".
+
+
+import statement
+===============
+public class Test{
+	public static void main(String... args){
+		ArrayList al=new ArrayList();
+	}
+}
+javac Test.java
+ cannot find symbol
+ symbol: class ArrayList
+ location:class Test
+
+How to resolve this problem?
+We can resolve this problem by using fully qualified class name.
+    java.util.ArrayList al=new java.util.ArrayList();
+ In the above approach, it increases the length of the code and reduces readablity of the code.	
+ To resolve this problem we use import statement.
+ using import statement, we need not want to inform the fully qualified classname,we can use
+ short names directly which decreases the length of the code and increases the readablity of the
+ application.
+
+Import statement is of 2 types
+a. Explicit import
+     eg: import java.util.Arraylist
+            It is most recomended,becoz it increases the readability of the application.
+            
+b. Implicit import
+     eg: import java.util.*;
+             It is never recomended,becoz it decreases the readability of the application.
+
+
+case1:
+  which of the following is valid?
+1. import java.util;
+2. import java.util.ArrayList.*;
+3. import java.util.*;
+4. import java.util.ArrayList
+
+case2:
+ class MyList extends java.util.ArrayList{
+	//code
+ }
+In the above code fully qualified class name is used, when we use fully qualified class name then
+ it is not required to write import statement,if we use import statement then it is not required
+ to use fully qualifed class name.
+
+case3:
+Ambigous error, as both the packages contain classes.
+eg#1
+import java.util.*;
+import java.sql.*;
+class Test{
+	public static void main(String... args){
+		Date d=new Date();
+	}
+}
+
+eg#2.
+import java.awt.*;
+import java.util.*;
+public class Test  {
+	public static void main(String[] args){
+		List<String> l=new ArrayList<String>();
+      }
+}
+
+Case4: 
+ While resolving class names error,compiler will always gives preference for
+ 1. Explicit class import
+ 2. Current working directory
+ 3. Implicit class import.
+
+eg#1.
+import java.sql.*;
+import java.util.Date;
+public class Test  {
+	public static void main(String[] args){
+		Date d=new Date();
+      }
+}
+As noticed above the compiler prefered taking it from "java.util" package.
+
+Case5:
+  When ever we use import statement, by default all the classes and interfaces which are a part
+ of current package will be available but not subpackage
+
+eg:: java => util => regex => pattern
+
+To use pattern class in our code, we need to use
+ a. import java.*;
+ b. import java.util.*;
+ c. import java.util.regex.*;
+ d. import java.util.regex.pattern;
+
+Case6:
+ In java language,by default 2 packages we need not want to import they would be available to
+ every java program
+  a. java.lang package
+  b. current working directory
+
+Case7:
+ import statement is totaly compile time constant, meaning "if more no of import statements" then
+ more would be the compile time.but no change in the execution time.
+
+
+Difference b/w c language #include vs import statement
+      #include 
+   =============
+It can be used in C,C++.
+At compilation time only compiler will copy the
+code from standard library and keep it in the
+ current program.
+It is static inclusion.
+It results in wastage of memory.
+<jsp:@file=>
+
+    import
+ ===========
+It can be used only in java.
+At the execution time, the required .class file
+will be loaded into the current program.
+ It is called as dynamic inclusion.
+ It wont result in wastage of memory.
+<jsp:include=>
+
+Note: In case of include statement, all the header file will be copied to the result programming
+      so we say include statement as "static binding".
+      In case of import statement, jvm will not load all the .class file from the given package
+      depending upon the statement jvm execute the required .class file will be loaded, so we say
+      it follows "load-on-demand", "dynamic loading", "load-on-fly".
+
+JDK1.5 new features
+===================
+1. foreach
+2. vararg
+3. Queue
+4. generics
+5. Boxing and AutoBoxing
+6. Covariant types
+7. Annotations
+8. Enum
+9. Static import
+10.StringBuilder
+
+Static import
+============
+ static variables, static methods can be accessed directly using the classname.
+ if we use static import then it is not recomended to use class name also.
+ In case of normal import
+   * => represent the current package .class files(classes,interface,enum)
+ In case of static import
+   * => represent the current class, static variables and methods.
+
+eg#1 without using static import
+public class Test  {
+	public static void main(String[] args){
+		System.out.println(Math.sqrt(4));
+		System.out.println(Math.max(10,20));
+		System.out.println(Math.random());
+      }
+}
+
+eg#2 using static import
+import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
+public class Test  {
+	public static void main(String[] args){
+		System.out.println(sqrt(4));
+		System.out.println(max(10,20));
+		System.out.println(random());
+      }
+}
+
+eg#4.
+import static java.lang.System.out;
+public class Test  {
+	public static void main(String[] args){
+		out.println("Welcome to ABC for technology training");		
+      }
+}
+
+System    =>It is a className which is a part of "java.lang" package.
+out       =>It is a static variable which is of type "out".
+println() => It is a method.
+
+eg#4.
+import static java.lang.Integer.*;
+import static java.lang.Byte.*;
+import static java.lang.System.out;
+public class Test  {
+	public static void main(String[] args){
+		out.println("Welcome to ABC for technology training");
+		out.println(MAX_VALUE);//CE: MAX_VALUE present in Integer,Byte also
+      }
+}
+
+Note: 
+Two packages containing common classes and interface is a common,so ambiguity problem
+is common in "normal import".
+Two classes/interfaces containing common static variables,static method is also common, so ambiguity problem is common in "static import".
+
+Note: While resolving static members compiler will give precedence in the following order
+ a. current class static members
+ b. Explicit class members
+ c. Implicit class members
+
+eg#1.
+
+import static java.lang.Integer.MAX_VALUE;//line-n2
+import static java.lang.Byte.*;
+import static java.lang.System.out;
+public class Test  {
+	static int MAX_VALUE=999;//line-n1
+	public static void main(String[] args){
+		out.println(MAX_VALUE);
+      }
+}
+
+Scenario1:upon execution output:: 999
+Scenario2: if we comment line-n1, then output is Integer max value
+Scenario3: if we comment line-n2, then output is 127(byte max_value)
+
+Which of the following import statements are valid ?
+ 1. import java.lang.Math.*;
+ 2. import static java.lang.Math.*;
+ 3. import java.lang.Math;
+ 4. import static java.lang.Math;
+ 5. import static java.lang.Math.sqrt.*;
+ 6. import java.lang.Math.sqrt;
+ 7. import static java.lang.Math.sqrt();
+ 8. import static java.lang.Math.sqrt;
+
+static import rather than reducing the coding efforts it increases the confusion, so we don't prefer using "static import".
+
+Difference b/w normal import vs static import? 
+ normal import => To import classes/interface of a particular package.
+                  By using this we can access class/interface using short name rather than writing
+                  fully qualified class name.
+ static import => To import static members of a class directly without using class name.
+                  When we use static import those static members/static memebers can be accessed
+                  without using class name.
+ 
+
+Packages
+=============
+ It is a process of grouping all the related classes/interfaces into single unit.
+
+Objective of Packages is
+ 1. To avoid naming conflicts
+ 2. To improve modularity of the application.
+ 3. To provide security.
+ 4. Convention of pacakges is reverse the internet domain name.
+
+eg#1.
+package com.abc.nitin.jobs;
+
+public class Test{
+	public static void main(String... args){
+		System.out.println("ABC jobs....");
+	}
+}
+
+javac -d . Test.java
+java com.abc.nitin.jobs.Test
+    ABC jobs....
+
+-d => it represents the destination location where .class along with package should be stored.
+ . => it represnts the current location(package will be created and .class file will be stored)
+
+
+eg#2.
+package com.abc.nitin.jobs;
+public class Test{
+	public static void main(String... args){
+		System.out.println("ABC jobs....");
+	}
+}
+
+javac -d D:Test.java
+  In D drive com.abc.nitin.jobs.Test
+
+javac -d Z:Test.java
+  In Z drive com.abc.nitin.jobs.Test class file will be generated provided Z drive exists otherwise it would result in compileTimeError.
+
+Conclusion
+==========
+1. In java language, there should be only one package statement, more than one pacakge statement    if we take it would result in "CompileTimeError".
+     eg#1.
+	package pack1;
+        package pack2;
+	public class Test{
+		public static void main(String... args){
+			System.out.println("sachin");
+		}
+	}
+      javac -d . Test.java
+	compiletimeerror.
+
+
+
+2. In java language, 1st non comment statement if exists it should be package statement otherwise
+   it would result in compile time error.
+
+   eg#1.
+      import java.util.Scanner;
+      package pack1;
+      public class Test{
+		public static void main(String... args){
+			Scanner scanner=new Scanner(System.in);
+		}
+      }
+     javac -d . Test.java
+     compileTimeError.
+
+standard java file structure
+============================
+  package(only one statement) 
+  import(any no of import statement)
+  class/interface/enum
+
+pick which one of the following is valid
+========================================
+ 1. An empty file saved as Test.java
+
+ 2.  Test.java
+	package pack1;
+
+ 3.  Test.java
+	import java.util.Scanner;
+
+ 4.  Test.java
+    package pack1;
+    import java.util.Scanner;
+
+ 5.  Test.java
+    class Test{
+
+    }
+
+class modifiers
+===============
+ Whenever we are creating any class,then we need to give information to our jvm like
+  a. Is it accesible from everywhere.
+  b. Whether child class creation is possible or not
+  c. Wheter object creation is possible or not..
+
+To specify this information we need to use access modifiers like
+  a. public 
+  b. default
+  c. final
+  d. abstract
+  e. strictfp
+
+if we try to use any other modifiers it would result in CompileTimeError.
+
+eg#1
+private class Test{
+	public static void main(String... args){
+		System.out.println("hello");
+	}
+}
+javac Test.java
+ compileTimeError.
+
+For inner classes
+=================
+   public,default,final,abstract,strictfp => outer class.
+   private,protected,static               => inner class.
+
+
+What is the difference b/w access modifier vs access specifier?
+ In old language like c++, we have access specifier like private,protected,default,public but in 
+ java language we dont have any access specifier,we just have access modifier.
+  1. public
+  2. private
+  3. protected
+  4. static
+  5. strictfp
+  6. synchronized
+  7. final
+  8. abstract
+  9. native
+  10.transient
+  11.volatile
+
+public access modifier
+======================
+  com.abc.pack1
+       |=> Test1.java
+  
+  com.abc.pack2
+       |=> Test2.java
+
+
+eg#1.
+package com.abc.pack1;
+public class Test1 {
+	public void m1(){
+		System.out.println("Hello i am from m1()");
+	}
+}
+ javac -d . Test1.java
+  compilation succesfull
+
+eg#2.
+package com.abc.pack2;
+import com.abc.pack1.Test1;
+public class Test2  {
+	public static void main(String[] args){	
+			Test1 t=new Test1();
+			t.m1();
+      }
+}
+ javac -d . Test2.java
+ java com.abc.pack2.Test2
+     Hello i am from m1()
+
+Note: If the public access modifier is removed from Test1.java then upon compiling Test2.java file
+      it would result in "CompilationError".
+
+
+Default Access modifier
+======================
+ => It is accesible only at the package level.
+ => It is called as package level access modifier.
+
+eg#1.
+package com.abc.pack1;
+class Test1 {
+	public void m1(){
+		System.out.println("Hello i am from m1()");
+	}
+}
+ javac -d . Test1.java
+ compilation succesfull
+
+eg#2.
+package com.abc.pack1;
+public class Test2  {
+	public static void main(String[] args){	
+			Test1 t=new Test1();
+			t.m1();
+      }
+}
+ javac -d . Test2.java
+ java com.abc.pack1.Test2
+    Hello i am from m1()
+
+2. final access modifier
+    It can be applied on class,variable and methods
+
+ final applied on class => prevents inheritance.
+ final applied on variable => can't change the value.
+ final applied on methods => wont participate in overriding.
+
+finalmethods
+===========
+ In inheritance,by default all the methods available in parent would reach to child.
+ If we want child not to override the methods then in the parent class, we need to make the method
+ as final, so overriding it wont support.
+
+eg: public class Parent{
+	public void property(){
+		System.out.println("land+cash+gold");
+	}
+	public final void marry(){
+		System.out.println("family girl only....");
+	}
+    }
+    class Child extends Parent{
+	public  void marry(){
+		System.out.println("My choice......");
+	}
+    }
+
+final class
+===========
+ If a class is final,then for that class child class can't be created meaning inheritance is not
+ possible.
+
+eg#1.
+ final class Parent{
+
+ }
+ class Child extends Parent{
+	
+ }
+ javac Parent.java
+ javac Child.java
+   cannot inherit from Parent
+
+
+Note: Every method present inside the final class, is by default final whether we declare or not.
+      This rule is not applicable for variables in final class.
+
+eg#1.
+final class Parent{
+    static int data=10;
+    static{
+	data=100;
+    }
+}
+javac Parent.java
+ compilation succesfull.
+
+abstract => access modifier applicable at class/method level.
+if the method is abstract,then following combinations of access modifier is illegal
+    abstract => static,synchronized,strictfp
+                private,native,final
+
+Note::
+final class Demo{
+    public abstract void m1(); //invalid
+}
+
+abstract class Demo{
+	public final void m1();//valid
+}
+
+class level modifiers
+=====================
+  =>public,default,abstract,final,strictfp.
+
+Member modifiers
+================
+ If a member is declared as public,then those members can be accesible outside the package.
+ Before checking those members,first visibility should be there for class.
+
+public access modifier
+======================
+  com.abc.pack1
+       |=> Test1.java
+  
+  com.abc.pack2
+       |=> Test2.java
+
+
+eg#1.
+package com.abc.pack1;
+class Test1 {
+	public void m1(){
+		System.out.println("Hello i am from m1()");
+	}
+}
+ javac -d . Test1.java
+  compilation succesfull
+
+eg#2.
+package com.abc.pack2;
+import com.abc.pack1.Test1;
+public class Test2  {
+	public static void main(String[] args){	
+			Test1 t=new Test1();
+			t.m1();
+      }
+}
+ javac -d . Test2.java
+  compilationerror.
+
+default access modifier
+======================
+  com.abc.pack1
+       |=> Test1.java
+  
+  com.abc.pack2
+       |=> Test2.java
+
+
+=> if the member is declared as default, then those members should be accesible within the
+   package.
+
+eg#1.
+package com.abc.pack1;
+class Test1 {
+	public void m1(){
+		System.out.println("Hello i am from m1()");
+	}
+}
+ javac -d . Test1.java
+  compilation succesfull
+
+eg#2.
+package com.abc.pack1;
+import com.abc.pack1.Test1;
+public class Test2  {
+	public static void main(String[] args){	
+			Test1 t=new Test1();
+			t.m1();
+      }
+}
+    javac -d . Test2.java
+      Hello i am from m1()
+
+private modifier
+===============
+=> If a member is declared as private,then those members will be accesible only in that particular
+   class.
+=> private methods are not visible in child class, so if the parent class method is abstract
+   then abstract and private method is illegal.
+
+
+protected modifier
+==================
+ => If a memeber is declared as protected,then those members within the same package can be            accessed any where.
+ => If a member is declared as protected, then those members can be accessed outside the package
+    also but only in the child class using the child class reference,otherwise it would result
+    in compiletime error.
+ => protected = default + child classes oly using child reference.
+
+eg#1.
+package com.abc.pack1;
+public class Test1{
+    protected void m1(){
+	System.out.println("Inside m1()");
+    }
+}
+
+eg#2.
+package com.abc.pack1;
+public class Test2 extends Test1{
+	public static void main(String... args){
+
+		Test1 t1=new Test1();
+		t1.m1();//inside m1()
+
+		Test2 t2=newTest2();
+		t2.m1();//inside m1()
+	
+		Test1 t11=new Test2();
+		t2.m1();//inside m1()	
+	}
+}
+
+Scneario2:Outside the package
+
+eg#1.
+package com.abc.pack1;
+public class Test1{
+    protected void m1(){
+	System.out.println("Inside m1()");
+    }
+}
+eg#2.
+package com.abc.pack2;
+public class Test2 extends Test1{
+	public static void main(String... args){
+
+		Test1 t1=new Test1();
+		t1.m1();//CE
+
+		Test2 t2=new Test2();
+		t2.m1();//inside m1()
+	
+		Test1 t11=new Test2();
+		t11.m1();//CE	
+	}
+}
+
+Visibility
+==========                                    private      default    protected     public
+ Within a same class                             yes         yes          yes         yes
+ from the child class within a package           no          yes          yes         yes
+ from the non child class within a pacakge       no          yes          yes         yes
+ from the child class outside the package        no          no           yes         yes
+ from the non child class outside the pacakge    no          no           no          yes
+
+public has highest access privilege where private has low access privilige.
+
+final instance variable
+=======================
+ if a variable is declared as final then it should be initalised by the programmer at 3 different
+ places like
+   a. at the time of declaration
+   b. inside constructor
+   c. inside instance block.
+
+
+final static variable
+=====================
+ if a variable is declared as final, then it should be initalised by the programmer at 2 differnt
+ places like
+   a. Time of declaration
+   b. inside static block.
+
+final local variable
+====================
+ In case of final local variable, before we use that variable if we initalize then no compile time
+ error.
+ The only access modifier applicable at local variable level is "final".
+
+ native
+ ======
+It is a modifier appicable at only method level,not at variable or class level.
+If the implementation of a method is given by other language then those methods are called 
+"native methods".
+ The main objective of native keyword is
+a. It improves the performance.
+b. It helps us to use legacy code in java language
+c. It helps us to have machine level interaction
+
+
+
+eg#1.
+package com.abc.pack1;
+class Native{
+	static{
+		System.out.println("Native library");
+	}
+	public native void m1();
+}
+class Test1{
+	public static void main(String... args){
+		new Native().m1();
+	}
+}
+
+native methods means implementation is already given so for native methods body wont be there we
+should terminate it with ;.
+
+native -> implemenation already available, so we can't use abstract
+native -> implementation already available in other language, we can't guarantee those langauge
+          support standard IEEE format represenation for floating point number so strictfp is
+          illegl along with native
+native methods  participate in inheriatnce,so overriding or overloading is  possible.
+
+native => Good imporoves the performance
+native => Drawback is it breaks the platform independance nature of java language.
+
+synchronized => applicable at only class level.
+transient and volatile => applicable at variable level only.
+
+conclusions
+===========
+oly modifier applicable at consturctor level is private,default,protected,public
+oly modifier applicable for local variable is "final".
+oly modifier applicable for class,but not for interface is "final".
+oly modifier applicable for class,but not for enum are final and abstract.
+modifier applicable for inner class,but not for outer class is
+   private,protected,static.
+modifier applicable only for methods is "native".
+modifier applicable only for variables is "transient and volatile".
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+

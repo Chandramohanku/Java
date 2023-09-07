@@ -1,0 +1,41 @@
+Which of the following is true?
+  a. A class can extend any no of class at a time.
+  b. An interface can extend only one interface at at time.
+  c. A class can implement only one interface at at a time.
+  d. A class can extend a class and can implement an interface but not both simultaneously.
+  e. An interface can implements any no of Interfaces at a time.
+  f. None of the above
+
+Consider the expression X extends Y which of the possiblity of X and Y expression is true?
+   1. Both x and y should be classes.
+   2. Both x and y should be interfaces.
+   3. Both x and y can be classes or can be interfaces.
+   4. No restriction.
+
+
+Predict X,Y,Z
+  a. X extends Y,Z?
+  b. X extends Y implements Z?
+  c. X implements Y,Z?
+  d. X implements Y extends Z?
+
+
+
+Which of the following are valid?
+  1. The purpose of the constructor is to create the object.
+  2. The purpose of the constructor is to initialize the object,not to create the object.
+  3. Once constructor completes then only object creation completes.
+  4. First object will be created and then constructor will be executed.
+  5. The purpose of the new keyword is to create object and the purpose of constructor is to initalize the object.
+  6. We can't create Object for abstract class directly but indirectly we can create.
+  7. Whenever we are creating child class object automatically parent class object will be created.
+  8. Whenever we are creating child class object automatically abstract class constructor will be executed.
+  9. Whenever we are creating child class object automatically parent  constructor will be executed but parent object wont be created.
+  10. Either directly or indirectly we can't create Object for abstract class and hence constructor concept is not applicable for abstract class.
+  11. Interface can contain constructor.
+
+
+
+
+
+

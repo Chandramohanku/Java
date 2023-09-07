@@ -1,0 +1,440 @@
+Relationships in JAVA:
+As part of Java application development,we have to use entities as per the application requirements.
+In Java application development,if we want to provide optimizations over memory utilization,code Reusability, Execution Time,Sharability 
+then we have to define relationships between entities.
+ 
+There are three types of relationships between entities. 
+1.Has-A relationship (extensively used in projects)
+2.IS-A relationship 
+3.USE-A relationship(not popular)
+ 
+Q)What is the difference between HAS-A Relationship and IS-A relationship?
+Ans:
+Has-A relationship will define associations between entities in Java applications,here associations between entities will improve 
+communication between entities and data navigation between entities. 
+
+IS-A Relationship is able to define inheritance between entity classes, it will improve "Code Reusability" in java applications.
+
+Associations in JAVA
+================
+There are four types of associations between entities 
+1.One-To-One Association 
+2.One-To-Many Association 
+3.Many-To-One Association 
+4.Many-To-Many Association 
+
+To achieve associations between entities,we have to declare either single reference or array of reference variables of an entity class in 
+another entity class. 
+
+class Address{ 
+	----
+} 
+class Account{
+	----
+}
+class Employee{ 
+	----
+	Address[] addr;//It will establish One-To-Many Association 
+	Account account; // One-To-One Association
+} 
+
+1.One-To-One Association:
+It is a relation between entities, where one instance of an entity should be mapped with exactly oneinstance of another entity. 
+
+EX: Every employee should have exactly one Account. 
+
+class Account{ 
+	String accNo; 
+	String accName; 
+	String accType; 
+
+	Account(String accNo,String accName,String accType){ 
+			this.accNo=accNo; 
+			this.accName=accName; 
+			this.accType=accType; 
+	}
+} 
+
+class Employee{ 
+	String eid; 
+	String ename; 
+	String eaddr; 
+
+	Account acc; 
+	
+	Employee(String eid,String ename,String eaddr,Account acc){ 
+		this.eid=eid; 
+		this.ename=ename; 
+		this.eaddr=eaddr; 
+		this.acc=acc; 
+	} 
+	public void getEmployee(){ 
+			System.out.println("Employee Details"); 
+			System.out.println("-----------------"); 
+			System.out.println("Employee Id :"+eid); 
+			System.out.println("Employee Name :"+ename); 
+			System.out.println("Employee Address :"+eaddr); 
+
+			System.out.println(); 
+			System.out.println("Account Details"); 
+			System.out.println("----------------"); 
+			System.out.println("Account Number :"+acc.accNo); 
+			System.out.println("Account Name :"+acc.accName); 
+			System.out.println("Account Type :"+acc.accType); 
+	}
+} 
+class OneToOneEx{ 
+		public static void main(String args[]){ 
+				Account acc=new Account("abc123","Sachin","Savings"); 
+				Employee emp=new Employee("E-111","Sachin","Hyd",acc); 
+				emp.getEmployee(); 
+		}
+} 
+
+OP:
+Employee Details 
+------------------------
+Employee Id :E-111 
+Employee Name:Sachin
+Employee Address:MI
+ 
+Account Details 
+----------------------
+Account Number :abc123 
+Account Name :Sachin 
+Account Type :Savings 
+
+2.One-To-Many Association: 
+It is a relationship between entity classes, where one instance of an entity should be mapped with multiple instances of another entity.
+	Example:Single department has multiple employees. 
+
+class Employee{ 
+	String eid; 
+	String ename; 
+	String eaddr; 
+
+	Employee(String eid,String ename,String eaddr){ 
+		this.eid=eid; 
+		this.ename=ename; 
+		this.eaddr=eaddr; 
+	}
+} 
+class Department{ 
+	String did; 
+	String dname; 
+	
+	Employee[] emps; 
+
+	Department(String did,String dname,Employee[] emps){ 
+		this.did=did; 
+		this.dname=dname; 
+		this.emps=emps; 
+	} 
+	public void getDepartmentDetails(){ 
+		System.out.println("Department Details"); 
+		System.out.println("--------------------"); 
+		System.out.println("Department Id :"+did); 
+		System.out.println("Department Name:"+dname); 
+		System.out.println(); 
+		System.out.println("EID ENAME EADDR"); 
+		System.out.println("----------------"); 
+		for(int i=0;i<emps.length;i++){ 
+			Employee e=emps[i]; 
+			System.out.println(e.eid+" "+e.ename+" "+e.eaddr); 
+		}
+	}
+} 
+class OneToManyEx{ 
+		public static void main(String args[]){ 
+			Employee e1=new Employee("E-111","AAA","Hyd"); 
+			Employee e2=new Employee("E-222","BBB","Hyd"); 
+			Employee e3=new Employee("E-333","CCC","Hyd"); 
+			Employee[] emps=new Employee[3]; 
+				emps[0]=e1; 
+				emps[1]=e2; 
+				emps[2]=e3; 
+			Department dept=new Department("D-111","Admin",emps); 
+			dept.getDepartmentDetails(); 
+		}
+} 
+
+OP:
+Department Details 
+-----------------------------
+Department Id :D-111 
+Department Name:Admin 
+
+EID ENAME EADDR 
+----------------------------------
+E-111 AAA Hyd 
+E-222 BBB Hyd 
+E-333 CCC Hyd 
+
+Many-To-One Association:
+===================== 
+It is a relationship between entities,where multiple instances of an entity should be mapped with exactly one instance of another entity. 
+
+EX:Multiple Student have joined with a single branch.
+
+class Branch{ 
+	String bid; 
+	String bname; 
+	Branch(String bid,String bname){ 
+		this.bid=bid; 
+		this.bname=bname; 
+	}
+} 
+
+class Student{ 
+	String sid; 
+	String sname; 
+	String saddr; 
+
+	Branch branch; 
+
+	Student(String sid,String sname,String saddr,Branch branch){ 
+			this.sid=sid; 
+			this.sname=sname; 
+			this.saddr=saddr; 
+			this.branch=branch; 
+	}	 
+	public void getStudentDetails(){ 
+			System.out.println("Student Details"); 
+			System.out.println("----------------"); 
+			System.out.println("Student Id :"+sid); 
+			System.out.println("Student name :"+sname); 
+			System.out.println("Student Address:"+saddr); 
+			System.out.println("Branch Id :"+branch.bid); 
+			System.out.println("Branch Name :"+branch.bname); 
+			System.out.println(); 
+	}
+} 
+class ManyToOneEx{ 
+	public static void main(String args[]){ 
+			Branch branch=new Branch("B-111","CS"); 
+
+			Student std1=new Student("S-111","AAA","Hyd",branch); 
+			Student std2=new Student("S-222","BBB","Hyd",branch); 
+			Student std3=new Student("S-333","CCC","Hyd",branch); 
+
+			std1.getStudentDetails(); 
+			std2.getStudentDetails(); 
+			std3.getStudentDetails(); 
+	}
+} 
+OP: 
+Student Details 
+----------------------
+Student Id :S-111 
+Student name:AAA 
+Student Address:Hyd 
+Branch Id :B-111 
+Branch Name:CS 
+Student Details 
+------------------------
+Student Id :S-222 
+Student name:BBB 
+Student Address:Hyd 
+Branch Id :B-111 
+Branch Name:CS 
+Student Details 
+-----------------------
+Student Id :S-333 
+Student name:CCC 
+Student Address:Hyd 
+Branch Id :B-111 
+Branch Name:CS 
+
+Many-To-Many Associations
+=======================
+It is a relationship between entities,Where multiple instances of an entity should be mapped with multiple instances of another entity. 
+EX:Multiple Students Have Joined with Multiple Courses
+
+EX: class Course{ 
+		String cid; 
+		String cname; 
+		int ccost; 
+
+		Course(String cid,String cname,int ccost){ 
+			this.cid=cid; 
+			this.cname=cname; 
+			this.ccost=ccost; 
+		}
+} 
+class Student{ 
+	String sid; 
+	String sname; 
+	String saddr; 
+
+	Course[] crs; 
+
+	Student(String sid,String sname,String saddr,Course[] crs){ 
+			this.sid=sid; 
+			this.sname=sname; 
+			this.saddr=saddr; 
+			this.crs=crs; 
+	} 
+	public void getStudentDetails(){ 
+			System.out.println("Student Details"); 
+			System.out.println("----------------"); 
+			System.out.println("Student Id :"+sid); 
+			System.out.println("Student name :"+sname); 
+			System.out.println("Student Address:"+saddr); 
+			System.out.println("CID CNAME CCOST"); 
+			System.out.println("----------------------"); 
+			for(int i=0;i<crs.length;i++){ 
+				Course c=crs[i]; 
+				System.out.println(c.cid+" "+c.cname+" "+c.ccost); 
+			}	 
+			System.out.println(); 
+		}
+} 
+class ManyToManyEx{ 
+	public static void main(String[] args){ 
+			Course c1=new Course("C-111","C",500); 
+			Course c2=new Course("C-222","C++",1000); 
+			Course c3=new Course("C-333","JAVA",5000);
+			Course[] crs=new Course[3]; 
+			crs[0]=c1; 
+			crs[1]=c2; 
+			crs[2]=c3; 
+			Student std1=new Student("S-111","AAA","Hyd",crs); 
+			Student std2=new Student("S-222","BBB","Hyd",crs); 
+			Student std3=new Student("S-333","CCC","Hyd",crs); 
+			std1.getStudentDetails(); 
+			std2.getStudentDetails(); 
+			std3.getStudentDetails(); 
+	}
+} 
+OP: 
+Student Details 
+----------------------
+Student Id :S-111 
+Student name :AAA 
+Student Address:Hyd 
+CID CNAME CCOST 
+------------------------------------
+C-111 C 500 
+C-222 C++ 1000 
+C-333 JAVA 5000 
+Student Details 
+------------------------
+Student Id :S-222 
+Student name:BBB 
+Student Address:Hyd 
+CID CNAME CCOST 
+------------------------------------
+C-111 C 500 
+C-222 C++ 1000 
+C-333 JAVA 5000 
+Student Details 
+-----------------------
+Student Id :S-333 
+Student name:CCC 
+Student Address:Hyd 
+CID CNAME CCOST 
+-----------------------------------
+C-111 C 500 
+C-222 C++ 1000 
+C-333 JAVA 5000  
+
+In java applications, Associations are existed in the following two form
+	1.Aggregation
+	2.Composition
+
+Q)What is the difference between Aggregation and Composition? 
+Ans:
+1.Where Aggregation is representing weak association that is less dependency, but composition is representing strong association that is 
+    more dependency. 
+2.In case of Aggregation, if contained object is existed even without container object.
+    In case of Composition ,if contained object is not existed without container object. 
+3.In the case of Aggregation,the life of the contained Object is independent of the container Object life.
+    In the case of composition,the life of contained objects is depending on the container object life that is same as container object life. 
+
+EX:
+If we take an association between 
+	1. "Library" and "Students"
+        2. "Library" and "Books". 
+
+"Students" can exist without "Library"   , so that,the association between "Library" and "Student" is Aggregation.
+"Books" can not exist without "Library", so that,the association between "Library" and "Books" is Composition.
+
+Dependancy Injection
+==================
+   The process of injecting dependant object into target object is called as "Dependancy injection".
+
+We can achieve dependancy injection in 2 ways
+	a. Constructor dependancy injection
+	b. Setter dependancy injection
+
+a. Constructor dependancy Injection
+	Injecting dependant object into target object through a constructor is called as "Constructor Dependancy Injection".
+
+b. Setter dependancy Injection
+	Injecting dependant object into target object through a setter is called as "Setter Dependancy Injection".
+
+Note: 
+Circular Dependancy Injection
+=========================
+  Injecting dependant objects in circular fashion is called "Circular Dependancy Injection".
+      eg: A is depending on B and B is depending on A.
+
+In java applications, we are unable to achieve circular dependancy injection through consturctor dependancy injection,we are able to achieve
+circulr dependancy injection through setter dependancy injection.
+
+eg:Constructor Dependancy injection
+class A{
+	B b;
+	A(B b){
+	
+	}
+}
+class B{
+	A a;
+	B(A a){
+
+	}
+}
+class Test{
+	public static void main(String[] args){
+		
+	}
+}
+
+Eg#2.Setter Dependancy Injection
+class A{
+	B b;
+	public void setB(B b){
+
+	}
+}
+class B{
+	A a;
+	public void setA(A a){
+
+	}
+}
+class Test{
+	public static void main(String[] args){
+		A a =new A();
+		B b =new B();
+		a.setB(b);
+		b.setA(a);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

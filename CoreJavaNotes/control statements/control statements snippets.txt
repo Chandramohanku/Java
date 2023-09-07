@@ -1,0 +1,239 @@
+eg#1
+do{
+	System.out.println("hello");
+}while(true);
+
+eg#2
+do;while(true);
+
+eg#3
+do
+  int x=10;
+while(true);
+
+eg#4
+do{
+  int x=10;
+}while(true);
+
+eg#5
+dowhile(true)
+System.out.println("sachin");
+while(true);
+
+eg#6
+dowhile(true);
+
+eg#7
+do{
+	System.out.println("sachin");
+}while(true);
+System.out.println("dhoni");
+
+eg#8
+do{
+	System.out.println("sachin");
+}while(false);
+System.out.println("dhoni");
+
+
+eg#10
+int a=10,b=20;
+do{
+	System.out.println("sachin");
+}while(a<b);
+System.out.println("dhoni");
+
+
+eg#11
+int a=10,b=20;
+do{
+	System.out.println("sachin");
+}while(a>b);
+System.out.println("dhoni");
+
+
+eg#12
+final int a=10,b=20;
+do{
+	System.out.println("sachin");
+}while(a<b);
+System.out.println("dhoni");
+
+
+eg#13
+final int a=10,b=20;
+do{
+	System.out.println("sachin");
+}while(a>b);
+System.out.println("dhoni");
+
+
+eg#14
+final int a=10;
+do{
+	System.out.println("sachin");
+}while(a>20);
+System.out.println("dhoni");
+
+eg#15
+final int a=10;
+do{
+	System.out.println("sachin");
+}while(a<20);
+System.out.println("dhoni");
+
+forloop
+=======
+eg#8
+int a=10,b=20;
+for(int i=0;a<b;i++){
+  System.out.println("sachin"); 
+}
+System.out.println("dhoni");
+
+eg#9
+final int a=10,b=20;
+for(int i=0;a<b;i++){
+  System.out.println("sachin"); 
+}
+System.out.println("dhoni");
+
+
+break
+=====
+eg#1
+int x=0;
+switch(x){
+	case 0: System.out.println("hello");
+		break;
+	case 1: System.out.println("hiee");
+}
+
+eg#2.
+for(int i=0;i<5;i++){
+	if(i==3)
+	   break;
+	System.out.println(i);
+}
+
+eg#3.
+int x=10;
+l1:{
+	System.out.println("begin");
+	if(x==10)
+	   break l1;
+	System.out.println("end");
+}
+System.out.println("hello");
+
+eg#4.
+int x=10;
+if(x==10)
+  break;
+System.out.println("hello");
+
+continue
+========
+eg#1.
+for(int i=0;i<=5;i++){
+	if(i==3)
+	   continue
+    System.out.println(i);
+}
+
+eg#2.
+int x=2;
+for(int i=0;i<10;i++)
+{
+	if(i%x==0)
+	   continue;
+	System.out.println(i);
+}
+
+eg#3.
+int x=10;
+if(x==10)
+  continue
+System.out.println(x);
+
+labelled break and continue
+===========================
+l1:for(;;){
+   .....
+   .....
+   l2:for(;;){
+	.....
+	.....
+	.....
+	l3:for(;;){
+		.....
+		.....
+		.....
+		break l1;
+		break l2;
+		break l3;
+		.....
+		.....
+		.....
+	}
+	......
+	......
+
+   }
+   ....
+   ....
+   ....
+}
+
+eg#1.
+l1:for(int i=0;i<3;i++){
+	for(int j=0;j<3;j++){
+		if(i==j)
+			stmt-1;
+		System.out.println(i+"...."+j);
+	}
+   }
+
+what is the output if the stmt-1 is replaced as shown below?
+stmt-1 : break;
+stmt-1 : break l1;
+stmt-1 : continue;
+stmt-1 : continue l1;
+
+dowhile with continue
+=====================
+Predict the output for the following code?
+
+  int x=0;
+  do{
+	++x;
+	System.out.println(x);
+	if(++x<5)
+	  continue;
+        ++x;
+	System.out.println(x);
+   }while(++x<10);
+
+Note::
+while(true)
+  System.out.println("sachin");
+System.out.println("dhoni");
+         vs
+if(true)
+  System.out.println("sachin");
+else
+  System.out.println("dhoni");
+
+
+
+
+
+
+
+
+
+
+
+
+

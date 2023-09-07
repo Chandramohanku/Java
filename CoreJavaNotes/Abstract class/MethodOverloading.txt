@@ -1,0 +1,190 @@
+Abstract Modifier
+================
+  It is the modifier applicable only for methods and class but not for variables.
+
+Abstract Methods::
+   Even though we don't have implementation still we can declare a method with abstract modifier.
+   That is abstract methods have only declaration but not implementation.
+   Hence abstract method declaration should compulsorily ends with semicolon.
+
+Example
+=======
+   public abstract void methodOne();  => valid
+   public abstract void methodOne(){} => Invalid
+
+Child classes are responsible to provide implementation for parent class abstract methods.
+
+Example
+=======
+   Vehicle.java
+   ============
+   abstract class Vehicle{
+      public abstract int getNoOfWheels();
+   }
+
+Bus.java
+========
+class Bus extends Vehicle{
+     public int getNoOfWheels(){return 7;}
+}
+
+Auto.java
+=========
+class Auto extends Vehicle{
+     public int getNoOfWheels(){return 3;}
+}
+
+Advantages of abstract methods
+  a. By declaring abstract methods in parent class we can provide guide lines to the child class
+     such that which methods they should compulsorily implement.
+
+
+Note:: Abstract methods never speaks about implementation whereas if any modifier talks about
+       implementation then the modifier will be enemy to abstract and that is always illegal
+       combination for methods.
+
+
+abstract => final
+abstract => private
+abstract => native
+abstract => strictp
+abstract => static
+abstract => synchronized
+
+Abstract class
+===============
+ For any java class,if we dont want to create any object then such type of classes are refered as
+ abstract class.
+ Instantitation of abstract class is not possible.
+
+example::
+  abstract class Test{
+       public static void main(String... args){
+		Test t=new Test();//CE:instantion not possible
+        }
+  }
+
+
+Rules of Abstract class
+=======================
+   a. If a class contains atleast one abstract method make that class also as abstract.
+   b. Even if the class does not contain any abstract method still the class can be made as
+      abstract.
+            eg:: HttpServlet is an abstract class,but it does not contain abstract method.
+
+eg1::
+class Parent{
+   public void methodOne();
+}
+
+eg2::
+class Parent{
+	public abstract void methodOne(){}
+}
+eg3::
+abstract class Parent{
+	public abstract void methodOne();
+}
+
+Inheritance over abstract class
+===============================
+eg1::
+abstract class Parent{
+	public abstract void methodOne();
+	public abstract void methodTwo();
+}
+class Child extends Parent{
+	public void methodOne(){...}
+}
+output::CompileTimeError.
+
+What is the difference b/w final and abstract?
+  For abstract methods compulsorily,we should override in the child class to 
+  provide implementation,whereas for final methods we cannot override hence abstract final
+  comibnation is illegal for methods.
+
+  For abstract classes we should compulsorily create a child class to provide implementation
+  whereas for final class we cannot create child class. Hence final abstract implementation
+  is illegal for classes.
+
+  final classes cannot contain abstract methods whereas abstract class can contain final methods.
+
+Example
+   
+    final class A{
+	public abstract void methodOne();//Invalid
+    }
+
+    abstract class A{
+	public final void methodOne(){...}//Valid
+    }
+
+What is the difference b/w strictfp and abstract?
+   strictfp:: It is a modifier applicable for classes and method, it is not applicable 
+              for variables.
+ => It is introduced in jdk1.2 version.
+ => Result of floating point of arithmetic is varying from platform to platform.
+    to overcome this problem we use strictfp modifier.
+ => If a method is declared as strictfp, then all floating point calculations in that method has
+     to follow IEEE754 standard, so that we will get platform independant result.
+
+   eg:: class Sample{
+		public strictfp static void main(String... args){
+			System.out.println(10.0/3); // 3.333
+	        }
+        }
+
+ if the class is declared as strictfp, then all the concrete methods under that class 
+ if they perform floating point arithmetic opertion will give platform independant results.
+
+strictfp:: It speaks about implementation.
+abstract:: It never speaks about implementation.
+    so combination of strictfp and abstract is illegal for methods, but it is legal for class.
+
+
+
+
+
+
+
+
+              
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+

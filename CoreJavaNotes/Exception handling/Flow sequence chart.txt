@@ -1,0 +1,40 @@
+Speak about these exceptions with example
+==========================================
+1. SleepingException
+2. TyrePuncturedException
+
+TechnicalException
+1. FileNotFoundException
+2. SQLException
+
+Exception can it be handled
+  ans. Yes, even if exceptions occurs still it should be handled.
+
+
+eg#1.
+   open the database
+   read the data  but SQLException occured    ========> Database(it supports only 10 connection)
+   close the database
+
+eg#2.
+  try{
+     read data from London file
+   }
+   catch(FileNotFoundException e){
+     use local file and continue rest of the program normally
+   }
+
+Speak about RunTimeMechanism
+============================
+  1. one example without exception.
+  2. 3 example with exception as to how the things will be.
+
+Speak about Exception Hierarchy chart
+ 
+
+
+
+
+
+
+

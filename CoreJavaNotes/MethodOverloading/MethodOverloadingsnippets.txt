@@ -1,0 +1,221 @@
+eg1::
+   class Test{
+      public void methodOne(){System.out.println("Zero arg method");}
+      public void methodOne(int i){System.out.println("Int arg method");}
+      public void methodOne(Double f){System.out.println("Float arg method");}
+      public static void main(String[] args)
+      {
+		Test t= new Test();
+                 t.methodOne(10);
+		 t.methodOne();
+
+		Test t1=new Test();
+		t1.methodOne(22.5);	
+      }
+   }
+
+eg2::
+class Test{
+      public void methodOne(int i){System.out.println("Int arg method");}
+      public void methodOne(Float f){System.out.println("Float arg method");}
+      public static void main(String[] args){
+		Test t= new Test();
+                 t.methodOne('a');
+                 t.methodOne(25L);
+                 t.methodOne(25.5);
+      }
+   }
+
+eg3::
+class Test{
+      public void methodOne(int i,float f){System.out.println("Int,Float arg method");}
+      public void methodOne(float f,int i){System.out.println("Float,Int arg method");}
+      public static void main(String[] args){
+		 Test t= new Test();
+                 t.methodOne(10,10.5f);
+                 t.methodOne(10.5f,10);
+		 t.methodOne(10,10);
+                 t.methodOne(10.5f,10.5f);
+      }
+   }
+
+eg4::
+class Test{
+      public void methodOne(String s){System.out.println("String arg method");}
+      public void methodOne(Object o){System.out.println("Object arg method");}
+      public static void main(String[] args){
+		 Test t= new Test();
+                   t.methodOne("sachin");
+                   t.methodOne(new Object());
+		  t.methodOne(null);
+      }
+   }
+
+eg5::
+class Test{
+      public void methodOne(String s){System.out.println("String arg method");}
+      public void methodOne(StringBuilder sb){System.out.println("StringBuilder arg method");}
+      public static void main(String[] args){
+		 Test t= new Test();
+                 t.methodOne("sachin");
+                 t.methodOne(new StringBuilder("sachin"));
+		 t.methodOne(null);
+      }
+   }
+
+eg6::
+ class Animal{}
+ class Monkey extends Animal{}
+ class Demo{
+	public void methodOne(Animal a){System.out.println("Animal version");}
+	public void methodOne(Monkey d){System.out.println("Monkey version");}
+	public static void main(String[] args){
+                Demo d = new Demo();
+
+		Animal a=new Animal();
+                d.methodOne(a);
+
+                Monkey m=new Monkey();
+                d.methodOne(m);
+
+                Animal a1=new Monkey();
+                d.methodOne(a1);	
+	} 
+ }
+
+eg7::
+ class Test{
+	public void methodOne(){System.out.println("No arg no return type");}
+	public int  methodOne(){System.out.println("No arg with return type"); return 5;}
+ 
+        public static void main(String[] args){
+             Test t=new Test();
+	     t.methodOne();
+	     System.out.println(t.methodOne());
+        }
+ }
+
+eg#8.
+  class Test{
+      public void methodOne(int s){System.out.println("int version");}
+      public void methodOne(Integer i){System.out.println("Integer version");}
+      public void methodOne(Short s){System.out.println("Short version");}
+      public static void main(String[] args){
+		 Test t= new Test();
+		 short s= 10;
+		 Integer i =10;
+                 t.methodOne(s);
+                 t.methodOne(i);
+      }
+
+  }
+
+eg#9.
+class EasyOver {
+	static void go(int x) { System.out.print("int "); }
+	static void go(long x) { System.out.print("long "); }
+	static void go(double x) { System.out.print("double "); }
+   public static void main(String [] args) {
+	byte b = 5;
+	short s = 5;
+	long l = 5;
+	float f = 5.0f;
+	go(b);
+	go(s);
+	go(l);
+	go(f);
+  }
+}
+
+eg#10.
+class AddBoxing {
+	static void go(Integer x) { System.out.println("Integer"); }
+	static void go(long x) { System.out.println("long"); }
+     public static void main(String [] args) {
+	int i = 5;
+	go(i); 
+    }
+}
+
+Overloading w.r.t var args method
+=================================
+eg1::
+class Test{
+      public void methodOne(int ...i){System.out.println("Var arg method");}
+      public void methodOne(int i){System.out.println("Int arg method");}
+      
+      public static void main(String[] args){
+		Test t= new Test();
+                 t.methodOne(10);
+		 t.methodOne();
+		 t.methodOne(10,20,30);	
+      }
+   } 
+
+Overloading of main method
+==========================
+  It is possible to overload main method also, but jvm will always call main method with the    following argument only.
+        public static void main(String[] args)
+
+eg1::
+class Test{
+	public static void main(String[] args) {
+		System.out.println("String[] main method");
+        }
+        public static void main(int[] args) {
+		System.out.println("int[] main method");
+        }
+}
+eg2::
+  class Parent{
+        public static void main(String[] args) {
+		System.out.println("String[] main method");
+        }
+  }
+  class Child extends Parent{
+
+  }
+  
+
+eg3::
+  class Parent{
+        public static void main(String[] args) {
+		System.out.println("Parent main method");
+        }
+  }
+  class Child extends Parent{
+	public static void main(String[] args) {
+		System.out.println("Child main method");
+        }
+  }
+
+
+
+
+
+
+
+
+  
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

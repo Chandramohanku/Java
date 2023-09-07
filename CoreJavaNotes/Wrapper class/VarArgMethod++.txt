@@ -1,0 +1,183 @@
+Var arg method
+==============
+  It stands for variable argument methods.
+  In java language,if we have variable no of arguments, then compulsorily new method has to be
+  written till jdk1.4.
+  But jdk1.5 version, we can write single method which can handle variable no of 
+  arguments(but all of them should be of same type).
+
+  Syntax:: methodOne(dataType... varaibleName)
+                ... => It stands for ellipse
+
+eg1::
+    class Demo
+    {
+	public void methodOne(int... x){System.out.println("var arg method");}
+	
+        public static void main(String[] args){
+                Demo d= new Demo();
+		d.methodOne();//var arg method 
+		d.methodOne(10);//var arg method
+		d.methodOne(10,20,30);// var arg method
+	}
+    }
+
+Note:: internally the var arg method will converted to SingleDimension Array, so we can access the
+             var arg method arguments using index.
+
+eg2:: 
+  class Demo
+    {
+	public void methodOne(int... x){
+		int total=0;
+		for(int i=0;i<x.length;i++){
+			total+=x[i];
+		}
+		System.out.println("The sum is "+total);
+	}
+        public static void main(String[] args){
+                Demo d= new Demo();
+		d.methodOne();//The sum is 0
+		d.methodOne(10);//The sum is 10
+		d.methodOne(10,20,30);// The sum is 60
+	}
+    }
+
+eg3::
+  class Demo
+    {
+	public void methodOne(int... x){
+		int total =0;
+		for(int data:x){total+=data;}
+                System.out.println("The sum is "+total);
+	}
+        public static void main(String[] args){
+                Demo d= new Demo();
+		d.methodOne();//The sum is 0
+		d.methodOne(10);//The sum is 10
+		d.methodOne(10,20,30);// The sum is 60
+	}
+    }
+
+Note::
+
+case1
+=====
+Valid Signatures
+ 1.public void methodOne(int... x)
+ 2.public void methodOne(int...x)
+ 3.public void methodOne(int ...x)
+
+case2
+=====
+   We can mix normal argument with var argument
+    public void methodOne(int x,int... y)
+    public void methodOne(String s,int... x)
+
+case3
+=====
+While mixing var arg with normal argument var arg should be always last.
+ public void methodOne(int... x,int y); (invalid)
+
+case4
+=====
+In an argument list there should be only one var argument
+ public void methodOne(int... x,int ...y); (invalid)
+
+case5
+=====
+ We can overload var arg method, but var arg method will get a call only if none of matches are  found.
+ (just like default statement of switch case)
+
+eg::
+ class Test
+   {
+      public void methodOne(int ...i){System.out.println("Var arg method");}
+      public void methodOne(int i){System.out.println("Int arg method");}
+      
+      public static void main(String[] args)
+      {
+		Test t= new Test();
+                  t.methodOne(10);//Int arg method
+		 t.methodOne();//Var arg method
+		 t.methodOne(10,20,30);//Int arg method	
+      }
+   } 
+
+case6
+=====
+  public void methodOne(int... x) => it can be replace as int[] x
+
+case7
+=====
+  public void methodOne(int... x)
+  public void methodOne(int[] x)
+  
+  output:: CE because we cannot have two methods with same signature.
+
+
+SingleDimension Array vs Var Arg method
+=======================================
+   1. Whereever Singledimesion array is present we can replace it with Var Arg.
+        eg:: public static void main(String[] args) => String... args
+   2. Whereever Var arg  is present we cannot replace it with SingleDimension Array.
+        eg:: public void methodOne(String... args) => String[] args (invalid)
+
+
+Note::
+eg1::
+ class Test
+ {
+        public void methodOne(int... x){
+           for(int data: x){
+                System.out.println(data);
+           }
+         }
+	public static void main(String... args){
+                    Test t= new Test();
+                    t.methodOne(10,20,30);
+        }
+ }
+
+In the above pgm x is treated as One-D array.
+
+eg2::
+class Test
+ {
+        public void methodOne(int[]... x){
+           for(int[] OneD: x){
+		for(int element:oneD){
+		  System.out.println(data);
+                }
+           }
+         }
+	public static void main(String... args){
+                    Test t= new Test();
+		    int[] a= {10,20,30};
+                    int[] b= {30,40};
+
+                    t.methodOne(a,b);
+        }
+ }
+
+In the above program x is treated as 2D array
+
+Note:: methodOne(int...x)
+            => we can call this method by passing a group of int values,so it becomes 1-D array.
+       methodOne(int[]... x)
+            => we can call this method by passing a group of 1D int[], so it becomes 2-D array.
+
+
+
+
+
+
+
+
+
+
+   
+  
+   
+
+

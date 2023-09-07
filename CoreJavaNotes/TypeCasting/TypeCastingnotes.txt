@@ -1,0 +1,121 @@
+TypeCasting
+===========
+=> Parent class reference can hold child class objects,but by using that reference we can't call
+   child specific methods.
+=> We can use interface reference also to hold implementation class object.
+
+eg#1.
+  Object obj=new String("sachin");
+  System.out.println(obj.hashCode());//valid
+  System.out.println(obj.toString());//valid
+  System.out.println(obj.toUpperCase());//invalid
+
+eg#2.
+  Runnable r=new Thread();//valid
+
+TypeCasting syntax::
+    A b= (C) d;
+A=> class/interface
+b=> name of reference variable
+C=> class/interface
+d=> name of reference variable/object
+
+CompileTimeChecking
+===================
+ 1. The type of "d" and "c" must have some relationship[either child to parent,parent to child 
+    or same type] otherwise we will get compile time error saying "Incovertible Types".
+
+Example 1::
+      Object o =new String("sachin");
+      StringBuffer sb=(StringBuffer)o;
+
+Example 2::
+      String s=new String("bhaskhar");
+      StringBuffer sb=(StringBuffer)s;//CE: incompatible type
+
+
+2. "C" must be either same (or) derived type of "A" otherwise we will get copmile time error
+    saying incompatible types
+
+Example 1::
+      Object o =new String("sachin");
+      StringBuffer sb=(StringBuffer)o; //valid
+
+Example 2::
+      Object o =new String("sachin");
+      StringBuffer sb=(String)o; //invalid
+
+3. RunTimechecking
+   =>The underlying object type of "d" must be either same (or) derived type of "C" otherwise
+     we will get runtime exception saying "ClassCastException".
+
+Example#1.
+      Object o =new String("sachin");
+      StringBuffer sb=(StringBuffer)o;
+
+Ouput::java.lang.ClassCastException
+
+
+refer typecasting.png
+
+snippet
+=======
+ Base1 b=new Derived2();
+ Object o=(Base1)b;
+ Object o1=(Base2)o;
+ Base2 b1=(Base1)(new Derived1());
+ Base2 b1=(Base2)(new Derived3());
+ Base2 b2=(Base2)(new Derived1());
+
+
+TypeCastingExamples
+===================
+class Parent{
+	public void methodOne(){
+		System.out.println("A");
+	}
+}
+class Child extends Parent{
+	public void methodOne(){
+		System.out.println("B");
+	}
+	public void methodTwo(){
+		System.out.println("C");
+	}
+	public static void main(String... args){
+		Child c= new Child();
+		c.methodOne();//B
+		c.methodTwo();//C
+		((Parent)c).methodOne();		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

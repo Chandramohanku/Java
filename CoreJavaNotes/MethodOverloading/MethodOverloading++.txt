@@ -1,0 +1,231 @@
+Two or more methods is said to be Overloaded if both methods have same name but change in the
+argument type.
+     eg:: abs(int)
+          abs(float)
+          abs(long)
+            ..
+            ..
+          etc
+
+Overloading mechanism in java would reduce the burden of programmer(complexity is reduced).
+In case of Overloading, compiler is responsible for method resolution based on the reference type of the argument,it will not bind based on the run time object so we say Overloading as
+ "CompileTime/Static/EarlyBinding".
+
+eg1::
+   class Test
+   {
+      public void methodOne(){System.out.println("Zero arg method");}
+      public void methodOne(int i){System.out.println("Int arg method");}
+      public void methodOne(Double f){System.out.println("Float arg method");}
+      public static void main(String[] args)
+      {
+		Test t= new Test();
+                 t.methodOne(10);
+		 t.methodOne();
+
+		Test t1=new Test();
+		t1.methodOne(22.5);
+		
+      }
+   }
+
+eg2::
+class Test
+   {
+      public void methodOne(int i){System.out.println("Int arg method");}
+      public void methodOne(Float f){System.out.println("Float arg method");}
+      public static void main(String[] args)
+      {
+		Test t= new Test();
+                 t.methodOne('a');//int arg
+                 t.methodOne(25L);//float arg
+                 t.methodOne(25.5);//CE	
+      }
+   }
+
+eg3::
+class Test
+   {
+      public void methodOne(int i,float f){System.out.println("Int,Float arg method");}
+      public void methodOne(float f,int i){System.out.println("Float,Int arg method");}
+      public static void main(String[] args)
+      {
+		 Test t= new Test();
+                 t.methodOne(10,10.5f);
+                 t.methodOne(10.5f,10);
+		 t.methodOne(10,10);//CE
+                 t.methodOne(10.5f,10.5f);//CE
+      }
+   }
+
+eg4::
+class Test
+   {
+      public void methodOne(String s){System.out.println("String arg method");}
+      public void methodOne(Object o){System.out.println("Object arg method");}
+      public static void main(String[] args)
+      {
+		 Test t= new Test();
+                 t.methodOne("sachin");
+                 t.methodOne(new Object());
+		 t.methodOne(null);//String arg method
+      }
+   }
+
+ouput::Compiler will give preference for child type when it tries to perform method               resolution
+
+eg5::
+class Test
+   {
+      public void methodOne(String s){System.out.println("String arg method");}
+      public void methodOne(StringBuilder sb){System.out.println("StringBuilder arg method");}
+      public static void main(String[] args)
+      {
+		 Test t= new Test();
+                 t.methodOne("sachin");
+                 t.methodOne(new StringBuilder("sachin"));
+		 t.methodOne(null);//CE::Ambigous b/w String and StringBuilder
+      }
+   }
+
+eg6::
+ class Animal{}
+ class Monkey extends Animal{}
+ class Demo{
+	public void methodOne(Animal a){System.out.println("Animal version");}
+	public void methodOne(Monkey d){System.out.println("Monkey version");}
+	public static void main(String[] args)
+        {
+                Demo d = new Demo();
+
+		Animal a=new Animal();
+                d.methodOne(a);//Animal version
+
+                Monkey m=new Monkey();
+                d.methodOne(m);//Monkey version
+
+                Animal a1=new Monkey();
+                d.methodOne(a1);// Animal version(because a1 type is Animal)
+		
+	} 
+ }
+
+eg7::
+ class Test
+ {
+	public void methodOne(){System.out.println("No arg no return type");}
+	public int  methodOne(){System.out.println("No arg with return type"); return 5;}
+ 
+        public static void main(String[] args){
+             Test t=new Test();
+	     t.methodOne();
+	     System.out.println(t.methodOne());
+        }
+ }
+
+Note::When compiler binds the method call, it will refer to methodSignature only
+      In java methodSignature is 
+                => methodName(arg list)
+
+Overloading w.r.t var args method
+=================================
+eg1::
+ class Test
+   {
+      public void methodOne(int ...i){System.out.println("Var arg method");}
+      public void methodOne(int i){System.out.println("Int arg method");}
+      
+      public static void main(String[] args)
+      {
+		Test t= new Test();
+                 t.methodOne(10);//Int arg method
+		 t.methodOne();//Var arg method
+		 t.methodOne(10,20,30);//Int arg method	
+      }
+   } 
+Note:: var arg method will get last chance,just like default statement of switch meaning if          none of match is found then vararg method will be executed by JVM.
+
+Overloading of main method
+==========================
+  It is possible to overload main method also, but jvm will always call main method with the    following argument only.
+        public static void main(String[] args)
+
+eg1::
+   class Test
+   {
+	public static void main(String[] args) 
+        {
+		System.out.println("String[] main method");
+        }
+        public static void main(int[] args) 
+        {
+		System.out.println("int[] main method");
+        }
+   }
+output:: String[] main method
+Note:: The other overloaded method programmer should call.
+
+eg2::
+  class Parent{
+        public static void main(String[] args) 
+        {
+		System.out.println("String[] main method");
+        }
+  }
+  class Child extends Parent{
+
+  }
+  
+upon compilation, it will generate 2 .class files called Parent.class and Child.class
+  javac Parent
+  java  Parent => String[] main method
+  java  Child  => String[] main method
+Inheritance is applicable even for static methods also, if the method is not available in child class then from the parent class whatever method is available same method will be executed.
+
+eg3::
+  class Parent{
+        public static void main(String[] args) 
+        {
+		System.out.println("Parent main method");
+        }
+  }
+  class Child extends Parent{
+	public static void main(String[] args) 
+        {
+		System.out.println("Child main method");
+        }
+  }
+upon compilation, it will generate 2 .class files called Parent.class and Child.class
+  javac Parent
+  java  Parent => Parent main method
+  java  Child  => Child main method 
+
+By seeing the output, we might refer it as Overriding but on static method Overriding is not possible it MethodHiding.(refer to MethodHiding).
+
+
+
+
+
+  
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

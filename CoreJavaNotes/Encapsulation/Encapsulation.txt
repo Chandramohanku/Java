@@ -1,0 +1,152 @@
+3 pillars of oops
+=================
+1. Encapsulation => It speaks about security
+2. Inheritance   => It speaks about reusability
+3. Polymorphism  => It speaks about flexibility
+
+Datahiding
+==========
+   Our internal data should not go to the outside world directly that is outside person should not access our interal data directly.
+   By using private modifiers we can implement "datahiding".
+
+eg:: class Account{
+	private double balance;
+     }
+Advantage of Datahiding is security.
+Recommended modifier for data members is private.
+
+Abstraction
+===========
+ Hiding internal implementation and exposing the set of services is called "abstraction".
+ In java to promote abstraction we use "abstract class"/"interface".
+
+eg::
+  By using ATM,GUI screen bank people are highliting set of services what they are offering without highlighting internal implementation.
+
+Advantages of Abstraction
+=========================
+ a. We can achieve security as we are not highlighting internal implementation.
+ b. Enhancement becomes very easy becoz without effecting end user we can able to perform any type
+    of changes in our internal system.
+ c. It provides more flexibility to the end user to use system easily.
+ d. It improves maintainability of the application.
+ e. It improves modularity of the application.
+ f. It improves easyness to user our system.
+
+By using GUI screens we are implementing "abstraction".
+
+
+Encapsulation
+=============
+  Binding of data and corresponding methods into single unit is called "Encapsulation".
+  If any java class follows datahiding and abstraction then such class is refered as "Encapsulated class".
+
+Encapsulation = Datahiding + abstraction.
+
+   Every datatmember inside the class should be declared as private, and to access this private
+   data we need to have setter and getter methods.
+
+
+Advantages of Encapsulation
+==========================
+  a. We can achieve security.
+  b. Enhancment becomes easy.
+  c. Maintainablity and modularisation becomes easy.
+  d. It provides flexibility to the user to use system very easily.
+
+Tightly encapsulated class
+==========================
+ A class is said to be tightly encapsulated if and only if every variable of that class declared as private,and whether for all variables 
+ we have setter and getter method or not and whether these methods are delcared as public or not.
+
+eg:: class Account{ 
+          private double balance; 
+          public void setBalance(double balance){
+          	this.balance=balance;
+          }
+	  public double getBalance(){
+		return balance;
+	  }	  
+     }
+
+Note:: If the parent class is not encapsulated, then all its child classes are not tightly  encapsulated.
+
+JavaBean
+========
+  It is a simple java class with private properties and public getter and setter methods.
+
+example
+ public class Student{
+	private Integer sid;
+	public void setSid(Integer sid){this.sid=sid;}
+	public Integer getSid(){return sid;}
+ }
+
+Syntax for setter method
+  a. compulsoriy the method name should start with set.
+  b. it should be public.
+  c. return type should be void. 
+  d. compulsorily it should have some argument.
+
+Syntax for getter method
+  a. compulsoriy the method name should start with get.
+  b. it should be public.
+  c. return type should not be void. 
+  d. compulsorily it should not have any argument.
+
+
+Note:: if the property is of type boolean then for getter method we can prefix with either
+       "is/get".
+
+eg:: public class Student{ 
+              private boolean married; 
+              public void setMarried(boolean married){
+                     this.married=married;
+              }
+
+	      public boolean isMarried()/getMarried(){
+			return married;
+              }
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,506 @@
+Question1::
+String s = new String("sachin");
+s.concat("tendulkar");
+s=s.concat("IND");
+s="sachintendulkar";
+System.out.println(s);
+
+
+Question2::
+String s1= new String("sachin");
+s1.concat("tendulkar");
+s1+="IND";
+String s2=s1.concat("MI");
+System.out.println(s1);
+System.out.println(s2);
+     Find out totally how many objects are created and how many are eligible for
+     garbage collection?
+
+Question3:: 
+String s1=new String("you cannot change me!")
+String s2=new String("you cannot change me!");
+System.out.println(s1==s2);
+
+String s3="you cannot change me!";
+System.out.println(s1==s3);
+String s4="you cannot change me!";
+System.out.println(s3==s4);
+
+String s5="you cannot " + "change me!";
+System.out.println(s3==s5);
+
+String s6="you cannot ";
+String s7=s6+"change me!";
+System.out.println(s3==s7);
+
+
+final String s8="you cannot ";
+String s9=s8+"change me!";
+System.out.println(s3==s9);
+System.out.println(s6==s8);
+
+
+Q> 
+	String s1 =new String("sachin");
+         String s2=s1.intern();
+         System.out.println(s1==s2);
+         String s3="sachin";
+         System.out.println(s2==s3);
+
+
+Q>   String s1=new String("sachin");
+         String s2=s1.concat("IND");
+         String s3=s2.intern();
+         String s4="sachinIND";
+         System.out.println(s1 == s3);
+         System.out.println(s2 == s3);
+	 System.out.println(s3 == s4);
+
+
+Important methods of String
+===========================
+  1.public char charAt(int index)
+  2.public String concat(String str)
+  3.public boolean equals(Object o)
+  4.public boolean equalsIgnoreCase(String s)
+  5.public String subString(int begin)
+  6.public String subString(int begin,int end)
+  7.public int length()
+  8.public String replace(char old,char new)
+  9.public String toLowerCase()
+  10.public String toUpperCase()
+  11.public String trim()
+  12.public int indexOf(char ch)
+  13.public int lastIndexOf(char ch)
+
+
+
+Predict the output
+===================
+Q>
+String s1="sachin";
+String s2=s1.toUpperCase();
+String s3=s1.toLowerCase();
+System.out.print(s1==s2);
+System.out.print(s1==s3);
+
+Q>
+String s1="sachin";
+String s2=s1.toString();
+System.out.print(s1==s2);
+
+
+Q>
+String s1=new String("sachin");
+String s2=s1.toString();
+String s3=s1.toUpperCase();
+String s4=s1.toLowerCase();
+String s5=s1.toUpperCase();
+String s6=s1.toLowerCase();
+System.out.print(s1==s6);
+System.out.print(s3==s5);
+
+
+Q> String str =" ";
+      str.trim();
+      System.out.println(str.equals("")+  " " + str.isEmpty());
+	
+What is the result?
+A. true false
+B. true true
+C. false true
+D. false false
+
+Q> String s = "SACHIN TENDULKAR";
+       int len= s.trim().length();
+       System.out.println(len);
+
+What is the result?
+A. 10
+B. 9
+C. 8
+D. compilation fails
+
+
+Q> String s= "Hello world";
+       s.trim();
+       int i = s.indexOf(" ");
+       System.out.println(s);
+
+What is the result?
+A. Exception at runtime
+B. -1
+C. 5
+D. 0
+
+
+Q> String s1= "Java";
+       String s2=new String("java");
+	//line-1
+	{
+		System.out.println("equal");
+	}else{
+		System.out.println("not equal")
+	}
+To print equal which code fragment should be inserted?
+	A. String s1=s2;
+		if(s1==s2)
+	B. if(s1.equalsIgnoreCase(s2))
+	C. String s3= s2;
+	     if(s3.equalsIgnoreCase(s3))
+	D. if(s1.toLowerCase() == s2.toLowerCase()) 
+
+Q> System.out.print(""=="");
+       System.out.print(" ");
+       System.out.print("A"=="A");
+       System.out.print("a==A");
+	
+
+Important methods of StringBuffer/StringBuilder
+===============================================
+a. public int length()
+b. public int capacity()
+c. public char charAt(int index)
+d. public void setCharAt(int index,char ch)
+==================================================
+e. public StringBuffer append(String s)
+f. public StringBuffer append(int i)
+g. public StringBuffer append(long l)
+h. public StringBuffer append(boolean b)
+i. public StringBuffer append(double d)
+j. public StringBuffer append(float f)
+k. public StringBuffer append(int index,Object o) 
+===================================================
+l. public StringBuffer insert(int index,String s)
+m. public StringBuffer insert(int index,int i)
+n. public StringBuffer insert(int index,long l)
+o. public StringBuffer insert(int index,double d)
+p. public StringBuffer insert(int index,boolean b)
+q. public StringBuffer insert(int index,float f)
+r. public StringBuffer insert(int index,Object o)
+=================================================
+public StringBuffer delete(int begin,int end)
+public StringBuffer deleteCharAt(int index)
+public StringBuffer reverse()
+public void setLength(int Length)
+public void trimToSize()
+public void ensureCapacity(int capacity)
+
+
+	
+Questions on String
+===================
+1. Difference b/w String and StringBuilder?
+2. Difference b/w String and StringBuffer?
+3. Other than Immutablity and Mutablity what is the difference b/w String and StringBuffer?
+4. What is SCP?
+5. What is the advantage of SCP?
+6. What is the disadvantage of SCP?
+7. Why SCP is applicable only for String and not for StringBuilder?
+8. Is their any Object which is Immutable just like String?
+9. What is interning?
+10.Difference b/w final and Immutablity?
+
+Tricky snippets
+===============
+1.
+class MyStringClass extends String
+{
+    String name;
+}
+
+2.
+String name = "sachinrameshtendulkar".substring(4);
+System.out.println(name);
+
+3.
+String s = "1".repeat(5);
+System.out.println(s);
+
+4.
+System.out.println("1".concat("2").repeat(5).charAt(7));
+
+5.
+To which of the following classes, you can create objects without using new operator?
+String
+StringBuffer
+StringBuilder
+
+6.
+String string = "string".replace('i', '0');
+System.out.println(string.substring(2, 5));
+
+7.
+In my application, I want mutable and thread safe string objects. Which class do you refer me to use? String or StringBuffer or StringBuilder?
+
+8.
+System.out.println("Java" == new String("Java"));
+
+9.
+ String str = "   Ineuron\tTechnology\tPrivateLmtd\tKnown\tfor\tjava     ".strip();
+ System.out.println(str);
+
+10.
+ if("string".toUpperCase() == "STRING")
+  {
+      System.out.println(true);
+  }
+  else
+   {
+       System.out.println(false);
+   }
+
+11.
+String, StringBuffer and StringBuilder – all these three classes are final classes. True or False?
+
+12.
+String str1 = "1";
+String str2 = "22";
+String str3 = "333";
+System.out.println(str1.concat(str2).concat(str3).repeat(3));
+
+13.hashCode() and equals() methods are overridden in –
+java.lang.String
+java.lang.StringBuffer
+java.lang.StringBuilder
+
+14.Ronaldo is developing an application in which string concatenation is very frequent. 
+     Which string class do you refer him to use? And also he doesn’t need code to be thread safe.
+
+15.
+System.out.println("Java"+1000+2000+3000); 
+
+16.
+System.out.println(1000+2000+3000+"Java");
+
+17.
+System.out.println(7.7+3.3+"Java"+3.3+7.7);
+
+18.
+System.out.println("ONE"+2+3+4+"FIVE"); 
+
+19.
+String s1=" ";
+System.out.println(s1.isBlank());
+System.out.println(s1.isEmpty());
+
+20.
+String s2="sachin ramesh tendulkar";
+System.out.println(s2.substring(8, 4));
+
+21.
+String s1 = new String("JAVA");
+String s2 = new String("JAVA");
+System.out.println(s1 == s2);
+System.out.println(s1.equals(s2));
+System.out.println(s1 == s2.intern());
+System.out.println(s1.intern() == s2.intern());
+System.out.println(s1.intern() == s2);
+
+22.
+String[] strings = {"Java", "JEE", "Hibernate", "Spring", "SpringBoot"};
+String languages = String.join("_", strings);
+System.out.println(languages);
+
+23.
+String string = "JAVA";
+StringBuffer sbuffer = new StringBuffer(string);
+StringBuilder sBuilder = new StringBuilder(string);
+System.out.println(string.equals(sbuffer));
+System.out.println(string.equals(sBuilder));
+System.out.println(sbuffer.equals(sBuilder));
+
+24.
+String s1 = "null"+null+1;
+System.out.println(s1);
+
+25.
+String s1 = 1+null+"null";
+System.out.println(s1);
+
+26.
+String str = "sachin ramesh tendulkar";
+System.out.println(str.indexOf('a') + str.indexOf("dulkar"));
+
+27.
+String s1="sachinrameshtendulkar";
+System.out.println(s1.replace('a', 'A').indexOf('a'));
+
+28.
+String str = "ineuron Technology Private Limited";
+System.out.println(str.indexOf('n', 5));
+
+29.
+String str = "ineurontechnologyprivatelimited";
+System.out.println(str.charAt(str.length()));
+
+30.
+StringBuilder sb = new StringBuilder(-32);
+sb.append("ABC");	
+System.out.println(sb);
+
+31.
+String str = null;
+System.out.println(str.isBlank());
+
+32.
+StringBuilder sb = new StringBuilder("0123456789");
+System.out.println(sb.delete(3, 6).deleteCharAt(4).deleteCharAt(5));
+
+33.
+String str1 = "123321123";
+System.out.println(str1.replaceFirst("123", "321").replaceAll("12", "21").substring(3, 6));
+  
+34.
+String str1 = "OnE tWo ThReE fOuR";
+String str2 = "oNeTwOtHrEeFoUr";
+System.out.println(str1.trim().equalsIgnoreCase(str2));
+
+35.
+StringBuffer sb = new StringBuffer("11111");
+System.out.println(sb.insert(3, false).insert(5, 3.3).insert(7, "One"));
+
+36.
+String str1 = "Java J2EE Spring Hibernate SQL";
+String str2 = "Python Java Scala C C++";
+System.out.println(str1.contains("HTML") == str2.contains("HTML"));
+
+37.
+StringBuffer sb = new StringBuffer("One Two Three Four Five");
+System.out.println(sb.reverse().indexOf("Two"));
+    
+38.
+StringBuffer and StringBuilder classes have intern() method. True or False?
+
+39.
+System.out.println(String.valueOf(10)+String.valueOf(1.1)+String.valueOf(true));
+ 
+40.
+System.out.println(String.join(",", "1", "2", "3").concat(",").repeat(3).lastIndexOf(','));
+
+41.
+StringBuffer sb1 = new StringBuffer("11111");
+StringBuffer sb2 = sb1.append(22222).reverse();
+System.out.println(sb1 == sb2);
+
+
+42.
+String str1 = "Java";
+String str2 = str1.intern();
+System.out.println(str1 == str2);
+System.out.println(str1.equals(str2));
+ 
+
+43.
+String str1 = "Java";
+String str2 = str1.intern();
+String str3 = new String("Java");
+System.out.println(str1 == str2);
+System.out.println(str2 == str3);
+System.out.println(str3 == str1);
+
+44.
+String s1 = "ONE";
+s1.concat("TWO");
+s1.concat("THREE");
+System.out.println(s1);
+
+45.
+String s1 = "1";
+System.out.println(s1.concat("2").concat("3"));
+
+46.
+String str = "iNeuron Technology private limited";
+System.out.println(str.replace("a", "A").lastIndexOf('a'));
+
+47.java.lang.String class has append() method. Right or Wrong?
+
+48.
+String str = "    ";
+System.out.println(str.isBlank());
+System.out.println(str.isEmpty());
+
+49.
+Which of these classes have delete() and reverse() method 
+  java.lang.String, java.lang.StringBuffer and java.lang.StringBuilder?
+
+50.
+java.lang.String class implements which of the following interfaces?
+Serializable
+CharSequence
+Comparable
+All of the above
+
+51.
+String[] strings = "iNeuron_Technology_privatelimited_Known_For_Java".split("_", 3);
+    for (String string : strings) {
+        System.out.println(string);
+    }
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     
+
+           
+
+
+
+
+
+    
+
+
+
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        

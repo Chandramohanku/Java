@@ -1,0 +1,21 @@
+Declaration output
+================
+1. 
+int i=10;
+int j=20; 
+
+2.
+transient int i=10;
+int j=20;
+
+3.
+transient int i=10;
+transient static int j=20; 
+
+4.
+transient final int i=10;
+transient int j=20; 
+
+5.
+transient final int i=10;
+transient static int j=20; 

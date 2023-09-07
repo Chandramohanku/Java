@@ -1,0 +1,261 @@
+instance variables
+    Variables whose value changes from Object to object is called "instance variables".
+    For every object seperated copy of instance variables will be created.
+    Memory for these variables would be given on the heap area, so jvm would perform
+    initialisation with default values.
+
+eg:: public class Student{
+         private String sname;
+         private int sid;
+         private int sage;
+ 
+           public Student(String sname,int sid,int sage){
+		this.sname=sname; this.sid=sid; this.sage=sage;
+           }
+     }
+
+     Student s1= new Student("sachin",10,49);
+     Student s2= new Student("dhoni",7,41);
+
+
+eg:: class Test{ 
+          int i;
+          public static void main(String... args){
+		System.out.println(new Test().i);//0
+          }
+       }
+
+Note:: If we make instance variable as final, then compulsorily we should perform
+       initialisation explicitly jvm wont provide default values.
+       Wheter we use or not otherwise we get compile time error.
+
+eg1:: 
+class Test{
+    int i;
+}
+
+output:: No compilation.
+
+eg2::
+class Test{
+   final int i;
+}
+output:: Compilation error.
+
+Rule::For final instance variable we should perform initalisation before constructor completion
+       a. At the time of declaration
+       b. Inside instance block
+       c. Inside constructor
+
+eg1::At the time of declaration
+class Test{
+   final int i = 10;
+}
+
+eg2:: Inside instance block
+class Test{
+   final int i;
+   {
+     i=100;
+   }
+}
+
+eg3::Inside constructor
+class Test{
+   final int i;
+   Test(){
+	i=10;
+   }
+}
+
+If we are initialising any where else it would result in compile time error.
+class Test{
+   final int i;
+   public void methodOne(){i=10;} //CE
+}
+=========================================================================
+static variables
+    If the value of the variable changes from object to oject then it is not recomended to keep
+    those variables as static, then those type of variables should be kept as static.
+    In case of instance variables for every object seperate copy will be created but in case
+    of static variables a single copy will be created at class level and shared by every object
+    of that class.
+    static variables will get a memory on the method area, it is not required to perform 
+    initialisation jvm will perform initialisation.
+
+eg::
+class Test{
+   static int i;
+   public static void main(String... args){
+	System.out.println(i);//0
+   }
+}
+Note:: If we make static variable as final, then compulsorily we should perform
+       initialisation explicitly jvm wont provide default values.
+       Wheter we use or not otherwise we get compile time error.
+
+eg:: 
+class Test{
+    final static int i;
+}
+output::Compile Time error
+
+Rule:: For final static variables we should perform initialisation before loading class loading
+       otherwise it would result in compile time error.
+
+Possible places are
+a. At the time of declaration
+   class Test{
+      final static int i=10;
+   }
+
+b. Inside static block
+  class Test{
+    final static int i;
+      static{
+         i=10;
+      }
+   }
+
+if we are performing initialisation any where then it would result in compile time error
+
+class Test{
+    final static int i;
+    public static void methodOne(){
+	i=10;  //Compile time error.
+    }
+}
+========================================================================
+local variables
+   Variables which are created by the programmer to meet the temporary requriements is called
+   "local varaibles".
+   Variables which are a part of method signature,method body those variables are called as
+    "Local variables".
+   Memory for those variables will be given on the stack memory,jvm will not initialise any
+   value for those variables,compulsorily the user should initialise the value.
+   
+
+eg:: class Test{
+	public static void main(String... args){
+		int i;
+		System.out.println("Hello");
+        }
+      }
+
+eg::class Test{
+	public static void main(String... args){
+		int i;
+		System.out.println("i => "+i);//CE
+        }
+     }
+
+If the local variables are final then we should initialize before we use
+  eg:: class Test{
+	public static void main(String... args){
+		final int i;
+		System.out.println("Hello");
+        }
+      }
+
+  eg::class Test{
+	public static void main(String... args){
+		final int i=10;
+		System.out.println("i => "+i);
+        }
+      }
+
+Note:: The only modifier applicable for local variables is final,if we use any other modifier
+       it would result in compile time error.
+
+Formal Parameters
+================
+   The formal parameters of the method would be local variables of the method, so it is possible
+   to make those variables as final.
+   If we declare formal parameters as final then we cannot change the value of those variables 
+   within the method.
+
+eg::
+class Test{
+   public static void add(final int a,int b){
+	a=100;//CE
+	b=200;
+   }
+
+   public static void main(String... args){
+	add(10,20);
+   }
+}
+static modifer
+=============
+   It is applicable for methods and variables.
+   It is not applicable for classes at the topmost level, at the inner most level it 
+   is applicable.
+    instance variables ==> for every instance
+    static variables   ==> for one class.
+
+eg:: class Test{
+	static int x=10;
+        int y=20;
+        public static void main(String... args){
+		Test t1=new Test();
+		t1.x=888;
+                t1.y=999;
+
+                Test t2=new Test();
+		System.out.println(t1.x +" "+ t1.y);//888  999
+                System.out.println(t2.x +" "+ t2.y);// 10   20     
+	}
+     }
+
+Note::
+   static area ======> static variables(valid), 
+                       instance varaibles(X)
+
+   instance area =====> instance variables(valid)
+                        static variables(valid)
+
+eg1::
+class Test{ 
+    int x=10; 
+    public void methodOne(){
+	System.out.println(x);//10
+    }
+}
+
+eg2::
+class Test{
+	int x=10;
+      public static void methodOne(){
+	System.out.println(x);//CE
+    }
+}
+
+eg3::
+class Test{ 
+    static int x=10; 
+    public void methodOne(){
+	System.out.println(x);//10
+    }
+}
+
+eg4::
+class Test{ 
+    static int x=10; 
+    public static void methodOne(){
+	System.out.println(x);//10
+    }
+}
+
+eg5::
+class Test{
+	int x=10;
+	static int x=100; //CE
+}
+
+
+
+    
+    
+
+   
+

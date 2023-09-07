@@ -1,0 +1,9 @@
+Which of the following import statements are valid ?
+ 1. import java.lang.Math.*;
+ 2. import static java.lang.Math.*;
+ 3. import java.lang.Math;
+ 4. import static java.lang.Math;
+ 5. import static java.lang.Math.sqrt.*;
+ 6. import java.lang.Math.sqrt;
+ 7. import static java.lang.Math.sqrt();
+ 8. import static java.lang.Math.sqrt;

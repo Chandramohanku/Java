@@ -1,0 +1,262 @@
+Garbage Collector
+=================
+1.Nullifying the reference variable: 
+    If an object is no longer required then we can make eligible for GC by assigning "null" 
+    to all its reference variables.
+
+eg#1.
+     Student s1=new Student();
+     Student s2=new Student();
+	;;;;;
+	;;;;;
+	s1=null;
+        ;;;;;;
+        ;;;;;;
+	s2=null;
+	;;;;;;;
+	 
+
+2.Reassign the reference variable:  
+   eg#1.   
+	Student s1=new Student();
+	Student s2=new Student();
+		;;;;
+		;;;;
+		;;;;
+	      s1=new Student();
+		;;;;
+		;;;;
+		;;;;
+	       s2=s1;
+		;;;;
+		;;;;
+
+3. Objects created inside a method are by default eligible for GC once method completes. 
+
+eg#1.
+ 	public class Test{
+		static void m1(){
+			Student s1=new Student();
+			Student s2=new Student();
+		}
+		public static void main(String... args){
+			m1();
+			;;;;
+			;;;;	
+		}
+	}
+
+eg#2.
+ 	public class Test{
+		static Student m1(){
+			Student s1=new Student();
+			Student s2=new Student();
+			return s1;
+		}
+		public static void main(String... args){
+			Student s= m1();
+			;;;;
+			;;;;	
+		}
+	}
+
+eg#3.
+	public class Test{
+		static Student m1(){
+			Student s1=new Student();
+			Student s2=new Student();
+			return s1;
+		}
+		public static void main(String... args){
+			m1();
+			;;;;
+			;;;;	
+		}
+	}
+
+eg#4.
+    public class Test{
+		static Student s;
+		static Student m1(){
+			 s=new Student();
+			Student s2=new Student();
+		}
+		public static void main(String... args){
+			m1();
+			;;;;
+			;;;;	
+		}
+	}
+
+4. Island of Isolation
+ 
+eg#1.
+ 	public class Test{
+		Test i;	
+		public static void main(String... args){
+			Test t1=new Test();
+			Test t2=new Test();
+			Test t3=new Test();
+			;;;;;
+			;;;;;
+			;;;;;
+
+			t1.i=t2;
+			t2.i=t3;
+			t3.i=t1;
+			;;;;;;
+			;;;;;;
+			;;;;;;
+
+			t1=null;
+			;;;;;
+			;;;;;
+
+			t2=null;
+			;;;;;
+			;;;;;
+	
+			t3=null;
+			;;;;;
+			;;;;;
+
+		}
+	}
+
+
+Requesting JVM to start the Garbage Collector
+=============================================
+Which of the following are valid ways for requesting jvm to run GC ? 
+1. System.gc();  
+2. Runtime.gc(); 
+3. (new Runtime).gc(); 
+4. Runtime.getRuntime().gc();
+
+finalization
+============
+case1:
+eg#1.
+public class TestApp{
+	public static void main(String... args){
+		String s=new String("sachin");
+		s=null;
+		Runtime.getRuntime().gc();
+		System.out.println("end of main()");
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+	}
+}
+
+eg#2.
+public class TestApp{
+	public static void main(String... args){
+		String s=new String("sachin");
+		s=null;
+		TestApp t =new TestApp();
+		t=null;
+		Runtime.getRuntime().gc();
+		System.out.println("end of main()");
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+	}
+}
+
+case2:
+
+eg#1.
+public class TestApp{
+	public static void main(String... args){
+		TestApp t =new TestApp();
+		t.finalize();//Explicitly we are calling so object wont be cleaned
+		t.finalize();
+
+		t=null;
+		System.gc();
+		System.out.println("End of main()");	
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+	}
+}
+
+
+case3:
+public class TestApp{
+	public static void main(String... args){
+		TestApp t =new TestApp();
+		
+		t.finalize();
+
+		t=null;
+		System.gc();
+		System.out.println("End of main()");
+		
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+		System.out.println(10/0);
+	}
+}
+=> If we are not comment line1 then programmer calling finalize() method explicitly and 
+   while executing the finalize()method ArithmeticException raised which is uncaught hence the program    
+   terminated abnormally.
+=> If we are comment line1 then GC calls finalize() method and JVM ignores ArithmeticException and program will    
+   be terminated normally.
+
+Which of the following is true? 
+While executing finalize() method JVM ignores every exception(invalid). 
+While executing finalize() method JVM ignores only uncaught exception(valid). 
+
+case4:
+ On any object GC calls finalize() method only once.
+
+public class TestApp{
+	static TestApp s;
+	public static void main(String... args)throws InterruptedException{
+		TestApp t =new TestApp();
+		System.out.println(t.hashCode());
+		t=null;
+
+		System.gc();
+		Thread.sleep(5000);
+
+		System.out.println(s.hashCode());
+		s=null;
+		System.gc();
+		Thread.sleep(10000);
+
+		System.out.println("End of main()");
+		
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+		s=this;
+		
+	}
+}
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+	      
+
+
+
+
+
+
+
+

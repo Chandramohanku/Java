@@ -1,0 +1,489 @@
+Agenda 
+1. Introduction 
+2. Internal implementation of enum 
+3. Declaration and usage of enum 
+4. Enum vs switch statement 
+5. enum outside the class allowed modifiers 
+6. enum inside a class allowed modifiers 
+7. Enum vs inheritance 
+8. Java.lang.Enum class 
+	o values() method 
+	o ordinal() method 
+9. Speciality of java enum 
+10. Enum vs constructor 
+11. enum Vs Enum Vs Enumeration
+
+Introduction :
+We can use enum to define a group of named constants.
+Example 1: 
+enum Month
+{
+	JAN,FEB,MAR, ... DEC; //; -->optional
+}
+Example 2:
+enum Color
+{
+	RED,BLUEE,GREEN;
+}
+=> Enum concept introduced in 1.5 versions.
+=> When compared with old languages enum java's enum is more powerful.
+=> By using enum we can define our own data types which are also come enumerated 
+   data types.
+
+Internal implementation of enum:
+	enum Color
+	{
+		RED,BLUE,GREEN;
+	}
+	public final class Color extends java.lang.Enum
+	{
+		public static final Color RED=new Color();
+		public static final Color BLUE=new Color();
+		
+	}
+Internally enum's are implemented by using class concept.
+Every enum constant is a reference variable to that enum type object. 
+Every enum constant is implicitly public static final always. 
+
+Declaration and usage of enum:
+Example 4: 
+enum Color
+{
+	RED,BLUE,GREEN;//here semicolon is optional.
+}
+
+class Test
+{
+	public static void main(String args[]){
+		Color c=Color.RED;
+		System.out.println(c);
+	}
+}
+Output:
+D:\Enum>java Test
+RED
+
+Note:
+=> Every enum constant internally static hence we can access by using "enum name". 
+=> Internally inside every enum toString() method is implemented to return name of the constant
+
+Enum vs switch statement:
+=> Until 1.4 versions the allowed argument types for the switch statement are byte, short, 
+   char int. 
+=> But from 1.5 version onwards in addition to this the corresponding wrapper classes and 
+   enum type also allowed. 
+=> That is from 1.5 version onwards we can use enum type as argument to switch statement.
+
+enum Color
+{
+	GREEN,RED,BLUE;
+}
+class Test{
+	public static void main(String args[]){
+		Color c=Color.RED;
+switch(b1){
+case RED:
+System.out.println("it is childrens brand");
+break;
+case BLUE:
+System.out.println("it is blue color");
+break;
+case GREEN:
+System.out.println("it is green color");
+break;
+default:
+System.out.println("other colors are not good");
+}
+}}
+Output:
+D:\Enum>java Test
+It is childrens brand.
+If we are passing enum type as argument to switch statement then every case label 
+should be a valid enum constant otherwise we will get compile time error.
+
+Example: 
+enum Color
+{
+	BLUE,GREEN,RED;
+}
+class Test{
+public static void main(String args[]){
+	Color c1=Color.BLUE;
+	switch(c1){
+		case BLUE:
+		case GREEN:
+		case YELLOW:
+	 }
+      }
+}
+Output:
+Compile time error.
+D:\Enum>javac Test.java
+Test.java:11: unqualified enumeration constant name required case YELLOW :
+
+We can declare enum either outside the class or within the class but not inside a method. 
+
+If we declare enum outside the class the allowed modifiers are :
+public 
+default 
+strictfp.
+
+If we declare enum inside a class then the allowed modifiers are : 
+public private
+default + protected
+strictfp static
+
+
+Enum vs inheritance:
+=> Every enum in java is the direct child class of java.lang.Enum class hence it is not 
+   possible to extends any other enum.
+=> Every enum is implicitly final hence we can't create child enum.
+=> Because of above reasons we can conclude inheritance concept is not applicable 
+   for enum's explicitly. Hence we can't apply extends keyword for enum's .
+=> But enum can implement any no. Of interfaces simultaneously.
+
+eg: enum X{}
+    enum Y extends X{} //invalid
+
+eg: enum X extends java.lang.Enum{} //invalid
+
+eg: class X{}
+    enum Y extends X{}//invalid
+
+eg: enum X{}
+    class Y extends X{}//invalid
+
+eg: interface X{}
+    enum Y implements X{}//valid
+
+
+Java.lang.Enum class: 
+=> Every enum in java is the direct child class of java.lang.Enum class. Hence this class 
+   acts as base class for all java enums. 
+=> It is abstract class and it is direct child class of "Object class"
+=> It implements Serializable and Comparable.
+=>   Object
+       |
+    java.lang.Enum => Serializable,Cloneable
+
+values() method:
+  Every enum implicitly contains a static values() method to list all constants of enum. 
+	Example: Color[] c=Color.values();
+
+enum Colors{
+	GREEN,RED,BLUE;
+}
+public class Test{
+	
+	public static void main(String[] args){
+		Colors c[]=Colors.values();
+		for(Colors c1:c){
+			System.out.println(c1);
+		}
+   }
+}
+
+ 
+Ordinal() method:
+=> Within enum the order of constants is important we can specify by its ordinal value. We 
+   can find ordinal value(index value) of enum constant by using ordinal() method. 
+	Example: public final int ordinal();
+
+enum Colors{
+	GREEN,RED,BLUE;
+}
+public class Test{
+	public static void main(String[] args){
+		Colors c[]=Colors.values();
+		for(Colors c1:c){
+			System.out.println(c1+"====>"+c1.ordinal());
+		}
+   }
+} 
+GREEN ====> 0
+RED   ====> 1
+BLUE  ====> 2
+
+Speciality of java enum
+=======================
+=>When compared with old languages enum, java's enum is more powerful because in 
+  addition to constants we can take normal variables, constructors, methods etc which 
+  may not possible in old languages.
+=>Inside enum we can declare main method and even we can invoke enum directly from the command       prompt. 
+
+Example: 
+enum Fish{
+	GOLD,APOLO,STAR;
+	public static void main(String args[]){
+		System.out.println("enum main() method called");
+	}
+}
+Output:
+D:\Enum>java Fish
+enum main() method called
+
+In addition to constants if we are taking any extra members like methods then the list of 
+constants should be in the 1st line and should ends with semicolon. 
+If we are taking any extra member then enum should contain at least one constant. Any 
+way an empty enum is always valid.
+
+ 
+ex:
+  enum X{
+	A,B,C;  // ; is mandatory
+	public void m1(){
+
+	}
+  }
+valid
+
+ex:
+  enum X{
+	public void m1(){
+
+	}
+	A,B,C;
+  }
+invalid
+
+ex: 
+  enum X{
+	public void m1(){
+
+        }
+  }
+invalid
+
+ex: 
+  enum X{
+	;
+  }
+valid
+
+ex: 
+  enum X{
+
+  }
+valid
+
+Enum vs constructor
+===================
+Enum can contain constructor. Every enum constant represents an object of that enum 
+class which is static hence all enum constants will be created at the time of class loading 
+automatically and hence constructor will be executed at the time of enum class loading 
+for every enum constants.
+
+enum Colors{
+	GREEN,RED,BLUE;
+	Colors(){
+		System.out.println("Constructor called");
+	}
+}
+public class Test{
+	public static void main(String[] args){
+		Colors c= Colors.GREEN;//line-1 is commented
+		System.out.println("hello");
+   }
+}
+Output
+javac Test.java =====> Colors.class and Test.class
+java Test
+ Constructor called
+ Constructor called
+ Constructor called
+ hello
+
+if line-1 is commented then the output
+ hello
+
+case2:
+enum Colors{
+	GREEN,RED,BLUE;
+	Colors(){
+		System.out.println("Constructor called");
+	}
+}
+public class Test{
+	public static void main(String[] args){
+		Colors c=new Colors();
+   }
+}
+Output:
+Compile time error.
+javac Test.java
+Test.java:9: enum types may not be instantiated
+ Colors c=new Colors();
+
+
+Note
+  GREEN    => public static final Colors GREEN = new Colors();
+  GREEN(10) => public static final Colors GREEN = new Colors(10);
+
+eg: 
+ enum IplTeam{
+	CSK(100),MI(120),RCB(80),SRH;
+	int price;
+	IplTeam(int price){
+		this.price=price;
+	}
+	IplTeam(){
+		this.price=55;
+	}
+	public int getPrice(){
+		return price;
+	}
+ }
+ public class Test{
+	public static void main(String... args){
+		IplTeam[] iplTeam=IplTeam.values();
+		for(IplTeam team:iplTeam){
+			System.out.println(team +"======>"+team.getPrice());
+		}
+	}
+ }
+Output
+CSK ====> 100
+ MI ====> 120
+RCB ====> 80
+SRH ====> 55
+
+
+Note:
+Inside enum we can take both instance and static methods but it is not possible to take 
+abstract methods.
+	enum X{
+		abstract void m1();
+	}
+abstract means child should give implementation,but enum can't be inherited.
+if the class contains atleast one abstract method,then enum should be marked as abstract,but every
+enum by default is abstract,illegal combination.
+
+Case 1: 
+Every enum constant represents an object hence whatever the methods we can apply on 
+the normal objects we can apply the same methods on enum constants also.
+Which of the following expressions are valid ? 
+Color.GREEN == Color.RED -----------------------------> false
+Color.GREEN.equals(Color.RED) ------------------------> false
+Color.GREEN < Color.GREEN------------------------------> invalid
+Color.GREEN.ordinal() < Color.RED.ordinal()------------> valid
+Color.GREEN.hashCode() < Color.RED.hashCode() =========> valid
+
+
+Case 2: 
+Example 1: 
+package pack1;
+public enum Fish{
+	STAR,GUPPY;
+}
+
+Example 2: 
+package pack2;
+//import static pack1.Fish.*;
+import static pack1.Fish.STAR;
+class A{
+	public static void main(String args[]){
+		System.out.println(STAR);
+	}
+}
+=> import pack1.*; ---------------------------->invalid
+=> import pack1.Fish; ------------------------->invalid
+=> import static pack1.Fish.*; ---------------->valid
+=> import static pack1.Fish.STAR; ------------->valid
+
+
+Example 3: 
+package pack3;
+//import pack1.Fish;
+import pack1.*;
+//import static pack1.Fish.GUPPY;
+import static pack1.Fish.*;
+class B{
+	public static void main(String args[]){
+		Fish f=Fish.STAR;
+		System.out.println(GUPPY);
+       }
+}
+Note :
+If we want to use classname directly from outside package we should write normal import, 
+If we want to access static method or static variable without classname directly then 
+static import is required. 
+
+
+case3:
+Example 1: 
+enum Color{
+	BLUE,RED,GREEN;
+	public void info(){
+		System.out.println("Universal color");
+	}
+}
+class Test{
+	public static void main(String args[]){
+		Color[] c=Color.values();
+		for(Color c1:c){
+			c1.info();
+		}
+	}
+}
+Output:
+Universal color
+Universal color
+Universal color
+
+Example 2: 
+enum Color{
+	BLUE,RED
+	{
+		public void info(){
+			System.out.println("Dangerous color");
+		}
+	},GREEN;
+	public void info(){
+		System.out.println("Universal color");
+	}
+}
+class Test{
+	public static void main(String args[]){
+		Color[] c=Color.values();
+		for(Color c1:c){
+			c1.info();
+		}
+	}
+}
+Output:
+Universal color
+Dangerous color
+Universal color
+
+enum Vs Enum Vs Enumeration :
+=> enum :enum is a keyword which can be used to define a group of named constants. 
+
+=> Enum :It is a class present in java.lang package . 
+	 Every enum in java is the direct child class of this class. Hence this Enum class acts             as base class for all java enum's.
+ 
+=> Enumeration :It is a interface present in java.util package .
+		We can use Enumeration to get the objects one by one from the Collections. 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+

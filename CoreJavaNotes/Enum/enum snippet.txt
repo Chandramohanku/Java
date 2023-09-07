@@ -1,0 +1,53 @@
+eg: enum X{}
+    enum Y extends X{}
+
+eg: enum X extends java.lang.Enum{}
+
+eg: class X{}
+    enum Y extends X{}
+
+eg: enum X{}
+    class Y extends X{}
+
+
+Speciality of java enum
+=======================
+ex:
+  enum X{
+	A,B,C; 
+	public void m1(){
+
+	}
+  }
+
+ex:
+  enum X{
+	public void m1(){
+
+	}
+	A,B,C;
+  }
+
+ex: 
+  enum X{
+	public void m1(){
+
+        }
+  }
+
+ex: 
+  enum X{
+	;
+  }
+
+ex: 
+  enum X{
+
+  }
+
+
+
+
+
+
+

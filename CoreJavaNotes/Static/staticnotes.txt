@@ -1,0 +1,266 @@
+Control flow in static
+======================
+class Sample{
+	static int i=10;
+	static{
+		methodOne();
+		System.out.println("First static block");
+	}
+	public static void main(String[] args){
+		methodOne();
+		System.out.println("Main method");
+	}
+	public static void methodOne(){
+		System.out.println(j);	
+	}
+        static{
+		System.out.println("Second static block");
+	}
+	static int j=20;
+ }
+
+Rules for control flow
+=======================
+1. Identification of static memebers from top to bottom
+2. Execution of static varaibles assignements and static blocks from top to bottom.
+3. Execution of main method
+
+Analysis
+========
+i=0 [RIWO]
+j=0 [RIWO]
+i=10[R&W]
+j=20[R&W]
+
+ouput::
+ 0
+First static block
+Second static block
+20
+Main method
+
+Rules of RIWO
+=============
+=> With in a static block, if we are trying to read any variable then that read is called as
+   "Direct Read".
+=> With in a method,if we are trying to read static variable then that read is called as 
+   "InDirect Read".
+=> If a variable is in RIWO state then we can't perform read operation directly,if we try to
+   do so it would result in compile time error saying "illegal forward reference".
+
+eg#1::
+class Test{
+	static int i=10;
+	static{
+		System.out.println(i);
+		System.exit(0);
+	}
+}
+output:: 10
+
+eg#2
+class Test{
+	static{
+		System.out.println(i);
+	}
+	static int i=10;
+}
+output:: Compile time error:illegal forward reference
+
+eg#3.
+class Test{
+	static{
+		methodOne();
+	}
+	public static void methodOne(){
+		System.out.println(i);
+	}
+	public static void main(String... args){
+
+	}
+	static int i=10;
+}
+output::0
+
+static block
+============
+=> These are the blocks which gets executed automatically at the loading the .class files
+=> If we want to perform any activity at the time of loading .class file we have to define
+   that activity inside the static block.
+=> We can write any no of static blocks, those static blocks will be executed from top to
+   bottom.
+
+eg#1.
+public class Test{
+	static{
+		System.out.println("First static block");
+	}
+	static{
+		System.out.println("Second static block");
+	}
+	public static void main(String... args){
+		
+	}
+ }
+output:: 
+First static block
+Second static block
+
+Important questions on static block
+===================================
+1.Without using main() method is it possible to print some statements on the console?
+Ans. Yes,by using static block.
+
+eg#1.
+class Google{
+	static{
+		System.out.println("Hello i can print");
+		System.exit(0);
+	}
+}
+It is valid till jdk1.6 from 1.7 onwards compulsorily we need to keep main method.
+
+
+Examples applicable only for JDK1.6 examples
+eg#2
+  Without using main() and static block is it possible to print some statements on the console
+
+eg#1
+class Test{
+	static int i=methodOne();
+	public static int methodOne(){
+		System.out.println("Hello i can print");
+		System.exit(0);
+		return 10;
+	}
+}
+
+eg#2.
+class Test{
+	static Test t=new Test();
+	Test(){
+		System.out.println("Hello i can print");
+		System.exit(0);
+	}
+}
+
+eg#3.
+class Test{
+	static Test t =new Test();
+	{
+		System.out.println("Hello i can print");
+		System.exit(0);
+	}
+}
+
+Without using System.out.println() can we print some statement of console?
+ eg#1
+ class Test{
+	pubilc static void main(String... args){
+		System.err.println("Hello i can print");
+	}
+ }
+
+static variables made as final
+==============================
+If static variable is made as final, then we need to make sure those variables are initialized
+before the class loading process finishes its execution.
+
+eg#1. 
+class Test{
+	static int i;
+	public static void main(String[] args) {
+		System.out.println(i);	
+	}
+}
+eg#2.
+class Test{
+	final static int i;//CE
+	public static void main(String[] args) {
+		System.out.println(i);	
+	}
+}
+eg#3.
+class Test{
+	final static int i=10;
+	public static void main(String[] args) {
+		System.out.println(i);//10	
+	}
+}
+
+eg#4.
+class Test{
+	final static int i;
+	static
+	{
+		i=100;
+	}
+	public static void main(String[] args) {
+		System.out.println(i);//100	
+	}
+}
+
+Note:: If any exception occurs during static variables assignement and staic block execution then
+       it would result in "ExceptionInitalizerError".
+
+eg#1.
+class Test{
+	static int a=10/0;
+}
+ouput: Expection called "java.lang.ExceptionInitalizerError"
+
+eg#2.
+class Test{
+	static{
+		String s=null;
+		System.out.println(s.length());
+	}
+}
+output:: Exception called "java.lang.ExceptionIntializerError"
+
+eg#3.
+public class Test3 
+{
+	static int[] a;
+	static{
+		a[0]=10;
+	}
+	public static void main(String[] args) {
+		
+	}
+}
+eg#4.
+public class Test3 
+{
+	static int[] a=new int[-5];
+	static{
+		a[0]=10;
+	}
+	public static void main(String[] args) {
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

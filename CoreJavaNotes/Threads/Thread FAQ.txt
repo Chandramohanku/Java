@@ -1,0 +1,93 @@
+Questions:
+1. Explain about synchronized keyword, where we can apply? and its advantages and disadvantages?
+2. What is object lock and when a Thread required?
+3. What is class level lock and when a Thread required?
+4. What is the difference between object lock and class level lock?
+5. While a Thread executing a synchronized method on the given object is the remaining Threads are    allowed to execute other synchronized methods simultaneously on the same object?
+Ans: No.
+6. What is synchronized block and explain its declaration?
+7. What is the advantage of synchronized block over synchronized method?
+8. What is racecondition?
+Ans::If mulitple threads are operating simultaneously on same java object then there may be a   chance of data inconsistency problem, 
+         This conditions is termed as "RaceCondition". We can overcome this problem using "synchronized" keyword.
+
+9. Is a Thread can hold more than one lock at a time?
+Ans: Yes, but lock should be on differen objects. 
+Example:
+ class X{
+	public  synchronized void m1(){//Thread has acquired lock on X object
+		Y y =new Y();
+		synchronized(y){//Thread has acquired lock on Y object
+			Z z =new Z();
+			synchronized(z){//Thread has acquired lock on Z object
+
+
+			}
+		}
+	}
+ }
+
+X x =new X();
+x.m1();
+
+10.What is synchronized statement?
+Ans: The statements which present inside synchronized method and synchronized block are called   synchronized statements. 
+
+eg:: synchronized(this){
+		...	
+		...
+		...
+     }
+     synchronized void m1(){
+		...
+		...
+		...
+     }
+
+Question based on lock
+======================
+1. If a thread calls wait() immediately it will enter into waiting state without releasing any
+   lock.(false)
+2. If a thread calls wait() it releases the lock of that object but may not immediately
+   (false)
+3. If a thread calls wait() on any object,it releases all locks acquired by that thread
+   and enters into waiting state(false)
+4. If a thread calls wait() on any object,it immediately releases the lock of that particular 
+   object and entered into waiting state(true).
+5. If a thread calls notify() on any object,it immediately releases the lock of that particular
+    object(invalid)
+6. If a thread calls notify() on any object,it releases the lock of that object but may not
+   immediately(true)
+
+Questions
+=========
+1. What is a Thread?
+2. Which Thread by default runs in every java program?
+3. What is the default priority of the Thread?
+4. How can you change the priority number of the Thread?
+5. Which method is executed by any Thread?
+6. How can you stop a Thread which is running?
+7. Explain the two types of multitasking?
+8. What is the difference between a process and a Thread?
+9. What is Thread scheduler?
+10. Explain the synchronization of Threads?
+11. What is the difference between synchronized block and synchronized keyword?
+12. What is Thread deadlock? How can you resolve deadlock situation?
+13. Which methods are used in Thread communication?
+14. What is the difference between notify() and notifyAll() methods?
+15. What is the difference between sleep() and wait() methods?
+16. Explain the life cycle of a Thread?
+17. What is daemon Thread?
+
+  
+
+
+
+
+
+
+
+
+
+
+

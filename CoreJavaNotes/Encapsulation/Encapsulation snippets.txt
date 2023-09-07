@@ -1,0 +1,11 @@
+1.Which of the following classes are encapsulated class?
+
+A. class A{private int x=10;}
+B. class B extends A{ int y=20;}
+c. class C extends A{private int z=20;}
+
+2.Which of the following classes are encapsulated class?
+
+A. class A{int x=10;}
+B. class B extends A{private int y =20;}
+c. class C extends A{private int z =30;}

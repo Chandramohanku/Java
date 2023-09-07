@@ -1,0 +1,1015 @@
+1.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        String str = "Java Rocks!";
+        System.out.println(str.length() + " : " + str.charAt(10));
+    }
+}
+A. 11:!
+B. Exception is thrown at RunTime
+C. 11:s
+D. CompilationError
+
+2.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        String s1 = "OcA";
+        String s2 = "oCa";
+        System.out.println(s1.equals(s2));
+    }
+}
+A. true
+B. false
+C. compilation error
+D. None of the above
+
+3.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        String fName = "James";
+        String lName = "Gosling";
+        System.out.println(fName = lName);
+    }
+}
+A. CompilationError
+B. true
+C. false
+D. None of the above
+
+4.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        String str = "Good"; //Line 3
+        change(str); //Line 4
+        System.out.println(str); //Line 5
+    }
+    
+    private static void change(String s) {
+        s.concat("_Morning"); //Line 9
+    }
+}
+A. Good
+B. _Morning
+C. Good_Morning
+D. None of the above
+
+5.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("Good"); //Line 3
+        change(sb); //Line 4
+        System.out.println(sb); //Line 5
+    }
+    
+    private static void change(StringBuilder s) {
+        s.append("_Morning"); //Line 9
+    }
+}
+A. Good
+B. _Morning
+C. Good_Morning
+D. None of the above
+
+6.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        String str1 = new String("Core");
+        String str2 = new String("CoRe");
+        System.out.println(str1 = str2);
+    }
+}
+A. true
+B. false
+C. Core
+D. CoRe
+
+7.
+What will be the result of compiling and executing Test class?
+public class Test extends String {
+    @Override
+    public String toString() {
+        return "TEST";
+    }
+    
+    public static void main(String[] args) {
+        Test obj = new Test();
+        System.out.println(obj);
+    }
+}
+A. TEST
+B. Output contains some string @ symbol
+C. Excpetion is thrown at runtime
+D. Compilation Error
+
+8.
+Consider below code:
+//Test.java
+public class Test {
+    public static void main(String[] args) {
+        String s1 = "OCAJP";
+        String s2 = "OCAJP" + "";
+        System.out.println(s1 == s2);
+    }
+}
+What will be the result of compiling and executing Test class?
+A. OCAJP
+B. true
+C. false
+D. CompilationError
+
+9.
+Consider below code:
+//Test.java
+public class Test {
+    public static void main(String[] args) {
+        final String fName = "James";
+        String lName = "Gosling";
+        String name1 = fName + lName;
+        String name2 = fName + "Gosling";
+        String name3 = "James" + "Gosling";
+        System.out.println(name1 == name2);
+        System.out.println(name2 == name3);
+    }
+}
+What will be the result of compiling and executing Test class?
+A. true
+   true
+B. true
+   false
+C. false
+   false
+D. false
+   true
+
+10.
+Consider below code:
+//Test.java
+public class Test {
+    public static void main(String[] args) {
+        final int i1 = 1;
+        final Integer i2 = 1;
+        final String s1 = ":ONE";
+        
+        String str1 = i1 + s1;
+        String str2 = i2 + s1;
+        
+        System.out.println(str1 == "1:ONE");
+        System.out.println(str2 == "1:ONE");
+    }
+}
+What will be the result of compiling and executing Test class?
+A. true
+   true
+B. true
+   false
+C. false
+   false
+D. false
+   true
+
+
+11.
+Consider below code:
+//Test.java
+public class Test {
+    public static void main(String[] args) {
+        String javaworld = "JavaWorld";
+        String java = "Java";
+        String world = "World";
+        java += world;
+        System.out.println(java == javaworld);
+    }
+}
+What will be the result of compiling and executing Test class?
+A. JavaWorld
+B. Java
+C. World
+D. true
+E. false
+
+12.
+Consider below code:
+//Test.java
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder(100);
+        System.out.println(sb.length() + ":" + sb.toString().length());
+    }
+}
+What will be the result of compiling and executing Test class?
+A. 100:100
+B. 100:0
+C. 16:16
+D. 16:0
+E. 0:0
+
+13.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("Hurrah! I Passed...");
+        sb.delete(0, 100);
+        System.out.println(sb.length());
+    }
+}
+A. 19
+B. 0
+C. 16
+D. StringIndexOutOfBoundsException
+
+14.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder(5);
+        sb.append("0123456789");
+        sb.delete(8, 1000);
+        System.out.println(sb);
+    }
+}
+A. CompilationError
+B. An Exception is thrown at Runtime
+C. 01234567
+D. 89
+
+15.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        System.out.println(sb.append("").append("").append("").length());
+    }
+}
+A. 0
+B. 1
+C. 2
+D. 3
+
+16.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        System.out.println(sb.append(null).length());
+    }
+}
+A. NullPointerException
+B. 1
+C. 4
+D. CompilationError
+
+17.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        m1(null);
+    }
+    
+    static void m1(CharSequence s) {
+        System.out.println("CharSequence");
+    }
+    
+    static void m1(String s) {
+        System.out.println("String");
+    }
+    
+    static void m1(Object s) {
+        System.out.println("Object");
+    }
+}
+A. CompilationError
+B. CharSequence
+C. String
+D. Object
+
+18.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("SpaceStation");
+        sb.delete(5, 6).insert(5, " S").toString().toUpperCase();
+        System.out.println(sb);
+    }
+}
+A. SPACE STATION
+B. SPACE SATION
+C. Space Station
+D. Space Sation
+
+19.
+How many String objects are there in the HEAP memory, when control is at Line 9?
+public class Test {
+    public static void main(String[] args) {
+        String s1 = new String("Java"); //Line 3
+        String s2 = "JaVa"; //Line 4
+        String s3 = "JaVa"; //Line 5
+        String s4 = "Java"; //Line 6
+        String s5 = "Java"; //Line 7
+        
+        int i = 1; //Line 9
+        
+    }
+}
+A. 2
+B. 3
+C. 4
+D. 5
+
+20.
+A bank's swift code is generally of 11 characters and used in international money transfers. 
+An example of swift code: ICICINBBRT4
+ICIC: First 4 letters for bank code
+IN: Next 2 letters for Country code
+BB: Next 2 letters for Location code
+RT4: Next 3 letters for Branch code
+
+Which of the following code correctly extracts country code from the swift code referred by String reference variable swiftCode?
+A. swiftCode.substring(4,6);
+B. swiftCode.substring(5,6);
+C. swiftCode.substring(5,7);
+D. swiftCode.substring(4,5);
+
+21.
+What will be the result of compiling and executing Test class? 
+import java.util.ArrayList;
+import java.util.List;
+public class Test {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("X");
+        list.add("Y");
+        list.add("X");
+        list.add("Y");
+        list.add("Z");
+        list.remove(new String("Y"));
+        System.out.println(list);
+    }
+}
+A. [X,X,Y,Z]
+B. [X,X,Z]
+C. [X,Z]
+D. [X,Y,Z]
+E.Compilation Error
+F.Exception is thrown at runtime
+
+22.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        String str = "java";
+        StringBuilder sb = new StringBuilder("java");
+        System.out.println(str.equals(sb) + ":" + sb.equals(str));
+    }
+}
+A. Compilation Error
+B. false:false
+C. false:true
+D. true:false
+E. true:true
+
+23.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("Java");
+        String s1 = sb.toString();
+        String s2 = sb.toString();
+        System.out.println(s1 == s2);
+    }
+}
+A. compilation error
+B. true
+C. false
+D. An exception is thrown at runtime
+
+24.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("Java");
+        String s1 = sb.toString();
+        String s2 = "Java";
+        System.out.println(s1 == s2);
+    }
+}
+A. compilation error
+B. true
+C. false
+D. An exception is thrown at runtime
+
+25.
+What will be the result of compiling and executing Test class?
+public class Test {
+    public static void main(String[] args) {
+        String str1 = " ";
+        boolean b1 = str1.isEmpty();
+        System.out.println(b1);
+        str1.trim();
+        b1 = str1.isEmpty();
+        System.out.println(b1);
+    }
+}
+A. false
+   true
+B. false
+   false
+C. true
+   false
+D. true
+   true
+
+26.
+Consider below code:
+//Test.java
+class SpecialString {
+    String str;
+    SpecialString(String str) {
+        this.str = str;
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Object [] arr = new Object[4];
+        for(int i = 1; i <=3; i++) {
+            switch(i) {
+                case 1: 
+                    arr[i] = new String("Java");
+                    break;
+                case 2: 
+                    arr[i] = new StringBuilder("Java");
+                    break;
+                case 3: 
+                    arr[i] = new SpecialString("Java");
+                    break;
+            }
+        }
+        for(Object obj : arr) {
+            System.out.println(obj);
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Java
+   Java
+   Java
+B. Java
+   Java
+   Some text with @symbol
+C. Java 
+   Some text with @symbol
+   Some text with @symbol
+D. null
+   Java
+   Java
+   Java
+E. null
+   Java
+   Java
+   Some text with @symbol
+F. null
+   Java
+   Some text with @symbol
+   Some text with @symbol
+G. Java
+   Java
+   Java
+   null
+H. Java
+   Java
+   Some text with @symbol
+   null
+I. Java
+   Some text with @symbol
+   Some text with @symbol
+   null
+
+27.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String s1 = "OCP";
+        String s2 = "ocp";
+        System.out.println(/*INSERT*/);
+    }
+}
+
+
+Which of the following options, if used to replace /*INSERT*/, will compile successfully and on execution will print true on to the console?
+Select 2 options.
+A. s1.equals(s2)
+B. s1.equals(s2.toUpper())
+C. s1.equals(s1.toLower())
+D. s1.length()==s2.length()
+E. s1.equalsIgnoreCase(s2)
+F. s1.contentEquals(s2)
+
+28.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String [] args) {
+        String text = "ONE ";
+        System.out.println(text.concat(text.concat("ELEVEN ")).trim());
+    }
+}
+What will be the result of compiling and executing Test class?
+A. ONE ELEVEN
+B. ONE ONE ELEVEN
+C. ONE ELEVEN ONE ELEVEN
+D. ONE ELEVEN ONE
+
+29.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        /*INSERT*/ x = 7, y = 200;
+        System.out.println(String.valueOf(x + y).length());
+    }
+}
+Which of the following options, if used to replace /*INSERT*/, will compile successfully and on execution will print 3 on to the console?
+Select 3 options.
+A. byte
+B. short
+C. int
+D. long
+E. double
+
+30.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String str = "PANIC";
+        StringBuilder sb = new StringBuilder("THET");
+        System.out.println(str.replace("N", sb)); //Line n1
+    }
+}
+What will be the result of compiling and executing Test class?
+A. PATHETIC
+B. PANIC
+C. Line n1 causes compile time error
+D. Line n1 cause runtime error.
+
+31.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        boolean flag1 = "Java" == "Java".replace('J', 'J'); //Line n1
+        boolean flag2 = "Java" == "Java".replace("J", "J"); //Line n2
+        System.out.println(flag1 && flag2);
+    }
+}
+What will be the result of compiling and executing Test class?
+A. Line n1 causes compilation error.
+B. Line n2 causes compilation error.
+C. true
+D. false
+
+31.
+Consider below code fragment:
+String place = "MISSS";
+System.out.println(place.replace("SS", "T"));
+What is the output?
+A. MIST
+B. MITS
+C. MISSS
+D. MIT
+
+32.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String str = "ALASKA";
+        System.out.println(str.charAt(str.indexOf("A") + 1));
+    }
+}
+What will be the result of compiling and executing Test class?
+A. A
+B. L
+C. S
+D. K
+E. RuntimeError
+
+
+33.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String [] arr = {"1st", "2nd", "3rd", "4th", "5th"};
+        String place = "faraway";
+        System.out.println(arr[place.indexOf("a", 3)]); //Line n1
+    }
+}
+What will be the result of compiling and executing Test class?
+A. 1st
+B. 3rd
+C. 4th
+D. 5th
+E. 2nd
+F. RunTimeException
+G. Compiletime Error at line n-1
+
+
+34.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String word = "REBUS";
+        /* INSERT */
+        System.out.println(word);
+    }
+}
+Following options are available to replace /*INSERT*/:
+1. word = word.substring(2);
+2. word = word.substring(2, 4);
+3. word = word.substring(2, 5);
+4. word = word.replace("RE", "");
+5. word = word.substring(2, 6);
+6. word = word.delete(0, 2);
+How many of the above options can be used to replace /*INSERT*/ (separately and not together) such that given command prints BUS on to the console?
+A. One option
+B. Two option
+C. Three option
+D. Four option
+E. five option
+G. All option
+
+35.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String str = "Game on"; //Line n1
+        StringBuilder sb = new StringBuilder(str); //Line n2
+        
+        System.out.println(str.contentEquals(sb)); //Line n3
+        System.out.println(sb.contentEquals(str)); //Line n4
+        System.out.println(sb.equals(str)); //Line n5
+        System.out.println(str.equals(sb)); //Line n6
+    }
+}
+Which of the following statements is correct?
+A. One statement causes compilation error
+B. Two statement causes compilation error
+C. Three statement causes compilation error
+D. Four statement causes compilation error
+E. No compilation Error
+
+36.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("TOMATO");
+        System.out.println(sb.reverse().replace("O", "A")); //Line n1
+    }
+}
+What will be the result of compiling and executing Test class?
+A. TOMATO
+B. TAMATO
+C. TAMATA
+D. OTAMOT
+E. OTAMAT
+F. ATAMAT
+G. Compilation Error
+
+37.Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("B"); //Line n1
+        sb.append(sb.append("A")); //Line n2
+        System.out.println(sb); //Line n3
+    }
+}
+What will be the result of compiling and executing Test class?
+A. B
+B. BA
+C. AB
+D. BAB
+E. ABA
+F. ABAB
+G. BABA
+H. ABBA
+I. CompilationError at line 2
+
+
+38.
+Consider below code of Test.java file:
+class A {
+    public String toString() {
+        return null;
+    }
+}
+public class Test {
+    public static void main(String [] args) {
+        String text = null;
+        text = text + new A(); //Line n1
+        System.out.println(text.length()); //Line n2
+    }
+}
+A. Line n1 causes compilation error
+B. Line n1 causes Runtime error
+C. Line n2 causes RunTime error
+D. 0
+E. 4
+G. 8
+
+39.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String [] args) {
+        String text = "RISE ";
+        text = text + (text = "ABOVE ");
+        System.out.println(text);
+    }
+}
+What will be the result of compiling and executing Test class?
+A. RISE RISE ABOVE
+B. RISE ABOVE
+C. ABOVE ABOVE
+D. RISE ABOVE RISE
+
+40.
+public static void main(String... args) {
+     StringBuilder sb=new StringBuilder(5);
+		String s="";
+		if (sb.equals(s)){
+			System.out.println("Match 1");
+		}else if(sb.toString().equals(s.toString())){
+			System.out.println("Match 2");
+		}else{
+			System.out.println("Match 3");
+		}		
+		
+}
+A. Match 1
+B. Match 2
+C. CompileTime Error
+D. Match3
+E. NullPointerException
+
+41.
+public static void main(String... args) {
+		String ta="A ";
+		ta = ta.concat("B ");
+		String tb="C ";
+		ta = ta.concat(tb);
+		ta.replace('C', 'D');
+		ta=ta.concat(tb);
+		System.out.println(ta);
+}
+A. A B C D
+B. A C D
+C. A B C C
+D. A B D
+E. A B D C
+
+
+41.
+int[] a= {1,2,3,4,5};
+for(XXX)
+   System.out.print(a[e]);
+
+Which option can replace XXX to enable the code to print 135?
+A. int e=0;e<=4;e++
+B. int e=0;e<5;e+=2
+C. int e=1;e<=5;e+=1
+D. int e=1;e<5;e+=2
+
+42.
+public static void main(String... args) { 
+		int x=5;  //line4
+		while (isAvailable(x)){//line5
+			System.out.println(x);//line6
+			//line7
+		 }
+}
+public static boolean isAvailable(int x){
+	return x-- > 0 ? true :false;//line8
+}
+What modification should be enabled the code to print 54321
+A. Replace line 6 with System.out.print(x--);
+B. At line 4 insert x--
+C. Replace line 6 with --x and line 7,insert System.out.print(x)
+D. Replace line 8 with return (x>0) ? false:true
+
+43.
+public static void main(String... args) {
+		boolean opt=true;//line5
+		switch (opt){
+			case true://line7
+				System.out.print("True");
+				break;//line9
+			default:
+				System.out.println("****");
+		}
+		System.out.println("Done");
+}
+What modification should be enabled to print TrueDone?
+A. Replace line 5 with String result="True"
+     Replace line 7 with case "True".
+
+B. Replace line 5 with boolan opt=1
+     Replace line 7 with case 1=
+
+C. At line 9 remove break statement
+D. Remove the default section.
+
+
+44.
+public static void main(String... args) {
+	int num=5;
+	do{
+		System.out.print(num-- + " ")
+	}while (num==0);
+}
+What is the result?
+A. 5 4 3 2 1 0
+B. 5 4 3 2 1
+C. 4 2 1
+D. 5
+E. Nothing gets printed.
+
+45.Given code
+public static void main(String... args) {
+		String[][] chs=new String[2][];
+		chs[0] =new String[2];
+		chs[1] =new String[5];
+		int i=97;
+		for (int a=0; a<chs.length;a++ ){
+			for (int b=0;b<chs.length;b++ ){
+				chs[a][b] = " "+i;
+				i++;			
+                        }
+		}
+		for (String[] ca:chs ){ 
+                    for (String c: ca ){
+				System.out.print(c + " ");
+			}
+			System.out.println();
+		}
+}
+A. 97 98
+     99 100 null null null
+B. 97 98
+   99 100 101 102 103
+C. Compilation fails.
+D. NullPointer exception is thrown at runtime.
+E. ArrayIndexOutOfBoundsException is thrown at runtime.
+
+
+45.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String res = ""; //Line n1
+        String [] arr = {"Dog", null, "Friendly"};
+        for(String s : arr) { //Line n2
+            res += String.join("-", s); //Line n3
+        }
+        System.out.println(res); //Line n4
+    }
+}
+What will be the result of compiling and executing Test class?
+A. DogFriendly
+B. Dog-Friendly
+C. DognullFriendly
+D. Dog-null-Friendly
+E. NullPointerException is thrown
+F. CompileTimeError
+
+46.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        for(int i = 5; i >= 1; i--) { //Line n1
+            System.out.println("*".repeat(i)); //Line n2
+        }
+    }
+}
+What will be the result of compiling and executing Test class?
+A. *
+   **
+   ***
+   ****
+   *****
+
+B. *****
+   ****
+   ***
+   **
+   *
+
+C. *
+   **
+   ***
+   ****
+   
+D. 
+   ****
+   ***
+   **
+   *
+
+E. compilationError
+F. Line n2 cause runtimeerror
+
+
+47.
+Consider below code of Test.java file:
+public class Test {
+    public static void main(String[] args) {
+        String res = "";
+        loop: for(int i = 1; i <= 5; i++) { //Line n1
+            switch(i) {
+            case 1:
+                res += "UP ";
+                break;
+            case 2: 
+                res += "TO ";
+                break;
+            case 3: 
+                break;
+            case 4:
+                res += "DATE";
+                break loop;
+            }
+        }
+        System.out.println(String.join("-", res.split(" "))); //Line n2
+    }
+}
+What will be the result of compiling and executing Test class?
+
+
+48.
+Consider below code of Counter.java file:
+public class Counter {
+    int count;
+    
+    private static void increment(Counter counter) {
+        counter.count++;
+    }
+ 
+    public static void main(String [] args) {
+        Counter c1 = new Counter();
+        Counter c2 = c1;
+        Counter c3 = null;
+        c2.count = 1000;
+        increment(c2);
+    }
+}
+On executing Counter class, how many Counter objects are created in the memory?
+A. 1
+B. 2
+C. 3
+D. 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+

@@ -1,0 +1,308 @@
+Method Overriding
+=================
+Whatever the parent has by default available to child through inheritance,if the child is not satisifed with parent class method implementation then child is allow to redefine that parent class method in child class in its own way this process is called as "Overriding".
+
+The parent class method which is overriden is called "Overridden method".
+The child class method  which is overriding is called "Overriding method".
+
+eg1::
+class Parent{	
+	public void property(){System.out.pritnln("Gold+cash+land");}
+        public void marry(){System.out.pritnln("Relative girl only u should marry!!!");}
+}
+class Child extends Parent{
+       public void property(){System.out.pritnln("Gold+cash+land");}
+	
+       @Override
+       public void marry(){System.out.println("I will marry Deepika!!!");}
+	
+}
+class Test{
+	pubilc static void main(String[] args){
+		Parent p=new Parent();
+		p.marry();//Relative girl only u should marry!!!
+
+		Child c=new Child();
+		c.marry();//I will marry Deepika!!!
+
+		Parent p =new Child();
+		p.marry();//I will marry Deepika!!!
+	}
+}
+
+In method overriding, method resolution is always based on the runtime object created by JVM, so we say method overriding as "RunTime Polymorphism/Dynamic dispatch/Late Binding".
+Here reference type is just like a dummy template.
+
+Rules of Overriding
+===================
+To apply the rules of Overriding, the method signature should be same only then the methods is participating in Overriding.
+
+Note::
+1. In overriding method names and arguments must be same. That is method signature must be same.
+2. Until 1.4 version the return types must be same but from 1.5 version onwards covariant return  types are allowed.
+3. According to this Child class method return type need not be same as Parent class method return  type  its Child types also allowed.
+
+eg#1.
+class Parent{
+	public Object methodOne(){ return null;}
+}
+class Child extends Parent{
+	public String methodOne(){return null;}
+}
+It compiles succesfully.
+
+case studies::
+    Object(P) => String(C)  //valid
+    Number(P) => Integer(P) //valid
+    String(P) => Object(C) //invalid
+   Integer(P) => int(c)    //invalid
+
+Rule::Co-Variant type is applicable only on objects not on primitive types.
+
+Scenario2::
+Private methods are not visible in the Child classes hence overriding concept is not applicable for private methods. Based on own requirement we can declare the same Parent class private method
+in child class also. It is valid but not overriding.
+
+eg#1.
+class Parent{ private void methodOne(){}}
+class Child extends Parent{private void methodOne(){}}
+
+
+2. If the method is declared as final in parent class then those methods we cannot override in 
+   child class,it would result in compile time error.
+
+    eg1:: class Parent{public final void methodOne(){}}
+          class Child extends Parent{public void methodOne(){}}//Compile time error
+
+3. Parent class non final methods can be made as final in child class
+    eg1:: class Parent{public  void methodOne(){}}
+          class Child extends Parent{public final void methodOne(){}}
+
+4. In the parent class, if the method is abstract then in the child class we should compulsory       override to give the implementation
+       eg1:: abstract class Parent{public abstract void methodOne();}
+             class Child extends Parent{public void methodOne(){}}
+
+5. We can override NonAbstract method as abstract, this approach is helpful to stop the       availablity of parent method implementation to next level child classes.
+      eg1:: class Parent{public  void methodOne(){}}
+            abstract class Child extends Parent{public abstract void methodOne();}
+
+
+Note:: final => Nonfinal (invalid)
+       Nonfinal => final (valid)
+       abstract => nonabstract(valid)
+       native   => nonnative(valid)
+       synchronized => nonsychronized(valid)
+       strictfp     => nonstrictfp(valid)
+
+Rules with respect to scope
+===========================
+While Overriding we cannot reduce the scope of accessmodifier
+   eg1:: class Parent{public  void methodOne(){}}
+         class Child extends Parent{protected void methodOne(){}}//Compile time error
+Note
+public => public
+protected => protected/public
+default   => default/protected/public
+private   => Overriding concept is not applicable
+
+Overrding w.r.t static methods
+==============================
+1. we can't override static method as instance method, it would result in compile time error.
+
+eg#1.
+class Parent{
+	public static void methodOne(){ }
+}
+class Child extends Parent{
+	public void methodOne(){}
+}
+
+2. we can't override instance method as static,it would result in compile time error.
+
+eg#2.
+class Parent{
+	public void methodOne(){ }
+}
+class Child extends Parent{
+	public static void methodOne(){}
+}
+
+3.
+class Parent{
+	public static void methodOne(){ }
+}
+class Child extends Parent{
+	public static void methodOne(){}
+}
+It seems to be overriding,but it is not overriding it is method hiding.
+In case of static method, compiler will take the resolution of method call.
+
+Difference b/w method Overriding and method hiding?
+Overriding =>In both parent and child class method should be instance
+	     Method resolution is based on runtime object.
+	     JVM will take the call so it is called as runtimepolymorphsim/dynamic dispatch.
+
+Hiding     =>In both parent and child class method should be static.
+	     Method resolution is based on reference type.
+	     Compiler will take the call so it is called as Compile time polymorphism.
+
+eg#1.
+class Parent{
+	public static void methodOne(){System.out.println("I am from parent"); }
+}
+class Child extends Parent{
+	public static void methodOne(){System.out.println("I am from child");}
+}
+public class Test {
+	public static void main(String[] args) {
+			Parent p= new Parent();
+			p.methodOne();//I am from parent
+
+			Child c=new Child();
+			c.methodOne();//I am from child
+
+			Parent p1=new Child();
+			p1.methodOne();//I am from parent
+	}
+}
+
+Overriding w.r.t var arg method
+===============================
+var arg method should be overriden with var arg only,if we try to override w.r.t normal method
+then it would become Overloading nor overriding.
+
+eg#1.
+class Parent{
+	public  void methodOne(int... i){System.out.println("I am from parent"); }
+}
+class Child extends Parent{
+	public  void methodOne(int i){System.out.println("I am from child");}
+}
+public class Test {
+	public static void main(String[] args) {
+			Parent p= new Parent();
+			p.methodOne(10);// I am from Parent
+
+			Child c=new Child();
+			c.methodOne(10);.// I am from Child
+
+			Parent p1=new Child();
+			p1.methodOne(10);// I am from Parent
+	}
+}
+
+If we replace child class method with var arg method then it will become Overriding.
+
+eg#2.
+class Parent{
+	public  void methodOne(int... i){System.out.println("I am from parent"); }
+}
+class Child extends Parent{
+	public  void methodOne(int... i){System.out.println("I am from child");}
+}
+public class Test {
+	public static void main(String[] args) {
+			Parent p= new Parent();
+			p.methodOne(10);//I am from parent
+
+			Child c=new Child();
+			c.methodOne(10);//I am from child
+
+			Parent p1=new Child();
+			p1.methodOne(10);//I am from child
+	}
+}
+
+Overridng w.r.t variables
+=========================
+1. Overriding concept is not applicable for variables.
+2. In case of Overriding compiler will resolve the call based on the reference type.
+
+eg#1.
+class Parent{int x= 888;}
+class Child extends Parent{int x=999;}
+public class Test {
+	public static void main(String[] args) {
+		Parent p= new Parent();
+		System.out.println("X value is ::"+p.x);//X value is :: 888
+
+		Child c=new Child();
+		System.out.println("X value is :: "+c.x);//X value is :: 999
+
+		Parent p1=new Child();
+		System.out.println("X value is :: "+p1.x);//X value is :: 888
+	}
+}
+
+In the above pgm,if the variable is static then also there is no change in the output,becoz compiler will resolve the call based on the reference type.
+
+Difference b/w Overloading vs Overriding?
+     Overloading    
+MethodName     : same
+ArgumentType   : must be different
+MethodSignature: same
+  return type  : no restrictions
+ access modifer: no restrictions
+private,final  : no restrictions
+   static
+  throws       : no restrictions
+ binding       : compiler
+alternativename: CompileTimebinding/early binding/eager binding/static binding.
+
+     Overriding    
+MethodName     : same
+ArgumentType   : must be same
+MethodSignature: same
+  return type  : same or covariant type
+ access modifer: same or increase the scope(private,default,protected,public)
+private,final  : can't be Overriden
+   static
+  throws       : if child class throws some exception then parent should throw the same or its
+                 Parent type(rule applicable only for CheckedException not for UnCheckedException)
+ binding       : JVM(based on run time object)
+alternativename: RunTimePolymorphism/lazy binding/dynamic dispatch.
+
+
+Note:
+1. In overloading we have to check only method names (must be same) and arguments 
+   (must be different) the remaining things like return type extra not required to check.
+2. But In overriding we should compulsory check everything like method names, arguments, return  types, throws keyword, modifiers etc.
+
+Consider the method in parent class
+Parent: public void methodOne(int i)throws IOException
+
+In the child class which of the following methods we can take..
+1. public void methodOne(int i) //valid(overriding)
+2. private void methodOne()throws Exception//valid(overloading)
+3. public native void methodOne(int i);//valid(overriding)
+4. public static void methodOne(double d)//valid(overloading)
+5. public static void methodOne(int i)
+	Compile time error :methodOne(int) in Child cannot override methodOne(int) in Parent; overriding method is static
+6. public static abstract void methodOne(float f) Compile time error :
+     1. illegal combination of modifiers: abstract and static
+     2. Child is not abstract and does not override abstract method methodOne(float) in Child
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

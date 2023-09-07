@@ -1,0 +1,491 @@
+Garbage Collector
+=================
+1. Introduction:
+2. The way to make an object eligible for GC
+	i. Nullifying the reference variable
+	ii. Reassign the reference variable
+	iii. Objects created inside a method
+	iv. Island of Isolation
+3. The methods for requesting JVM to run GC
+	i. By System class
+	ii. By Runtime class
+4. Finalization
+=> Case 1 : Just before destroying any object GC calls finalize() method on the object.
+=> Case 2 : We can call finalize() method explicitly.
+=> Case 3 : finalize() method can be call either by the programmer or by the GC.
+=> Case 4 : On any object GC calls finalize() method only once Memory leak.
+
+
+Introduction:
+=> In old languages like C++ programmer is responsible for both creation and  destruction of          objects. Usually programmer is taking very much care while  creating object and neglect            destruction of useless objects .Due to his negligence at  certain point of time for creation of    new object sufficient memory may not be available and entire application may be crashed due to     memory problems.
+=> But in java programmer is responsible only for creation of new object and his 
+   not responsible for destruction of objects.
+=> Sun people provided one assistant which is always running in the background for 
+   destruction at useless objects. Due to this assistant the chance of failing java 
+   program is very rare because of memory problems.
+=> This assistant is nothing but garbage collector. Hence the main objective of GC is 
+   to destroy useless objects.
+
+The ways to make an object eligible for GC:
+=> Even through programmer is not responsible for destruction of objects but it is 
+   always a good programming practice to make an object eligible for GC if it is no 
+   longer required.
+=> An object is eligible for GC if and only if it does not have any references.
+
+The following are various possible ways to make an object eligible for GC:
+ 1.Nullifying the reference variable: 
+    If an object is no longer required then we can make eligible for GC by assigning "null" 
+    to all its reference variables.
+
+eg#1.
+     Student s1=new Student();
+     Student s2=new Student();
+	;;;;;
+	;;;;;
+	s1=null;
+        ;;;;;;//At this line one object is available for GC
+        ;;;;;;
+	s2=null;
+	;;;;;;;////At this line two objects are available for GC
+	 
+
+2.Reassign the reference variable:  
+	If an object is no longer required then reassign all its reference variables to some other 
+	objects then old object is by default eligible for GC.
+
+eg#1.   
+	Student s1=new Student();
+	Student s2=new Student();
+		;;;;
+		;;;;
+		;;;;
+	      s1=new Student();
+		;;;;
+		;;;;//One object is eligible for GC
+		;;;;
+	      s2=s1;
+		;;;;
+		;;;;//Two objects are eligible for GC
+
+3. Objects created inside a method are by default eligible for GC once method completes. 
+
+eg#1.
+ 	public class Test{
+		static void m1(){
+			Student s1=new Student();
+			Student s2=new Student();
+		}
+		public static void main(String... args){
+			m1();
+			;;;;//At this line 2 objects are eligible for Garbage collection
+			;;;;	
+		}
+	}
+
+eg#2.
+ 	public class Test{
+		static Student m1(){
+			Student s1=new Student();
+			Student s2=new Student();
+			return s1;
+		}
+		public static void main(String... args){
+			Student s= m1();
+			;;;;//At this line one object is eligible for Garbage collection
+			;;;;	
+		}
+	}
+
+eg#3.
+	public class Test{
+		static Student m1(){
+			Student s1=new Student();
+			Student s2=new Student();
+			return s1;
+		}
+		public static void main(String... args){
+			m1();
+			;;;;//At this line 2 objects are eligible for Garbage collection
+			;;;;	
+		}
+	}
+
+eg#4.
+    public class Test{
+		static Student s;
+		static Student m1(){
+			 s=new Student();
+			Student s2=new Student();
+		}
+		public static void main(String... args){
+			m1();
+			;;;;//At this line 1 object is eligible for Garbage collection
+			;;;;	
+		}
+	}
+
+4. Island of Isolation
+ 
+eg#1.
+ 	public class Test{
+		Test i;	
+		public static void main(String... args){
+			Test t1=new Test();
+			Test t2=new Test();
+			Test t3=new Test();
+			;;;;;//No Object is eligible for GC
+			;;;;;
+			;;;;;
+
+			t1.i=t2;
+			t2.i=t3;
+			t3.i=t1;
+			;;;;;;//No Object is eligible for GC
+			;;;;;;
+			;;;;;;
+
+			t1=null;
+			;;;;;//No Object is eligible for GC
+			;;;;;
+
+			t2=null;
+			;;;;;//No Object is eligible for GC
+			;;;;;
+	
+			t3=null;
+			;;;;;//All 3 objects are eligible for GC
+			;;;;;
+
+		}
+	}
+
+Note: if an object doesn't have any reference then it always eligible for GC. 
+Note: Even though object having reference still it is eligible for GC some times.
+ Example: island of isolation. (Island of Isolation all references are internal references )
+
+
+The methods for requesting JVM to run GC
+=========================================
+=> Once we made an object eligible for GC it may not be destroyed immediately by 
+   the GC. Whenever jvm runs GC then only object will be destroyed by the GC. 
+=> But when exactly JVM runs GC we can't expect becoz it is vendor dependent.
+=> We can request jvm to run garbage collector programmatically, but whether jvm 
+   accept our request or not there is no guarante. But most of the times JVM will 
+   accept our request.
+
+The following are various ways for requesting jvm to run GC:
+1. By System class:
+	 System class contains a static method GC for this purpose. 
+Example: 
+System.gc(); 
+
+2. By Runtime class:
+	=> A java application can communicate with jvm by using Runtime object. 
+	=> Runtime class is a singleton class present in java.lang. Package.
+	=> We can create Runtime object by using factory method getRuntime().
+Example: 
+  Runtime r=Runtime.getRuntime(); 
+  Once we got Runtime object we can call the following methods on that object.
+  freeMemory() : returns the free memory present in the heap(size in bytes).
+  totalMemory(): returns total memory of the heap(size in bytes).
+           gc(): for requesting jvm to run gc.
+
+=> Requesting JVM to get all the details is just like we request our maid to do some extra things     for function.
+
+eg#1.
+package com.abc.nitin.main;
+import java.util.Date;
+public class MemoryApp {
+
+	public static void main(String[] args) {
+
+		Runtime runtime = Runtime.getRuntime();
+		System.out.println("Total memory on the heap is :: " + runtime.totalMemory());
+		System.out.println("free memory on the heap is  :: " + runtime.freeMemory());
+
+		for (int i = 1; i <= 10000; i++) {
+			Date d = new Date();
+			d = null;
+		}
+		System.out.println("free memory on the heap is :: " + runtime.freeMemory());
+		runtime.gc();
+		System.out.println("free memory on the heap is  ::" + runtime.freeMemory());
+
+	}
+
+}
+Note : Runtime class is a singleton class so not create the object to use constructor. 
+
+Which of the following are valid ways for requesting jvm to run GC ? 
+System.gc(); (valid) 
+Runtime.gc(); (invalid) 
+(new Runtime).gc(); (invalid) 
+Runtime.getRuntime().gc(); (valid) 
+
+Note: gc() method present in System class is static, where as it is instance method in 
+	Runtime class. 
+
+Note: Over Runtime class gc() method , System class gc() method is recommended to 
+      use because of the following reason.
+	public class System{
+		public static void gc(){
+			Runtime.getRuntime().gc()
+		}
+	}
+	This is because internally System class also uses Runtime class gc.
+
+Note: In java it is not possible to find size of an object and address of an object. 
+
+Finalization:
+=> Just before destroying any object gc always calls finalize() method to perform 
+   cleanup activities.
+=> If the corresponding class contains finalize() method then it will be executed 
+   otherwise Object class finalize() method will be executed,which is declared as follows. 
+	protected void finalize() throws Throwable 
+Case 1: 
+	Just before destroying any object GC calls finalize() method on the object which is 
+	eligible for GC then the corresponding class finalize() method will be executed. 
+	For Example if String object is eligible for GC then String class finalize()method is 
+		executed but not Test class finalize()method.
+
+eg#1.
+public class TestApp{
+	public static void main(String... args){
+		String s=new String("sachin");
+		s=null;
+		Runtime.getRuntime().gc();
+		System.out.println("end of main()");
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+	}
+}
+In the above program String class finalize()method got executed. Which has empty implementation. 
+If we replace String object with Test object then Test class finalize() method will be executed.
+
+eg#2.
+public class TestApp{
+	public static void main(String... args){
+		String s=new String("sachin");
+		s=null;
+		TestApp t =new TestApp();
+		t=null;
+		Runtime.getRuntime().gc();
+		System.out.println("end of main()");
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+	}
+}
+
+case2
+We can call finalize() method explicitly then it will be executed just like a normal  method call and object won't be destroyed. But before destroying any object GC always calls finalize() method.
+
+eg#1.
+public class TestApp{
+	public static void main(String... args){
+		TestApp t =new TestApp();
+		t.finalize();//Explicitly we are calling so object wont be cleaned
+		t.finalize();
+
+		t=null;
+		System.gc();
+		System.out.println("End of main()");	
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+	}
+}
+Output:
+finalize() method called.
+finalize() method called.
+finalize() method called.
+End of main.
+
+In the above program finalize() method got executed 3 times in that 2 times explicitly by 
+the programmer and one time by the gc.
+
+Note: In servlet coding
+		1. init()    => At the time of Servlet Initialisation.
+		2. service() => For every request it will be called.
+		3. destroy() => At the time of servlet destroy object by container.
+
+Life cycle methods of Servlet
+=============================
+init(){
+    destroy();//just like normal methods call will be made no servlet deinstantion.
+}
+service(){
+    destroy();
+}
+destroy(){
+	//logic of deinstantiation
+}
+
+
+Case 3: 
+finalize() method can be call either by the programmer or by the GC . 
+ => If the programmer calls explicitly finalize() method and while executing the finalize() 
+    method if an exception raised and uncaught then the program will be terminated abnormally.
+ => If GC calls finalize() method and while executing the finalize()method if an exception 
+    raised and uncaught then JVM simply ignores that exception and the program will be 
+    terminated normally
+
+eg#1.
+public class TestApp{
+	public static void main(String... args){
+		TestApp t =new TestApp();
+		
+		t.finalize();
+
+		t=null;
+		System.gc();
+		System.out.println("End of main()");
+		
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+		System.out.println(10/0);
+	}
+}
+
+=> If we are not comment line1 then programmer calling finalize() method explicitly and 
+   while executing the finalize()method ArithmeticException raised which is uncaught hence the       program terminated abnormally.
+=> If we are comment line1 then GC calls finalize() method and JVM ignores ArithmeticException and    program will be terminated normally.
+
+Which of the following is true? 
+While executing finalize() method JVM ignores every exception(invalid). 
+While executing finalize() method JVM ignores only uncaught exception(valid). 
+
+
+Case4: 
+  On any object GC calls finalize() method only once.
+
+public class TestApp{
+	static TestApp s;
+	public static void main(String... args)throws InterruptedException{
+		TestApp t =new TestApp();
+		System.out.println(t.hashCode());
+		t=null;
+
+		System.gc();
+		Thread.sleep(5000);
+
+		System.out.println(s.hashCode());
+		s=null;
+		System.gc();
+		Thread.sleep(10000);
+
+		System.out.println("End of main()");
+		
+	}
+	public void finalize() {
+		System.out.println("finalized method called..");
+		s=this;
+		
+	}
+}
+Output
+2018699554
+finalized method called..
+2018699554
+End of main()
+
+Note: 
+The behavior of the GC is vendor dependent and varied from JVM to JVM hence we can't expect exact answer for the following
+1. What is the algorithm followed by GC.(mark and sweep is the common algorithm)
+2. Exactly at what time JVM runs GC.
+3. In which order GC identifies the eligible objects.
+4. In which order GC destroys the object etc.
+5. Whether GC destroys all eligible objects or not.
+
+=> When ever the program runs with low memory then the JVM runs GC, but we can't except exactly at       what time. 
+=> Most of the GC's followed mark & sweap algorithm , but it doesn't mean every GC follows the
+   same algorithm.
+
+eg#1.
+public class TestApp{
+	static int counter =0;;
+	public static void main(String... args){
+		for (int i=1;i<=100 ; i++){
+			TestApp t =new TestApp();
+			t=null;
+		}	
+	}
+	public void finalize() {
+		System.out.println("finalized method called:: "+ (++counter));	
+	}
+}
+Output varied based on i value if we keep increasing to 100,1000,10000,100000,1000000,....
+
+Memory leaks:
+=> An object which is not using in our application and it is not eligible for GC such 
+   type of objects are called "memory leaks".
+=> In the case of memory leaks GC also can't do anything the application will be 
+   crashed due to memory problems.
+=> In our program if memory leaks present then certain point we will get 
+   OutOfMemoryException. Hence if an object is no longer required then it's 
+   highly recommended to make that object eligible for GC.
+
+eg#1.
+   Student s1=new Student();
+   Student s2=new Student();
+   Student s3=new Student();
+	;;;;
+	;;;;
+	;;;;
+   Student s10000000 =new Student();
+	;;;;
+	;;;;
+	;;;;
+      //program crash =>memory leak(In this case JVM and Garbage Collector can't do anything)
+        OutOfMemoryError
+
+=> By using monitoring tools we can identify memory leaks.
+   HPJ meter
+   HP ovo
+   IBM Tivoli These are monitoring tools.
+   J Probe (or memory management tools)
+   Patrol and etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+	      
+
+
+
+
+
+
+
+
